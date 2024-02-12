@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 02:17:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/02/09 02:18:02 by ubuntu           ###   ########.fr       */
+/*   Created: 2024/02/12 15:51:39 by irivero-          #+#    #+#             */
+/*   Updated: 2024/02/12 15:51:41 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../minishell.h"
 
 void    if_pflag_is_one(char *path)
 {

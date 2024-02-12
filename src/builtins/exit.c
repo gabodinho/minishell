@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 02:17:45 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/02/09 02:17:48 by ubuntu           ###   ########.fr       */
+/*   Created: 2024/02/12 15:52:33 by irivero-          #+#    #+#             */
+/*   Updated: 2024/02/12 15:52:34 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../minishell.h"
 
 int     av_counter(char **av)
 {

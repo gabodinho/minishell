@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 02:18:04 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/02/09 02:18:06 by ubuntu           ###   ########.fr       */
+/*   Created: 2024/02/12 15:51:55 by irivero-          #+#    #+#             */
+/*   Updated: 2024/02/12 15:51:58 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../minishell.h"
 
 int     f_strcmpt(char *s1, char *s2)
 {

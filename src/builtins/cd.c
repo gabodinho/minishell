@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 02:17:15 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/02/09 02:17:17 by ubuntu           ###   ########.fr       */
+/*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
+/*   Updated: 2024/02/12 15:53:08 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../minishell.h"
 
 char    *path_finder(char **env)
 {
