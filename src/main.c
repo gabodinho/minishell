@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/12 15:24:42 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:29:30 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int	main()
 			printf("entrada recibida: %s\n", input);
 		}
 		free(input);
+		rl_clear_history();
 	}
 	return (0);
 }
