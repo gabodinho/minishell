@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/12 15:09:31 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:18:46 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
 //define el tipo de token
-# define NULL 0
+# define T_NULL 0
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
@@ -42,5 +42,7 @@ typedef struct	s_token
 {
 
 } t_token;
+
+int	main();
 
 #endif
