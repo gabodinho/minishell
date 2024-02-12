@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/12 15:18:46 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/12 15:57:22 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
+# include "libft/libft.h"
+
 //define el tipo de token
 # define T_NULL 0
 # define WORD 1
@@ -42,6 +44,14 @@ typedef struct	s_token
 {
 
 } t_token;
+
+typedef struct	s_envp
+{
+	char	**envp;
+	char 	*cd_hist;
+} t_envp;
+
+extern int	g_exit_status;
 
 int	main();
 
