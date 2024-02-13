@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/12 15:57:22 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:08:24 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
-# include "libft/libft.h"
+//# include "libft/libft.h"
 
 //define el tipo de token
 # define T_NULL 0
@@ -42,7 +42,8 @@
 //estructura para un token
 typedef struct	s_token 
 {
-
+	int		type;
+	char	*str;
 } t_token;
 
 typedef struct	s_envp
@@ -54,5 +55,15 @@ typedef struct	s_envp
 extern int	g_exit_status;
 
 int	main();
+
+//tokenizer
+int	ft_strcmp(const char *s1, const char *s2);
+int	is_redirections(const char *str);
+int is_space(char c);
+int	find_quotes(const char *line, int i, char quote_char);
+int	single_quotes(const char *line, int i);
+int double_quotes(const char *line, int i);
+int quotes_end(const char *line, int i, t_token *token);
+
 
 #endif
