@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:58:15 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/14 17:28:55 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:58:14 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,13 @@ int main()
 {
     char *str = "This 'is a' test \"string\" for the tokenizer function.";
     int i = 0;
-    int size = 0;
+    int size = counter_simplified(str);
+;
     //while (str[i] != '\0')
      //   count_tokens(str, &i, &size);
 	printf("string: %s\n", str);
     //printf("size with the first function: %d\n", size);
 	//while (str[i] != '\0')
-	counter_simplified(str);
-	printf("counter function: %d\n", i);
+	printf("counter function: %d\n", size);
     return (0);
 }
