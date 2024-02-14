@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:58:15 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/14 17:17:40 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:28:55 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,10 @@
 // take into account the quotes and spaces
 // function to iterate through the characters of the line
 
+// Cuenta el tamanho de un token en la string
+// str: cadena de texto a analizar
+// i: puntero a la posicion actual en la cadena
+// size: puntero al contador de tokens
 void	count_tokens(char *str, int *i, int *size)
 {
 	int		quote;
@@ -41,6 +45,9 @@ void	count_tokens(char *str, int *i, int *size)
 	}
 }
 
+// Cuenta el numero total de tokens simplificadamente en una cadena de texto
+// str: cadena de texto a analizar
+// return: el tamanho total de tokens
 int	counter_simplified(char *str)
 {
 	int		i;
@@ -52,23 +59,22 @@ int	counter_simplified(char *str)
 	{
 		count_tokens(str, &i, &size);
 		if (i == -1)
-			return (-1);
+			printf("Error\nCounting tokens\n");
 	}
 	return (size);
 }
-
 
 int main()
 {
     char *str = "This 'is a' test \"string\" for the tokenizer function.";
     int i = 0;
     int size = 0;
-    while (str[i] != '\0')
-        count_tokens(str, &i, &size);
+    //while (str[i] != '\0')
+     //   count_tokens(str, &i, &size);
 	printf("string: %s\n", str);
-    printf("size with the first function: %d\n", size);
-	while (str[i] != '\0')
-		counter_simplified(str);
-	printf("counter function: %d\n", size);
+    //printf("size with the first function: %d\n", size);
+	//while (str[i] != '\0')
+	counter_simplified(str);
+	printf("counter function: %d\n", i);
     return (0);
 }
