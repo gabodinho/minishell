@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/13 16:08:24 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:46:16 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,16 @@
 //estructura para un token
 typedef struct	s_token 
 {
-	int		type;
-	char	*str;
+	int		type; // tipo de token 
+	char	*str; // cadena asociada al token
 } t_token;
+
+//almacenar info relacionada con los tokens
+typedef struct	s_itoken
+{
+	t_token	*token; // puntero a un array de tokens
+	int		size; // cantidad total de tokens
+} t_itokens;
 
 typedef struct	s_envp
 {
@@ -57,13 +64,14 @@ extern int	g_exit_status;
 int	main();
 
 //tokenizer
-int	ft_strcmp(const char *s1, const char *s2);
-int	is_redirections(const char *str);
-int is_space(char c);
-int	find_quotes(const char *line, int i, char quote_char);
-int	single_quotes(const char *line, int i);
-int double_quotes(const char *line, int i);
-int quotes_end(const char *line, int i, t_token *token);
+int		ft_strcmp(const char *s1, const char *s2);
+int		is_redirections(const char *str);
+int 	is_space(char c);
+int		find_quotes(const char *line, int i, char quote_char);
+int		single_quotes(const char *line, int i);
+int 	double_quotes(const char *line, int i);
+int 	quotes_end(const char *line, int i, t_token *token);
+void	assign_token_types(t_itokens *itokens);
 
 
 #endif

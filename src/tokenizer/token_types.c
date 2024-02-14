@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:18:20 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/13 16:24:50 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/14 14:51:46 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,24 @@ int quotes_end(const char *line, int i, t_token *token)
 	return (res);
 }
 
+void	assign_token_types(t_itokens *itokens)
+{
+	int cur_index;
+
+	cur_index = 0;
+	itokens->token[itokens->size].type = T_NULL;
+	while (cur_index < itokens->size)
+	{
+		if (!ft_strcmp(itokens->token[cur_index].str, "|"))
+			itokens->token[cur_index].type = PIPE;
+		else if (is_redirections(itokens->token[cur_index].str))
+			itokens->token[cur_index].type = REDIR;
+		else
+			itokens->token[cur_index].type = WORD;
+		cur_index++;
+	}
+}
+
 /*
 int main()
 {
@@ -111,7 +129,7 @@ int main()
     return (0);
 }
 */
-
+/*
 int main() 
 {
     const char *test_line = "This is 'a single-quoted' and \"a double-quoted\" string.";
@@ -127,4 +145,4 @@ int main()
     int double_quotes_end = quotes_end(test_line, 32, &token);
     printf("Double quotes end position: %d\n", double_quotes_end);
     return (0);
-}
+}*/

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/09 02:17:31 by ubuntu            #+#    #+#             */
-/*   Updated: 2024/02/10 14:06:06 by ubuntu           ###   ########.fr       */
+/*   Created: 2024/02/12 15:52:47 by irivero-          #+#    #+#             */
+/*   Updated: 2024/02/14 12:51:26 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
+#include "../../minishell.h"
 
 int     f_strcmp(char *s1, char *s2)
 {
