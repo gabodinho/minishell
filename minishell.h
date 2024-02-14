@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/14 13:46:16 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:17:54 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int		single_quotes(const char *line, int i);
 int 	double_quotes(const char *line, int i);
 int 	quotes_end(const char *line, int i, t_token *token);
 void	assign_token_types(t_itokens *itokens);
-
+void	count_tokens(char *str, int *i, int *size);
+int		counter_simplified(char *str);
 
 #endif

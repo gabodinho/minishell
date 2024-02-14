@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:18:20 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/14 14:51:46 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:13:03 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ int	is_redirections(const char *str)
 }
 
 //check if a character is a space
-int is_space(char c)
+int	is_space(char c)
 {
 	if (c == ' ')
 		return (1);
 	else
 		return (0);
-
 }
 
 //find the end of a quoted string starting from index 'i'.
@@ -62,7 +61,7 @@ int	find_quotes(const char *line, int i, char quote_char)
 // return the index of the closing quote string or -1 if the end is not found.
 int	single_quotes(const char *line, int i)
 {
-	int res;
+	int	res;
 
 	res = find_quotes(line, i + 1, '\'');
 	return (res);
@@ -70,10 +69,10 @@ int	single_quotes(const char *line, int i)
 
 // Find the end of a double quote string starting from index 'i'.
 // return the index of the closing quote string or -1 if the end is not found.
-int double_quotes(const char *line, int i)
+int	double_quotes(const char *line, int i)
 {
-	int res;
-	
+	int	res;
+
 	res = find_quotes(line, i + 1, '\"');
 	return (res);
 }
@@ -81,7 +80,7 @@ int double_quotes(const char *line, int i)
 // Find the end of a quoted string starting from index 'i' and update the token type.
 // return the index of the closing quote string or -1 if the end is not found.
 // also, updates the type of the token if it's not NULL.
-int quotes_end(const char *line, int i, t_token *token)
+int	quotes_end(const char *line, int i, t_token *token)
 {
 	char	quote_char;
 	int		res;
@@ -102,7 +101,7 @@ int quotes_end(const char *line, int i, t_token *token)
 
 void	assign_token_types(t_itokens *itokens)
 {
-	int cur_index;
+	int	cur_index;
 
 	cur_index = 0;
 	itokens->token[itokens->size].type = T_NULL;

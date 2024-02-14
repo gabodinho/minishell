@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:58:15 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/14 14:55:51 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/14 17:17:40 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,46 @@
 // take into account the quotes and spaces
 // function to iterate through the characters of the line
 
-void    count_tokens(char *str, int *i, int *size)
+void	count_tokens(char *str, int *i, int *size)
 {
-	if (is_space(str[*i]))
+	int		quote;
+
+	while (is_space(str[*i]))
 		(*i)++;
-	else if (str[*i] == '\'' || str[*i] == '\"')
+	if (str[*i] == '\'' || str[*i] == '\"')
 	{
-		*i = find_quotes(str, *i, str[*i]);
-		if (*i == -1)
-			return ;
-		(*i)++;
-		(*size)++;
+		quote = quotes_end(str, *i, NULL);
+		if (quote != -1)
+		{
+			*i = quote + 1;
+			(*size)++;
+		}
 	}
 	else
 	{
-		while (str[*i] != '\0' && !is_space(str[*i]))
-		{
-			if (str[*i] == '\'' || str[*i] == '\"')
-				break ;
+		while (str[*i] != '\0' && !is_space(str[*i]) && str[*i] != '\''
+			&& str[*i] != '\"')
 			(*i)++;
-		}
 		(*size)++;
 	}
 }
+
+int	counter_simplified(char *str)
+{
+	int		i;
+	int		size;
+
+	i = 0;
+	size = 0;
+	while (str[i] != '\0')
+	{
+		count_tokens(str, &i, &size);
+		if (i == -1)
+			return (-1);
+	}
+	return (size);
+}
+
 
 int main()
 {
@@ -49,6 +66,9 @@ int main()
     while (str[i] != '\0')
         count_tokens(str, &i, &size);
 	printf("string: %s\n", str);
-    printf("size: %d\n", size);
+    printf("size with the first function: %d\n", size);
+	while (str[i] != '\0')
+		counter_simplified(str);
+	printf("counter function: %d\n", size);
     return (0);
 }
