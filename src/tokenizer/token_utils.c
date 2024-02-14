@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_env.c                                        :+:      :+:    :+:   */
+/*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 15:04:28 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/14 13:04:15 by irivero-         ###   ########.fr       */
+/*   Created: 2024/02/13 15:14:22 by irivero-          #+#    #+#             */
+/*   Updated: 2024/02/14 17:13:11 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
-//this is for the expanser lol
-//functions to check the dollar sign
-//iterates the tokens and replaces tokens that contain env references with 
-//substitute values
-//enviroment var substitutions
-//dynamic value retrieval
-//string manipulation
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	while (*s1 && (*s1 == *s2))
+	{
+		s1++;
+		s2++;
+	}
+	return (*(unsigned char *)s1 - *(unsigned char *)s2);
+}
