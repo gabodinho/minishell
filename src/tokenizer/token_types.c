@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:18:20 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/14 17:13:03 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/15 21:08:45 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,24 @@ void	assign_token_types(t_itokens *itokens)
 			itokens->token[cur_index].type = WORD;
 		cur_index++;
 	}
+}
+
+int main() 
+{
+    char *input_str = "ls -l | grep .c > output.txt";
+    t_itokens itokens;
+
+    //if (split_token(input_str, &itokens) != 0) 
+	//{
+    //    fprintf(stderr, "Error al dividir tokens.\n");
+    //    return 1;
+    //}
+	split_token(input_str, &itokens);
+    assign_token_types(&itokens);
+    for (int i = 0; i < itokens.size; i++)
+        printf("Token %d: '%s', Type: %d\n", i + 1, itokens.token[i].str, itokens.token[i].type);
+    free(itokens.token);
+    return (0);
 }
 
 /*

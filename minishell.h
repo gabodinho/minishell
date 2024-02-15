@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/14 17:17:54 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/15 21:08:54 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,11 @@ int 	quotes_end(const char *line, int i, t_token *token);
 void	assign_token_types(t_itokens *itokens);
 void	count_tokens(char *str, int *i, int *size);
 int		counter_simplified(char *str);
+char	*ft_substr(const char *str, int start, int length);
+void	process_token_char(int *i, const char *str, t_token *token, int *token_idx);
+t_token	*tokenize_and_build_array(const char *str, t_token *token, int max);
+int		split_token(char *str, t_itokens *itokens);
+
+
 
 #endif
