@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/02/22 14:18:33 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:03:45 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,45 @@ typedef struct s_token
 	char	*category;
 }	t_token;
 
+void	*parse_redir(void *cmd, t_token **toklist);
+t_execmd	*init_execmd(void);
+void	add_attribute(t_execmd *cmd, char *str);
+t_pipecmd	*pipe_cmd(t_token **toklist, void *cmd);
+
+void	*parse_exe(t_token **toklist)
+{
+	t_execmd	*execmd;
+	void		*cmd;
+	t_token		*token;
+
+	execmd = init_execmd();		// wip
+	token = *toklist;
+	cmd = parse_redir(execmd, &token);			// wip
+	while (token)
+	{
+		if (token -> type == PIPE)
+			break ;
+		else if (token -> type == WORD)
+			add_attribute(execmd, token -> str);		// wip
+		token = token -> next;
+		cmd = parse_redir(cmd, &token);
+	}
+	return (cmd);
+}
+			
 void	*parse_pipe(t_token **toklist)
 {
-	void	*tree;
+	void	*cmd;
 	t_token	*token;
 
 	token = *toklist;
+	while (token && token -> type != PIPE)
+		token = token -> next;
 	if (token && token -> type == PIPE)
-
+		cmd = (*t_pipecmd) pipe_cmd(toklist, parse_pipe(&(token -> next)));	// wip
+	else if (*toklist)
+		cmd = (*t_execmd) parse_exe(start);
+	else
+		return (NULL);
+	return (cmd);
+}
