@@ -1,0 +1,8 @@
+.
+..
+adafaf
+.git
+korapp.txt
+syntax.txt
+.syntax.txt.swp
+test.txt

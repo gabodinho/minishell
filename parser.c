@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/02/19 12:14:32 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/02/22 14:18:33 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,17 @@ typedef struct s_redircmd
 	void	*subnode;
 }	t_redircmd;
 
+typedef struct s_token
+{
+	char	*token;
+	char	*category;
+}	t_token;
 
+void	*parse_pipe(t_token **toklist)
+{
+	void	*tree;
+	t_token	*token;
+
+	token = *toklist;
+	if (token && token -> type == PIPE)
 
