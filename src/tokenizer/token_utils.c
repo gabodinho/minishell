@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:14:22 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/15 21:08:47 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:31:37 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,31 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
-//temporal hasta acceso a libft
+//check if a character is a space
+int	is_space(char c)
+{
+	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
+			|| c == '\r')
+		return (1);
+	return (0);
+}
+
+//skip spaces 
+void	skip_spaces(char **str)
+{
+	while (**str && is_space(**str))
+		(*str)++;
+}
+
+int	is_shell_separator(char c)
+{
+	if (c == '|' || c == '(' || c == ')' || c == '<' || c == '>' || c == '\t'
+		|| !ft_strncmp(&c, "&&", 2))
+		return (1);
+	return (0);
+}
+
+/*temporal hasta acceso a libft
 char	*ft_substr(const char *str, int start, int length)
 {
 	if (str == NULL || start < 0 || length < 0)
@@ -43,3 +67,4 @@ char	*ft_substr(const char *str, int start, int length)
     *dest = '\0';
     return (substring);
 }
+*/

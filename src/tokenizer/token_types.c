@@ -6,12 +6,66 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:18:20 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/15 21:08:45 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:51:01 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
+
+int	is_quotes(char c)
+{
+	return (c == '\'' || c == '\"');
+}
+
+bool	skip_quotes(char *line, size_t  *i)
+{
+	char	quote;
+	char	*end_quote;
+
+	quote = line[*i];
+	end_quote = ft_strchr(line + *i + 1, quote);
+	if (end_quote != NULL)
+	{
+		//(*i) += 1 + (end_quote - (line + *i + 1));
+		(*i)++;
+		while (line[*i] != quote)
+			(*i)++;
+		(*i)++;
+		return (true);
+	}
+	return (false);
+}
+/*
+int main()
+{
+    char test_line[] = "This 'is a' a test \"string\" for the skip_quotes function.";
+    size_t i = 0;
+
+    while (test_line[i] != '\0')
+    {
+        if (is_quotes(test_line[i]))
+        {
+            if (skip_quotes(test_line, &i))
+            {
+                printf("SKIPPED QUOTES\n");
+            }
+            else
+            {
+                printf("Error: Missing closing quote.\n");
+                break;
+            }
+        }
+        else
+        {
+            printf("Current character: %c\n", test_line[i]);
+            i++;
+        }
+    }
+
+    return 0;
+}*/
+/*
 // check if a string is one of the predefined redirection symbols.
 // returns 1 if it is, 0 otherwise
 int	is_redirections(const char *str)
@@ -29,15 +83,6 @@ int	is_redirections(const char *str)
 		i++;
 	}
 	return (0);
-}
-
-//check if a character is a space
-int	is_space(char c)
-{
-	if (c == ' ')
-		return (1);
-	else
-		return (0);
 }
 
 //find the end of a quoted string starting from index 'i'.
@@ -115,51 +160,4 @@ void	assign_token_types(t_itokens *itokens)
 			itokens->token[cur_index].type = WORD;
 		cur_index++;
 	}
-}
-
-int main() 
-{
-    char *input_str = "ls -l | grep .c > output.txt";
-    t_itokens itokens;
-
-    //if (split_token(input_str, &itokens) != 0) 
-	//{
-    //    fprintf(stderr, "Error al dividir tokens.\n");
-    //    return 1;
-    //}
-	split_token(input_str, &itokens);
-    assign_token_types(&itokens);
-    for (int i = 0; i < itokens.size; i++)
-        printf("Token %d: '%s', Type: %d\n", i + 1, itokens.token[i].str, itokens.token[i].type);
-    free(itokens.token);
-    return (0);
-}
-
-/*
-int main()
-{
-    const char *test_str = ">";
-    if (is_redirections(test_str))
-        printf("%s is a redirection\n", test_str);
-    else
-        printf("%s is not a redirection\n", test_str);
-    return (0);
-}
-*/
-/*
-int main() 
-{
-    const char *test_line = "This is 'a single-quoted' and \"a double-quoted\" string.";
-	
-    int single_quotes_pos = single_quotes(test_line, 1);
-    int double_quotes_pos = double_quotes(test_line, 1);
-    printf("Single quotes position: %d\n", single_quotes_pos);
-    printf("Double quotes position: %d\n", double_quotes_pos);
-    // Test for find_quotes_to_end
-    t_token token;
-    int single_quotes_end = quotes_end(test_line, 9, &token);
-    printf("Single quotes end position: %d\n", single_quotes_end);
-    int double_quotes_end = quotes_end(test_line, 32, &token);
-    printf("Double quotes end position: %d\n", double_quotes_end);
-    return (0);
 }*/

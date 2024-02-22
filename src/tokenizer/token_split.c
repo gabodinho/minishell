@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:58:15 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/15 21:08:43 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/19 13:25:23 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,12 +140,12 @@ int main()
         return 1;
     }
     for (int i = 0; i < itokens.size; i++)
-	printf("Token %d: '%s'\n", i + 1, itokens.token[i].str);
-    free(itokens.token);
-    return (0);
-}
-*/
+		printf("Token %d: '%s'\n", i + 1, itokens.token[i].str);
+    free_tokens(&itokens);
+	return (0);
+}*/
 /*
+
 int	main() 
 {
     const char *input_str = "Hello  'World' \"This  is a string\" < >>";
@@ -159,9 +159,10 @@ int	main()
 	tokenize_and_build_array(input_str, tokens, 10);
 	for(int k = 0; tokens[k].str != NULL; k++)
 		printf("Token %d: %s\n", k + 1, tokens[k].str);
+	//free_tokens(&itokens);
     return (0);
-}*/
-
+}
+*/
 /*
 int main()
 {

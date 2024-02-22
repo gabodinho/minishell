@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/15 21:08:54 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/22 17:16:22 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,29 +29,26 @@
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
-//# include "libft/libft.h"
+# include "libft/libft.h"
 
 //define el tipo de token
 # define T_NULL 0
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
+//# define HEREDOC 4
 # define DOUBLE_QUOTES 4
 # define SINGLE_QUOTES 5
 
 //estructura para un token
 typedef struct	s_token 
 {
-	int		type; // tipo de token 
-	char	*str; // cadena asociada al token
+	int				type; // tipo de token 
+	char			*str; // cadena asociada al token
+	struct s_token	*next; // siguiente token
+	struct s_token	*prev; // token anterior
+	
 } t_token;
-
-//almacenar info relacionada con los tokens
-typedef struct	s_itoken
-{
-	t_token	*token; // puntero a un array de tokens
-	int		size; // cantidad total de tokens
-} t_itokens;
 
 typedef struct	s_envp
 {
@@ -63,22 +60,30 @@ extern int	g_exit_status;
 
 int	main();
 
-//tokenizer
-int		ft_strcmp(const char *s1, const char *s2);
-int		is_redirections(const char *str);
-int 	is_space(char c);
-int		find_quotes(const char *line, int i, char quote_char);
-int		single_quotes(const char *line, int i);
-int 	double_quotes(const char *line, int i);
-int 	quotes_end(const char *line, int i, t_token *token);
-void	assign_token_types(t_itokens *itokens);
-void	count_tokens(char *str, int *i, int *size);
-int		counter_simplified(char *str);
-char	*ft_substr(const char *str, int start, int length);
-void	process_token_char(int *i, const char *str, t_token *token, int *token_idx);
-t_token	*tokenize_and_build_array(const char *str, t_token *token, int max);
-int		split_token(char *str, t_itokens *itokens);
+//new_tokenizer
+t_token	*tokenizer(const char *line);
+t_token	*tokenize_line(char *line);
+int		is_space(char c);
+void	skip_spaces(char **str);
 
 
-
+/*tokenizer
+int ft_strcmp(const char *s1, const char *s2);
+int is_redirections(const char *str);
+int is_space(char c);
+int find_quotes(const char *line, int i, char quote_char);
+int single_quotes(const char *line, int i);
+int double_quotes(const char *line, int i);
+int quotes_end(const char *line, int i, t_token *token);
+void assign_token_types(t_itokens *itokens);
+void count_tokens(char *str, int *i, int *size);
+int counter_simplified(char *str);
+// char	*ft_substr(const char *str, int start, int length);
+// char	*ft_strndup(const char *str, size_t n);
+void process_token_char(int *i, const char *str, t_token *token, int *token_idx);
+t_token *tokenize_and_build_array(const char *str, t_token *token, int max);
+int split_token(char *str, t_itokens *itokens);
+void free_tokens(t_itokens *itokens);
+int error_malloc(void);
+*/
 #endif
