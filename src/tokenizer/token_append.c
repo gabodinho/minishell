@@ -6,13 +6,13 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:52:06 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/22 17:49:08 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:39:56 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	add_separator_token(int type, const char **line, t_token **token_lst)
+int	add_separator_token(int type, char **line, t_token **token_lst)
 {
 	t_token	*token;
 	
@@ -21,7 +21,7 @@ int	add_separator_token(int type, const char **line, t_token **token_lst)
 		return (0);
 	token_lst_add_back(token_lst, token);
 	(*line)++;
-	if (type == REDIR)
+	if (type == DGREAT || type == DLESS)
 		(*line)++;
 	return (1);
 }
@@ -39,8 +39,21 @@ int	process_command(char **line, t_token **token_lst)
 	{
 		if (is_quotes(current_char[i]))
 		{
-			
+			if(!skip_quotes(current_char, &i))
+			{
+				printf("Error: Missing closing quote.\n");
+				return (0);
+			}
 		}
-		i++;
+		else
+			i++;
 	}
+	identifier = ft_substr(*line, 0, i);
+	if (!identifier)
+		return (0);
+	token = create_token(identifier, WORD);
+	if (!token)
+		return (free(identifier), 0);
+	*line = *line + i;
+	return (token_lst_add_back(token_lst, token), 1);
 }

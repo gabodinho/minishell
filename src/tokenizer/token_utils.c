@@ -6,13 +6,13 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:14:22 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/22 17:31:37 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/26 11:56:06 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+int	ft_strcmp(char *s1, char *s2)
 {
 	while (*s1 && (*s1 == *s2))
 	{
@@ -38,10 +38,10 @@ void	skip_spaces(char **str)
 		(*str)++;
 }
 
-int	is_shell_separator(char c)
+int	is_shell_separator(char *c)
 {
-	if (c == '|' || c == '(' || c == ')' || c == '<' || c == '>' || c == '\t'
-		|| !ft_strncmp(&c, "&&", 2))
+	if (*c == '|' || *c == '(' || *c == ')' || *c == '<' || *c == '>' || *c == '\t'
+		|| !ft_strncmp(c, "&&", 2))
 		return (1);
 	return (0);
 }

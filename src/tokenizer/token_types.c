@@ -6,16 +6,17 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:18:20 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/22 17:51:01 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/26 12:22:28 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minishell.h"
 
-
 int	is_quotes(char c)
 {
-	return (c == '\'' || c == '\"');
+	if (c == '\'' || c == '"')
+		return (1);
+	return (0);
 }
 
 bool	skip_quotes(char *line, size_t  *i)
