@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/26 09:59:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/26 11:58:05 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:48:38 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,30 @@ char *ft_strchr(char *s, int c) {
         s++;
     }
     return (char *)s;  // Devuelve un puntero al primer carácter encontrado
+}
+
+void *ft_calloc(size_t count, size_t size) 
+{
+    void *ptr = malloc(count * size);
+
+    if (ptr != NULL) {
+        // Inicializa la memoria a cero
+        for (size_t i = 0; i < count * size; ++i) {
+            ((char *)ptr)[i] = 0;
+        }
+    }
+
+    return ptr;
+}
+
+char *ft_strdup(const char *str) 
+{
+    size_t len = strlen(str) + 1; // Longitud de la cadena, incluyendo el carácter nulo
+    char *duplicate = (char *)malloc(len);
+
+    if (duplicate != NULL) {
+        strcpy(duplicate, str); // Copia la cadena original en la nueva memoria asignada
+    }
+
+    return duplicate;
 }

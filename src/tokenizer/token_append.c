@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:52:06 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/26 12:39:56 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:58:23 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ int	add_separator_token(int type, char **line, t_token **token_lst)
 	token = create_token(NULL, type);
 	if (!token)
 		return (0);
+	if (type == PIPE)
+		token->str = ft_strdup("|");
+	else if (type == DLESS)
+		token->str = ft_strdup("<<");
+	else if (type == DGREAT)
+		token->str = ft_strdup(">>");
 	token_lst_add_back(token_lst, token);
 	(*line)++;
 	if (type == DGREAT || type == DLESS)

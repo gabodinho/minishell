@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/26 12:39:08 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:48:45 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int		process_command(char **line, t_token **token_lst);
 char *ft_substr(char *s, unsigned int start, size_t len);
 int ft_strncmp(char *s1, char *s2, size_t n);
 char *ft_strchr(char *s, int c);
+void *ft_calloc(size_t count, size_t size);
+char *ft_strdup(const char *str);
 
 /*tokenizer
 int ft_strcmp(const char *s1, const char *s2);
