@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:11:16 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/26 12:44:51 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/27 12:04:53 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int process_separator_type(char **line, t_token **token_lst)
 {
-	if (!ft_strncmp(*line, "<<", 2))
+	/*if (!ft_strncmp(*line, "<<", 2))
 		return (add_separator_token(DLESS, line, token_lst) && 1);
 	else if(!ft_strncmp(*line, ">>", 2))
 		return (add_separator_token(DGREAT, line, token_lst) && 1);
@@ -22,6 +22,10 @@ int process_separator_type(char **line, t_token **token_lst)
 		return (add_separator_token(LESS, line, token_lst) && 1);
 	else if (!ft_strncmp(*line, ">", 1))
 		return (add_separator_token(GREAT, line, token_lst) && 1);
+	*/
+	if (!ft_strncmp(*line, "<<", 2) || !ft_strncmp(*line, ">>", 2)
+		|| !ft_strncmp(*line, "<", 1) || !ft_strncmp(*line, ">", 1))
+		return (add_separator_token(REDIR, line, token_lst) && 1);
 	else
 		return (add_separator_token(PIPE, line, token_lst) && 1);
 }

@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:52:06 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/26 14:58:23 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/27 12:33:35 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,43 @@ int	add_separator_token(int type, char **line, t_token **token_lst)
 	token = create_token(NULL, type);
 	if (!token)
 		return (0);
+		/*
 	if (type == PIPE)
 		token->str = ft_strdup("|");
 	else if (type == DLESS)
 		token->str = ft_strdup("<<");
 	else if (type == DGREAT)
 		token->str = ft_strdup(">>");
+	else if (type == LESS)
+		token->str = ft_strdup("<");
+	else if (type == GREAT)
+		token->str = ft_strdup(">");
+	*/
+
+	if (**line == '>' || **line == '<')
+	{
+		if (*(*line + 1) == **line)
+		{
+			if (**line == '>')
+				token->str = ft_strdup(">>");
+			else
+				token->str = ft_strdup("<<");
+			(*line)++;
+		}
+		else
+		{
+			if (**line == '>')
+				token->str = ft_strdup(">");
+			else
+				token->str = ft_strdup("<");
+		}
+	}
+	else if (**line == '|')
+		token->str = ft_strdup("|");
 	token_lst_add_back(token_lst, token);
 	(*line)++;
-	if (type == DGREAT || type == DLESS)
-		(*line)++;
+	//if (type == DGREAT || type == DLESS)
+	//	(*line)++;
 	return (1);
 }
 
@@ -51,6 +78,8 @@ int	process_command(char **line, t_token **token_lst)
 				return (0);
 			}
 		}
+		else if (is_space(current_char[i]))
+			break;
 		else
 			i++;
 	}

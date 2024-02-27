@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/26 14:48:45 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/27 12:03:33 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,14 @@
 # define T_NULL 0
 # define WORD 1
 # define PIPE 2
-# define DLESS 3
-# define DGREAT 4
-# define LESS 5
-# define GREAT 6
+# define REDIR 3
+//# define DLESS 3
+//# define DGREAT 4
+//# define LESS 5
+//# define GREAT 6
 //# define HEREDOC 4
-# define DOUBLE_QUOTES 7
-# define SINGLE_QUOTES 8
+# define DOUBLE_QUOTES 4
+# define SINGLE_QUOTES 5
 
 //estructura para un token
 typedef struct	s_token 
