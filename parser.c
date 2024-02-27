@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/02/24 18:57:56 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/02/27 22:00:33 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,23 +71,78 @@ typedef struct s_token
 	t_token	*next;
 }	t_token;
 
-t_pipecmd	*pipe_cmd(t_token **left_list, t_token **right_list);
+void    *heredoc_cmd(t_token *token)
 {
-	t_pipecmd	*node;
+	t_herecmd	node;
+
+	node = malloc(sizeof(t_herecmd));
+	node.ntype = HEREDOC;
+	if (token -> next && (token -> next) -> type = WORD)
+		node -> delim = (token -> next) -> str;
+	else
+		node -> delim = NULL;		// check error handling in og function
+	return (node);
+}
+
+void	*redir_cmd(t_token *token)
+{
+	t_redircmd	*node;
+
+	node = malloc(sizeof(t_redircmd));
+	node.t_ntype = REDIR;
+	if (ft_strncmp(token -> str, "<", 1))
+	{
+		node -> mode = O_RDONLY;
+		node.fd = 0;
+	}
+	else if (ft_strncmp(token -> str, ">", 1))
+	{
+		node -> mode = O_CREAT;
+		node.fd = 1;
+	}
+	else
+	{
+		node -> mode = O_APPEND;
+		node.fd = 1;
+	}
+	if (token -> next && (token -> next) -> type = WORD)
+		node -> file = (token -> next) -> str;		// check for error handling in og
+	else
+		node -> file = NULL;
+	return (node);
+}
+
+void	*pipe_cmd(t_token **left_list, t_token **right_list);
+{
+	void	*node;
 
 	node = malloc(sizeof(t_pipecmd));
+	node.ntype = PIPE;
 	node -> left = parse_exe(left_list);
 	node -> right = parse_pipe(right_list);
+	return (node); 
 }
 
 void    *parse_redir(void *cmd, t_token **toklist)
 {
-	void	*redircmd;
+	void	*node;
 
-	if ((*token) -> type = REDIR)
-		redircmd = redir_cmd(toklist);		// wip (increment toklist)
-	else if ((*token) -> type = HEREDOC)
-		redircmd = heredoc_cmd(toklist);		// wip (inkrement toklist)
+	if ((*token) -> type = REDIR && !ft_strncmp((*token) -> str, "<<", 2))
+	{
+		node = redir_cmd(*toklist);
+		if (node -> file)
+			*toklist = (*toklist) -> next -> next;
+		else
+			*toklist = (*toklist) -> next;
+	}
+	else if ((*token) -> type = REDIR)
+	{
+		redircmd = heredoc_cmd(*toklist);		// wip (inkrement toklist)
+		if (node -> delim)
+			*toklist = (*toklist) -> next -> next;
+		else
+			*toklist = (*toklist) -> next;
+	}
 	else
 		return (cmd);
 	redircmd -> subnode = cmd;
@@ -150,13 +205,13 @@ void	*parse_pipe(t_token **toklist)
 	t_token	*token;
 
 	token = *toklist;
+	if (!token)
+		return (NULL);
 	while (token && token -> type != PIPE)
 		token = token -> next;
 	if (token && token -> type == PIPE)		// create pipe node
-		cmd = (*t_pipecmd) pipe_cmd(toklist, &(token -> next));	// wip
-	else if (*toklist)		// create (left) exec node
-		cmd = (*t_execmd) parse_exe(toklist);
-	else		// empty list
-		return (NULL);
+		cmd = (*void) pipe_cmd(toklist, &(token -> next));
+	else if		// create (left) exec node
+		cmd = (*void) parse_exe(toklist);
 	return (cmd);
 }
