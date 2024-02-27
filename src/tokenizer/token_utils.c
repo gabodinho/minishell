@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:14:22 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/26 11:56:06 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/02/27 12:46:14 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,31 @@ int	is_shell_separator(char *c)
 	return (0);
 }
 
+int	is_quotes(char c)
+{
+	if (c == '\'' || c == '"')
+		return (1);
+	return (0);
+}
+
+bool	skip_quotes(char *line, size_t  *i)
+{
+	char	quote;
+	char	*end_quote;
+
+	quote = line[*i];
+	end_quote = ft_strchr(line + *i + 1, quote);
+	if (end_quote != NULL)
+	{
+		//(*i) += 1 + (end_quote - (line + *i + 1));
+		(*i)++;
+		while (line[*i] != quote)
+			(*i)++;
+		(*i)++;
+		return (true);
+	}
+	return (false);
+}
 /*temporal hasta acceso a libft
 char	*ft_substr(const char *str, int start, int length)
 {
