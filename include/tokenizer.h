@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/27 12:53:55 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:15:55 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef TOKENIZER_H
+# define TOKENIZER_H
 
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit, getenv
@@ -29,7 +29,7 @@
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
-//# include "libft/libft.h"
+# include "ft_printf.h"
 
 //define el tipo de token
 # define T_NULL 0
@@ -78,30 +78,12 @@ void	clear_list(t_token **token_lst);
 int		add_separator_token(int type, char **line, t_token **token_lst);
 int		process_command(char **line, t_token **token_lst);
 
-//libft
+/*libft
 char *ft_substr(char *s, unsigned int start, size_t len);
 int ft_strncmp(char *s1, char *s2, size_t n);
 char *ft_strchr(char *s, int c);
 void *ft_calloc(size_t count, size_t size);
 char *ft_strdup(const char *str);
-
-/*tokenizer
-int ft_strcmp(const char *s1, const char *s2);
-int is_redirections(const char *str);
-int is_space(char c);
-int find_quotes(const char *line, int i, char quote_char);
-int single_quotes(const char *line, int i);
-int double_quotes(const char *line, int i);
-int quotes_end(const char *line, int i, t_token *token);
-void assign_token_types(t_itokens *itokens);
-void count_tokens(char *str, int *i, int *size);
-int counter_simplified(char *str);
-// char	*ft_substr(const char *str, int start, int length);
-// char	*ft_strndup(const char *str, size_t n);
-void process_token_char(int *i, const char *str, t_token *token, int *token_idx);
-t_token *tokenize_and_build_array(const char *str, t_token *token, int max);
-int split_token(char *str, t_itokens *itokens);
-void free_tokens(t_itokens *itokens);
-int error_malloc(void);
 */
+
 #endif

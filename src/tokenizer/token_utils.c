@@ -6,11 +6,11 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:14:22 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/27 12:46:14 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:16:21 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "tokenizer.h"
 
 int	ft_strcmp(char *s1, char *s2)
 {
