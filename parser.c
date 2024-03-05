@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/05 17:40:05 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:47:11 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ t_node    *parse_redir(t_node *cmd, t_token **toklist)
 {
 	t_node	*node;
 
+	if (!*toklist)
+		return (cmd);
 	if (((*toklist) -> type == REDIR) && !ft_strncmp((*toklist) -> str, "<<", 2))
 	{
 		node = redir_cmd(*toklist);
