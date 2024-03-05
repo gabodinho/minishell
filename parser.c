@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/05 16:50:27 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/05 17:40:05 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_node	*init_node(void)
 	i = 0;
 	node -> subnode = NULL;
 	while (i < 20)
-		(node -> param)[i] = NULL;
+		(node -> param)[i++] = NULL;
 	return (node);
 }
 

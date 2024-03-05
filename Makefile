@@ -6,7 +6,7 @@
 #    By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/22 19:51:00 by ggiertzu          #+#    #+#              #
-#    Updated: 2024/03/05 17:23:10 by ggiertzu         ###   ########.fr        #
+#    Updated: 2024/03/05 17:38:40 by ggiertzu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ CC		:= gcc
 LIBFT_D	:= ./libft
 LIBFT_L	:= libftprintf.a
 LIBFT	:= $(LIBFT_D)/$(LIBFT_L)
+LIBS	:=	-lreadline -lhistory libftprintf.a
 
 
 HEADERS	:= -I include -I $(LIBFT_D) -I .
@@ -30,10 +31,11 @@ all: $(NAME)
 	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 $(NAME): $(LIBFT) $(OBJS)
-	$(CC) $(OBJS) $(LIBFT) $(HEADERS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 $(LIBFT):
 	make -C $(LIBFT_D)
+	cp $(LIBFT) .
 clean:
 	rm -rf $(OBJS)
 	make clean -C $(LIBFT_D)
