@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:17:44 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/27 12:54:46 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/05 15:29:40 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_token	*tokenizer(char *line)
 	token_lst = tokenize_line(line);
 	return (token_lst);
 }
-
+/*
 void print_token_list(t_token *token_lst) 
 {
     while (token_lst) 
@@ -47,4 +47,4 @@ int main(void)
 		clear_list(&token_lst);
 	}
     return 0;
-}
+}*/
