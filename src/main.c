@@ -6,32 +6,33 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/12 15:29:30 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:46:21 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "tokenizer.h"
+#include "parser.h"
 
 // including the flag -lreadline to work!
-int	main()
+int main(void) 
 {
-	char *input;
-
+    //char *line = "echo 'Hello, World!' > output.txt";
+    t_token *token_lst;
+	t_node	*tree;
+	char	*line;
+	
 	while (1)
 	{
-		input = readline("minishell> ");
-		if (input == NULL)
-		{
-			printf("error al leer");
+		line = readline("minishell$ ");
+		if (!line)
 			break;
-		}
-		if (*input)
-		{
-			add_history(input);
-			printf("entrada recibida: %s\n", input);
-		}
-		free(input);
-		rl_clear_history();
+		add_history(line);
+    	token_lst = tokenizer(line);
+		tree = parse_pipe(&token_lst);
+    	print_token_list(token_lst);
+		print_tree(tree);
+		free(line);
+		clear_list(&token_lst);
 	}
-	return (0);
+    return 0;
 }

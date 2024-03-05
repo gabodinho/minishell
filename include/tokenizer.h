@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/05 16:15:55 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:43:16 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int		is_shell_separator(char *c);
 void	clear_list(t_token **token_lst);
 int		add_separator_token(int type, char **line, t_token **token_lst);
 int		process_command(char **line, t_token **token_lst);
+void	print_token_list(t_token *token_lst);
 
 /*libft
 char *ft_substr(char *s, unsigned int start, size_t len);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/05 16:29:54 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:50:27 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	add_attribute(t_node *node, char *str)
 	while (i < 20 && (node -> param)[i])
 		i++;
 	if (i == 20)
-		throw_error("param limit in exec node");		// wip
+		printf("param limit in exec node");		// wip
 	else 
 		(node -> param)[i] = str;
 }
@@ -160,7 +160,7 @@ t_node	*parse_pipe(t_token **toklist)
 	return (cmd);
 }
 
-void	print_tree(t_node tree)
+void	print_tree(t_node *tree)
 {
 	while (tree)
 	{

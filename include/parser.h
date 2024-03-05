@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:25:38 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/05 16:26:59 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:50:03 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,14 @@ typedef struct s_herecmd
 	char	*delim;
 	void	*subnode;
 }	t_node;
-*/
+
 
 typedef struct s_token
 {
 	char	*str;
 	int		type;
 	struct s_token	*next;
-}	t_token;
+}	t_token;*/
 
 t_node	*heredoc_cmd(t_token *token);
 t_node	*redir_cmd(t_token *token);
@@ -112,5 +112,6 @@ t_node	*init_node(void);
 void	add_attribute(t_node *node, char *str);
 t_node	*parse_exe(t_token **toklist);
 t_node	*parse_pipe(t_token **toklist);
+void	print_tree(t_node *tree);
 
 #endif

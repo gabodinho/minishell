@@ -1,36 +1,43 @@
-NAME = minishell
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/11/22 19:51:00 by ggiertzu          #+#    #+#              #
+#    Updated: 2024/03/05 16:53:19 by irivero-         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
 
-LIBFT = libft.a
-LIBFT_DIR = libft
-LIBFT_PATH = $(LIBFT_DIR)/libft.a
+CFLAGS  := -g -O0 -Wall -Werror -Wextra
+CC		:= gcc
+LIBFT_D	:= ./libft
+LIBFT_L	:= libftprintf.a
+LIBFT	:= $(LIBFT_D)/$(LIBFT_L)
 
-CC = cc 
-CFLAGS = -Wall -Wextra -Werror
-RLFLAGS = -lreadline
 
-SRC = $(shell find src -type f -name "*.c")
-LIB = minishell.h
-OBJ = $(SRC:.c=.o)
+HEADERS	:= -I include -I $(LIBFT_D) -I .
+SRCS	:= parser.c src/tokenizer/*.c
+OBJS	:= ${SRCS:.c=.o}
+NAME	:= minishell
 
 all: $(NAME)
 
-$(LIBFT_PATH):
-	make bonus -C $(LIBFT_DIR)
-	mv $(LIBFT_DIR)/libft.a .
+%.o: %.c
+	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
-$(NAME): $(OBJ) $(LIBFT)
-	$(CC) $(CFLAGS) $(RLFLAGS) -o $@ $^
+$(NAME): $(LIBFT) $(LIBMLX) $(OBJS)
+	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
-%.o: %.c $(LIB)
-	$(CC) $(CFLAGS) -c -o $@ $<
+$(LIBFT):
+	make -C $(LIBFT_D)
 clean:
-	rm -f $(OBJ)
-	make clean -C $(LIBFT_DIR)
-
+	rm -rf $(OBJS)
+	make clean -C $(LIBFT_D)
 fclean: clean
-	rm -f $(NAME)
-	rm -f $(LIBFT)
+	rm -rf $(NAME)
+	make fclean -C $(LIBFT_D)
+re: clean all
 
-re: fclean all
-
-.PHONY: all clean fclean re
+.PHONY: all, clean, fclean, re, libmlx
