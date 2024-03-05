@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:25:38 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/03 20:01:29 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:26:59 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSER_H
 
 # include "ft_printf.h"
+# include "tokenizer.h"
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit, getenv
 # include <unistd.h> //getcwd, chdir, fork, execve, wait, write, read, pipe, dup, dup2, close, isatty, ttyname, ttyslot, unlink
@@ -30,6 +31,7 @@
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
+/*
 # define T_NULL 0
 # define WORD 1
 # define PIPE 2
@@ -41,6 +43,7 @@
 //# define HEREDOC 4
 # define DOUBLE_QUOTES 4
 # define SINGLE_QUOTES 5
+*/
 
 typedef enum e_ntype
 {

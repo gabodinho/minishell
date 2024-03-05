@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/03 20:05:27 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:29:54 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_node    *heredoc_cmd(t_token *token)
 
 	node = malloc(sizeof(t_node));
 	node -> ntype = N_HERE;
+	node -> subnode = NULL;
 	if (token -> next && (token -> next) -> type == WORD)
 		node -> delim = (token -> next) -> str;
 	else
@@ -31,6 +32,7 @@ t_node	*redir_cmd(t_token *token)
 
 	node = malloc(sizeof(t_node));
 	node -> ntype = N_REDIR;
+	node -> subnode = NULL;
 	if (ft_strncmp(token -> str, "<", 1))
 	{
 		node -> mode = O_RDONLY;
@@ -97,6 +99,7 @@ t_node	*init_node(void)
 
 	node = malloc(sizeof(t_node));
 	i = 0;
+	node -> subnode = NULL;
 	while (i < 20)
 		(node -> param)[i] = NULL;
 	return (node);
@@ -155,4 +158,23 @@ t_node	*parse_pipe(t_token **toklist)
 	else		// create (left) exec node
 		cmd = parse_exe(toklist);
 	return (cmd);
+}
+
+void	print_tree(t_node tree)
+{
+	while (tree)
+	{
+		if (tree && tree -> ntype == N_PIPE)
+		{
+			printf("Pipe node\nleft subtree:\n");
+			print_tree(tree -> left);
+			printf("right subtree:\n");
+		}
+		else if (tree)
+		{
+			printf("node type: %d\n", tree -> ntype);
+			tree = tree -> subnode;
+		}
+	}
+	return ;
 }
