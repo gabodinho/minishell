@@ -6,11 +6,11 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:11:16 by irivero-          #+#    #+#             */
-/*   Updated: 2024/02/27 12:04:53 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/05 16:16:11 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../minishell.h"
+#include "tokenizer.h"
 
 int process_separator_type(char **line, t_token **token_lst)
 {
