@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/05 17:47:11 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/07 15:56:32 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ t_node	*init_node(void)
 
 	node = malloc(sizeof(t_node));
 	i = 0;
+	node -> ntype = N_EXE;
 	node -> subnode = NULL;
 	while (i < 20)
 		(node -> param)[i++] = NULL;
@@ -136,8 +137,10 @@ t_node	*parse_exe(t_token **toklist)
 		if (token -> type == PIPE)
 			break ;
 		else if (token -> type == WORD)
+		{
 			add_attribute(execmd, token -> str);
-		token = token -> next;
+			token = token -> next;
+		}
 		cmd = parse_redir(cmd, &token);
 	}
 	add_attribute(execmd, NULL);
@@ -170,6 +173,7 @@ void	print_tree(t_node *tree)
 		{
 			printf("Pipe node\nleft subtree:\n");
 			print_tree(tree -> left);
+			tree = tree -> right;
 			printf("right subtree:\n");
 		}
 		else if (tree)
