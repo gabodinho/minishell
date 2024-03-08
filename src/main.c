@@ -31,7 +31,11 @@ int main(void)
 		tree = parse_pipe(&token_lst);
     	print_token_list(token_lst);
 		print_tree(tree);
+		if (fork() == 0)
+			run_tree(tree);
+		wait(0);
 		free(line);
+		clear_tree(tree);
 		clear_list(&token_lst);
 	}
     return 0;

@@ -6,21 +6,21 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/07 15:56:32 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/08 20:32:31 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-t_node    *heredoc_cmd(t_token *token)
+t_node	*heredoc_cmd(t_token *token)
 {
 	t_node	*node;
 
 	node = malloc(sizeof(t_node));
 	node -> ntype = N_HERE;
 	node -> subnode = NULL;
-	if (token -> next && (token -> next) -> type == WORD)
-		node -> delim = (token -> next) -> str;
+	if (token -> next && (token -> next)-> type == WORD)
+		node -> delim = (token -> next)-> str;
 	else
 		node -> delim = NULL;		// check error handling in og function
 	return (node);
@@ -33,23 +33,21 @@ t_node	*redir_cmd(t_token *token)
 	node = malloc(sizeof(t_node));
 	node -> ntype = N_REDIR;
 	node -> subnode = NULL;
-	if (ft_strncmp(token -> str, "<", 1))
+	if (!ft_strncmp(token -> str, "<", 1))
 	{
 		node -> mode = O_RDONLY;
 		node -> fd = 0;
 	}
-	else if (ft_strncmp(token -> str, ">", 1))
-	{
-		node -> mode = O_CREAT;
-		node -> fd = 1;
-	}
 	else
 	{
-		node -> mode = O_APPEND;
 		node -> fd = 1;
+		if (!ft_strncmp(token -> str, ">", 1))
+			node -> mode = O_WRONLY | O_CREAT | O_TRUNC;
+		else
+			node -> mode = O_WRONLY | O_CREAT | O_APPEND;
 	}
-	if (token -> next && (token -> next) -> type == WORD)
-		node -> file = (token -> next) -> str;		// check for error handling in og
+	if (token -> next && (token -> next)-> type == WORD)
+		node -> file = (token -> next)-> str;		// check for error handling in og
 	else
 		node -> file = NULL;
 	return (node);
@@ -63,30 +61,30 @@ t_node	*pipe_cmd(t_token **left_list, t_token **right_list)
 	node -> ntype = N_PIPE;
 	node -> left = parse_exe(left_list);
 	node -> right = parse_pipe(right_list);
-	return (node); 
+	return (node);
 }
 
-t_node    *parse_redir(t_node *cmd, t_token **toklist)
+t_node	*parse_redir(t_node *cmd, t_token **toklist)
 {
 	t_node	*node;
 
 	if (!*toklist)
 		return (cmd);
-	if (((*toklist) -> type == REDIR) && !ft_strncmp((*toklist) -> str, "<<", 2))
+	if (((*toklist) -> type == REDIR) && ft_strncmp((*toklist) -> str, "<<", 2))
 	{
 		node = redir_cmd(*toklist);
 		if (node -> file)
-			*toklist = (*toklist) -> next -> next;
+			*toklist = (*toklist)-> next -> next;
 		else
-			*toklist = (*toklist) -> next;
+			*toklist = (*toklist)-> next;
 	}
 	else if ((*toklist) -> type == REDIR)
 	{
 		node = heredoc_cmd(*toklist);		// wip (inkrement toklist)
 		if (node -> delim)
-			*toklist = (*toklist) -> next -> next;
+			*toklist = (*toklist)-> next -> next;
 		else
-			*toklist = (*toklist) -> next;
+			*toklist = (*toklist)-> next;
 	}
 	else
 		return (cmd);
@@ -117,7 +115,7 @@ void	add_attribute(t_node *node, char *str)
 		i++;
 	if (i == 20)
 		printf("param limit in exec node");		// wip
-	else 
+	else
 		(node -> param)[i] = str;
 }
 
@@ -165,8 +163,24 @@ t_node	*parse_pipe(t_token **toklist)
 	return (cmd);
 }
 
+void	clear_tree(t_node *tree)
+{
+	if (tree && tree -> ntype == N_PIPE)
+	{
+		clear_tree(tree -> left);
+		clear_tree(tree -> right);
+	}
+	else if (tree)
+		clear_tree(tree -> subnode);
+	if (tree)
+		free(tree);
+}
+
 void	print_tree(t_node *tree)
 {
+	int	i;
+
+	i = 0;
 	while (tree)
 	{
 		if (tree && tree -> ntype == N_PIPE)
@@ -179,6 +193,13 @@ void	print_tree(t_node *tree)
 		else if (tree)
 		{
 			printf("node type: %d\n", tree -> ntype);
+			if (tree -> ntype == N_EXE)
+			{
+				while (tree -> param[i] && i < 20)
+					printf("\t%s\n", tree -> param[i++]);
+			}
+			else if (tree -> ntype == N_REDIR)
+				printf("\tmode: %d, fd: %d, file: %s\n", tree -> mode, tree -> fd, tree -> file);
 			tree = tree -> subnode;
 		}
 	}

@@ -112,6 +112,7 @@ t_node	*init_node(void);
 void	add_attribute(t_node *node, char *str);
 t_node	*parse_exe(t_token **toklist);
 t_node	*parse_pipe(t_token **toklist);
-void	print_tree(t_node *tree);
-
+void	print_tree(t_node *tree);		// to be deleted for final vers
+void	run_tree(t_node *tree);
+void	clear_tree(t_node *tree);
 #endif
