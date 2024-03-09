@@ -18,10 +18,11 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
-//# include <bsd/string.h>
+# include <bsd/string.h>
 # include <stdarg.h>
 # include <stdint.h>
 # include "./libft/libft.h"
+# include "./libft/get_next_line.h"
 
 typedef struct s_fm
 {
