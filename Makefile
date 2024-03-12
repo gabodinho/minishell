@@ -21,7 +21,7 @@ LIBS	:=	-lreadline -lhistory $(LIBFT)
 HEADERS	:= -I $(LIBFT_D)/libft -I include -I $(LIBFT_D) -I .
 SRCS	:= parser.c src/tokenizer/token_line.c src/tokenizer/token_append.c	\
 src/tokenizer/token_list.c src/tokenizer/token_utils.c exec_nodes.c \
-src/tokenizer/tokenizer.c src/main.c syntax_check.c
+src/tokenizer/tokenizer.c src/main.c syntax_check.c environment.c
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell
 

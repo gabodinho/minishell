@@ -14,13 +14,18 @@
 #include "parser.h"
 
 // including the flag -lreadline to work!
-int main(void)
+int main(int argc, char *argv[], char *envp[])
 {
     //char *line = "echo 'Hello, World!' > output.txt";
     t_token *token_lst;
 	t_node	*tree;
 	char	*line;
+	t_list	*envir;
+	(void) argc;
+	(void) argv;
 
+	envir = get_env(envp);
+	print_env(envir);
 	while (1)
 	{
 		line = readline("minishell$ ");
