@@ -115,4 +115,7 @@ t_node	*parse_pipe(t_token **toklist);
 void	print_tree(t_node *tree);		// to be deleted for final vers
 void	run_tree(t_node *tree);
 void	clear_tree(t_node *tree);
+void	panic(char *msg);
+int syntax_check(t_token *toklist);
+
 #endif

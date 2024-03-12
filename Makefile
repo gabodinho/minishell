@@ -6,7 +6,7 @@
 #    By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/22 19:51:00 by ggiertzu          #+#    #+#              #
-#    Updated: 2024/03/09 01:17:58 by ggiertzu         ###   ########.fr        #
+#    Updated: 2024/03/11 23:59:03 by ggiertzu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIBS	:=	-lreadline -lhistory $(LIBFT)
 HEADERS	:= -I $(LIBFT_D)/libft -I include -I $(LIBFT_D) -I .
 SRCS	:= parser.c src/tokenizer/token_line.c src/tokenizer/token_append.c	\
 src/tokenizer/token_list.c src/tokenizer/token_utils.c exec_nodes.c \
-src/tokenizer/tokenizer.c src/main.c
+src/tokenizer/tokenizer.c src/main.c panic.c
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell
 
