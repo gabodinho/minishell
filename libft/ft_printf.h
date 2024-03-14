@@ -6,19 +6,21 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:44:13 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/05 16:48:59 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:15:29 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
+#ifdef __linux__
+	#include <bsd/string.h>
+#endif
 # include <stddef.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
-# include <bsd/string.h>
 # include <stdarg.h>
 # include <stdint.h>
 # include "./libft/libft.h"

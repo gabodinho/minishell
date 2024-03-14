@@ -6,7 +6,7 @@
 #    By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/22 19:51:00 by ggiertzu          #+#    #+#              #
-#    Updated: 2024/03/12 03:21:17 by ggiertzu         ###   ########.fr        #
+#    Updated: 2024/03/14 14:18:32 by irivero-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,10 @@ CC		:= cc
 LIBFT_D	:= ./libft
 LIBFT_L	:= libftprintf.a
 LIBFT	:= $(LIBFT_D)/$(LIBFT_L)
-LIBS	:=	-lreadline -lhistory $(LIBFT)
-
+LIBS	:=	-lreadline $(LIBFT) #-lhistory
+ifeq ($(shell uname),Linux)
+    LIBS += -lhistory
+endif
 
 HEADERS	:= -I $(LIBFT_D)/libft -I include -I $(LIBFT_D) -I .
 SRCS	:= parser.c src/tokenizer/token_line.c src/tokenizer/token_append.c	\
