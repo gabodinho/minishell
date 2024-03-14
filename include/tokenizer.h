@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/05 17:12:33 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/14 14:11:35 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ typedef struct	s_envp
 } t_envp;
 
 extern int	g_exit_status;
-
-int	main();
 
 //new_tokenizer
 t_token	*tokenizer(char *line);
