@@ -119,5 +119,11 @@ void	panic(char *msg);
 int		syntax_check(t_token *toklist);
 t_list	*get_env(char **envp);
 void	print_env(t_list *envlist);
+// search path and other relevant resources for file existance and accessibility
+char	*expand_path(char *exec_file, char *path_variable);
+// search env list for key and return value
+char	*search_env(char *key, t_list *envlist);
+// return a list of strings representing env !accessibility of env
+char	**conv_env(t_list *envlist);
 
 #endif

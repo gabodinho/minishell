@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/12 00:11:39 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/14 11:26:52 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,19 @@
 static void	run_redir(t_node *node)
 {
 	if (!node -> file)
-	{
 		panic("missing file");
-	}
-
 	close(node -> fd);
 	if (open(node -> file, node -> mode, 0666) < 0)
-	{
-//		printf("opening %s failed\n", node -> file);
-//		exit(1);
 		panic(node -> file);
-	}
 	run_tree(node -> subnode);
 }
 
 static void	run_exec(t_node *node)
 {
-	execve(node -> param[0], node -> param, NULL);
-//	printf("executing %s failed\n", node -> param[0]);
-//	exit(1);
+	char	*path_to_exec;
+
+	path_to_exec = expand_path(node -> param[0], search_env("PATH", envir));
+	execve(node -> param[0], node -> param, conv_env(envir));
 	panic(node -> param[0]);
 }
 
@@ -72,12 +66,6 @@ static void	run_here(t_node *node)
 	int		prompt_fd;
 
 	buff = NULL;
-/*	if (!node -> delim)
-	{
-		perror("syntax");
-		exit(EXIT_FAILURE);
-	}
-*/
 	tmp_fd = open("tmp_file", O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
 	prompt_fd = open("/dev/tty", O_WRONLY);
 	while (1)
@@ -102,7 +90,7 @@ static void	run_here(t_node *node)
 void	run_tree(t_node *tree)
 {
 	if (!tree)
-		exit(1);
+		panic("no tree");
 	if (tree -> ntype == N_PIPE)
 		run_pipe(tree);
 	else if (tree -> ntype == N_REDIR)
