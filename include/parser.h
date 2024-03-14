@@ -60,6 +60,7 @@ typedef struct s_node
 	struct s_node   *left;
 	struct s_node   *subnode;//allnodes
 	char	*param[20];		//exenode
+	struct s_list	*envir;
 	char	*file;			//redirnode
 	int		mode;
 	int		fd;
@@ -106,24 +107,26 @@ typedef struct s_token
 
 t_node	*heredoc_cmd(t_token *token);
 t_node	*redir_cmd(t_token *token);
-t_node	*pipe_cmd(t_token **left_list, t_token **right_list);
+t_node	*pipe_cmd(t_token **left_list, t_token **right_list, t_list *envir);
 t_node	*parse_redir(t_node *cmd, t_token **toklist);
-t_node	*init_node(void);
+t_node	*init_node(t_list *envir);
 void	add_attribute(t_node *node, char *str);
-t_node	*parse_exe(t_token **toklist);
-t_node	*parse_pipe(t_token **toklist);
+t_node	*parse_exe(t_token **toklist, t_list *envir);
+t_node	*parse_pipe(t_token **toklist, t_list *envir);
 void	print_tree(t_node *tree);		// to be deleted for final vers
-void	run_tree(t_node *tree);
+void	run_tree(t_node *tree, t_list *envir);
 void	clear_tree(t_node *tree);
 void	panic(char *msg);
 int		syntax_check(t_token *toklist);
 t_list	*get_env(char **envp);
 void	print_env(t_list *envlist);
 // search path and other relevant resources for file existance and accessibility
-char	*expand_path(char *exec_file, char *path_variable);
+//char	*expand_path(char *exec_file, char *path_var);
 // search env list for key and return value
-char	*search_env(char *key, t_list *envlist);
+//char	*search_env(char *key, t_list *envir);
 // return a list of strings representing env !accessibility of env
-char	**conv_env(t_list *envlist);
+//char	**conv_env(t_list *envlis
+char	*find_exec(char *exec_file, char *path_var);
+char    *search_env(char *key, t_list *envir);
 
 #endif
