@@ -23,7 +23,13 @@ endif
 HEADERS	:= -I $(LIBFT_D)/libft -I include -I $(LIBFT_D) -I .
 SRCS	:= parser.c src/tokenizer/token_line.c src/tokenizer/token_append.c	\
 src/tokenizer/token_list.c src/tokenizer/token_utils.c exec_nodes.c \
+<<<<<<< HEAD
 src/tokenizer/tokenizer.c src/main.c syntax_check.c environment.c src/expand.c
+=======
+src/tokenizer/tokenizer.c src/main.c syntax_check.c environment.c \
+search_exec.c
+
+>>>>>>> 6bd020f8b4883556ff6383199dc7ef7730e8aa78
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell
 

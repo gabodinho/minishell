@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/09 19:01:01 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/14 18:07:28 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ t_node	*redir_cmd(t_token *token)
 	return (node);
 }
 
-t_node	*pipe_cmd(t_token **left_list, t_token **right_list)
+t_node	*pipe_cmd(t_token **left_list, t_token **right_list, t_list *envir)
 {
 	t_node	*node;
 
 	node = malloc(sizeof(t_node));
 	node -> ntype = N_PIPE;
-	node -> left = parse_exe(left_list);
-	node -> right = parse_pipe(right_list);
+	node -> left = parse_exe(left_list, envir);
+	node -> right = parse_pipe(right_list, envir);
 	return (node);
 }
 
@@ -92,7 +92,7 @@ t_node	*parse_redir(t_node *cmd, t_token **toklist)
 	return (node);
 }
 
-t_node	*init_node(void)
+t_node	*init_node(t_list *envir)
 {
 	t_node	*node;
 	int			i;
@@ -101,6 +101,7 @@ t_node	*init_node(void)
 	i = 0;
 	node -> ntype = N_EXE;
 	node -> subnode = NULL;
+	node -> envir = envir;
 	while (i < 20)
 		(node -> param)[i++] = NULL;
 	return (node);
@@ -119,7 +120,7 @@ void	add_attribute(t_node *node, char *str)
 		(node -> param)[i] = str;
 }
 
-t_node	*parse_exe(t_token **toklist)
+t_node	*parse_exe(t_token **toklist, t_list *envir)
 {
 	t_node		*execmd;
 	t_node		*cmd;
@@ -127,7 +128,7 @@ t_node	*parse_exe(t_token **toklist)
 
 	if (!*toklist)
 		return (NULL);
-	execmd = init_node();
+	execmd = init_node(envir);
 	token = *toklist;
 	cmd = parse_redir(execmd, &token);
 	while (token)
@@ -146,7 +147,7 @@ t_node	*parse_exe(t_token **toklist)
 }
 
 // returns pipe node with two children or exec node with one child
-t_node	*parse_pipe(t_token **toklist)
+t_node	*parse_pipe(t_token **toklist, t_list *envir)
 {
 	t_node	*cmd;
 	t_token	*token;
@@ -157,9 +158,9 @@ t_node	*parse_pipe(t_token **toklist)
 	while (token && token -> type != PIPE)
 		token = token -> next;
 	if (token && token -> type == PIPE)		// create pipe node
-		cmd = pipe_cmd(toklist, &(token -> next));
+		cmd = pipe_cmd(toklist, &(token -> next), envir);
 	else		// create (left) exec node
-		cmd = parse_exe(toklist);
+		cmd = parse_exe(toklist, envir);
 	return (cmd);
 }
 

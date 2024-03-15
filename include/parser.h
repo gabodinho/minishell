@@ -31,20 +31,6 @@
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
-/*
-# define T_NULL 0
-# define WORD 1
-# define PIPE 2
-# define REDIR 3
-//# define DLESS 3
-//# define DGREAT 4
-//# define LESS 5
-//# define GREAT 6
-//# define HEREDOC 4
-# define DOUBLE_QUOTES 4
-# define SINGLE_QUOTES 5
-*/
-
 typedef enum e_ntype
 {
 	N_REDIR,
@@ -60,64 +46,35 @@ typedef struct s_node
 	struct s_node   *left;
 	struct s_node   *subnode;//allnodes
 	char	*param[20];		//exenode
+	struct s_list	*envir;
 	char	*file;			//redirnode
 	int		mode;
 	int		fd;
 	char	*delim;			//herenode
 }	t_node;
-/*
-typedef struct s_pipecmd
-{
-	t_ntype	ntype;
-	void	*left;
-	void	*right;
-}	t_pipecmd;
-
-typedef struct s_execmd
-{
-	t_ntype ntype;
-	char	*param[20];
-	void	*subnode;
-}	t_node;
-
-typedef struct s_redircmd
-{
-	t_ntype ntype;
-	char	*file;
-	int		mode;
-	int		fd;
-	void	*subnode;
-}	t_redircmd;
-
-typedef struct s_herecmd
-{
-	t_ntype ntype;
-	char	*delim;
-	void	*subnode;
-}	t_node;
-
-
-typedef struct s_token
-{
-	char	*str;
-	int		type;
-	struct s_token	*next;
-}	t_token;*/
 
 t_node	*heredoc_cmd(t_token *token);
 t_node	*redir_cmd(t_token *token);
-t_node	*pipe_cmd(t_token **left_list, t_token **right_list);
+t_node	*pipe_cmd(t_token **left_list, t_token **right_list, t_list *envir);
 t_node	*parse_redir(t_node *cmd, t_token **toklist);
-t_node	*init_node(void);
+t_node	*init_node(t_list *envir);
 void	add_attribute(t_node *node, char *str);
-t_node	*parse_exe(t_token **toklist);
-t_node	*parse_pipe(t_token **toklist);
+t_node	*parse_exe(t_token **toklist, t_list *envir);
+t_node	*parse_pipe(t_token **toklist, t_list *envir);
 void	print_tree(t_node *tree);		// to be deleted for final vers
-void	run_tree(t_node *tree);
+void	run_tree(t_node *tree, t_list *envir);
 void	clear_tree(t_node *tree);
 void	panic(char *msg);
 int		syntax_check(t_token *toklist);
 t_list	*get_env(char **envp);
 void	print_env(t_list *envlist);
+char	**conv_env(t_list *envir);
+char	*find_exec(char *exec_file, char *path_var);
+char    *search_env(char *key, t_list *envir);
+void    del_arr(char **arr);
+int		is_path(char *str);		// todo
+char	*exp_rel_path(char *exec_file, t_list *envir);	// todo
+int		is_builtin(char *exec_file);					// todo
+void	run_builtin(char **param, t_list *envir);			// todo
 
 #endif
