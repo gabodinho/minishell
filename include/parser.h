@@ -31,20 +31,6 @@
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
-/*
-# define T_NULL 0
-# define WORD 1
-# define PIPE 2
-# define REDIR 3
-//# define DLESS 3
-//# define DGREAT 4
-//# define LESS 5
-//# define GREAT 6
-//# define HEREDOC 4
-# define DOUBLE_QUOTES 4
-# define SINGLE_QUOTES 5
-*/
-
 typedef enum e_ntype
 {
 	N_REDIR,
@@ -66,44 +52,6 @@ typedef struct s_node
 	int		fd;
 	char	*delim;			//herenode
 }	t_node;
-/*
-typedef struct s_pipecmd
-{
-	t_ntype	ntype;
-	void	*left;
-	void	*right;
-}	t_pipecmd;
-
-typedef struct s_execmd
-{
-	t_ntype ntype;
-	char	*param[20];
-	void	*subnode;
-}	t_node;
-
-typedef struct s_redircmd
-{
-	t_ntype ntype;
-	char	*file;
-	int		mode;
-	int		fd;
-	void	*subnode;
-}	t_redircmd;
-
-typedef struct s_herecmd
-{
-	t_ntype ntype;
-	char	*delim;
-	void	*subnode;
-}	t_node;
-
-
-typedef struct s_token
-{
-	char	*str;
-	int		type;
-	struct s_token	*next;
-}	t_token;*/
 
 t_node	*heredoc_cmd(t_token *token);
 t_node	*redir_cmd(t_token *token);
@@ -120,13 +68,13 @@ void	panic(char *msg);
 int		syntax_check(t_token *toklist);
 t_list	*get_env(char **envp);
 void	print_env(t_list *envlist);
-// search path and other relevant resources for file existance and accessibility
-//char	*expand_path(char *exec_file, char *path_var);
-// search env list for key and return value
-//char	*search_env(char *key, t_list *envir);
-// return a list of strings representing env !accessibility of env
-//char	**conv_env(t_list *envlis
+char	**conv_env(t_list *envir);
 char	*find_exec(char *exec_file, char *path_var);
 char    *search_env(char *key, t_list *envir);
+void    del_arr(char **arr);
+int		is_path(char *str);		// todo
+char	*exp_rel_path(char *exec_file, t_list *envir);	// todo
+int		is_builtin(char *exec_file);					// todo
+void	run_builtin(char **param, t_list *envir);			// todo
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:12:05 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/14 18:13:02 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/15 01:55:25 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,30 @@
 char	*find_exec(char *exec_file, char *path_var)
 {
 	char	**vars;
+	char	**ptr;
 	char	*temp;
+	char	*temp2;
 
 	if (!path_var)
 		return (NULL);
 	vars = ft_split(path_var, ':');
-	while (vars)
+	ptr = vars;
+	while (*vars)
 	{
-		temp = ft_strjoin(*vars, exec_file);
-		if (!access(temp, F_OK))
-			return (temp);
+		temp = ft_strjoin(*vars, "/");
+		temp2 = ft_strjoin(temp, exec_file);
+		if (!access(temp2, F_OK))
+			return (temp2);
 		free(temp);
+		free(temp2);
 		vars++;
 	}
-//	free(vars)	?
+	del_arr(ptr);
 	return (NULL);
 }
 
 /*
-void	run_builtin(char **cmd, t_list *envir)
+void	run_builtin(char **param, t_list *envir)
 {
 	if (!strncmp(cmd[0], "export"))
 		ft_export(cmd);

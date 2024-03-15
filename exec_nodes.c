@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/14 18:15:24 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/15 01:58:23 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,27 @@ static void	run_redir(t_node *node, t_list *envir)
 static void	run_exec(t_node *node, t_list *envir)
 {
 	char	*path_to_exec;
+	char	**env_arr;
 
-	path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
+	env_arr = conv_env(envir);
+	/*
+	// check wheter node -> param[0] is already a path
+	if (!is_path(node -> param[0]))				// todo
+		path_to_exec = exp_rel_path(node -> param[0]);	// todo inclusive access check
+	// search builtins
+	else if (!is_builtin(node -> param))		// todo
+		run_builtin(node -> param, envir);		// todo
+	else	*/
+		path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
+	printf("path to exec: %s\n", path_to_exec);
 	if (path_to_exec)
-		node -> param[0] = path_to_exec;
-	printf("%s\n", node -> param[0]);
-//	execve(node -> param[0], node -> param, conv_env(envir));
-	execve(node -> param[0], node -> param, NULL);
-	panic(node -> param[0]);
+		execve(path_to_exec, node -> param, env_arr);
+	else
+	{
+		del_arr(env_arr);
+		free(path_to_exec);
+		panic(node -> param[0]);
+	}
 }
 
 static void	run_pipe(t_node *node, t_list *envir)

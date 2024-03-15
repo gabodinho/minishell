@@ -25,7 +25,6 @@ int main(int argc, char *argv[], char *envp[])
 	(void) argv;
 
 	envir = get_env(envp);
-	print_env(envir);
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -40,7 +39,7 @@ int main(int argc, char *argv[], char *envp[])
 		{
 			if (syntax_check(token_lst))
 				exit(EXIT_FAILURE);
-			printf("syntax check passed\n");
+//			printf("syntax check passed\n");
 //			run_tree(parse_pipe(&token_lst));
 			run_tree(tree, envir);
 		}
