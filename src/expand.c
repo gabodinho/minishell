@@ -6,115 +6,147 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 09:39:49 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/15 10:25:45 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:43:51 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 #include "expander.h"
 
-#define MAX_TOKEN_LENGTH 100
-
-void	append_token(t_token **token_lst, int type, char *str) 
+int	is_envirom(char *str, int i)
 {
-	t_token *new_token;
-	t_token *current;
+	if (str[i] == '$')
+	{
+		if (str[i + 1] == '$')
+			return (0);
+		if (str[i + 1] == '\0')
+			return (0);
+		if (ft_isalpha(str[i + 1]))
+			return (1);
+		if (str[i + 1] == '?')
+			return (1);
+		if (str[i + 1] == '-')
+			return (1);
+	}
+	return (0);
+}
+
+int	is_env_char(char c)
+{
+	if (ft_isalpha(c) || c == '_' || ft_isdigit(c))
+		return (1);
+	else
+		return (0);
+}
+
+int	is_token_in_env(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (is_envirom(str, i))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+int	find_dollar(char *str, int i)
+{
+	if (str[i] == '?')
+		return (i);
+	while (is_env_char(str[i]))
+		i++;
+	return (i - 1);
+}
+
+void	new_string(char *new_str, char *subs1, char *value, char *subs2)
+{
+	char	*tmp1;
+	char	*tmp2;
 	
-	new_token = create_token(str, type);
-	if (*token_lst == NULL) 
+	tmp1 = subs1;
+	tmp2 = subs2;
+	while (*subs1 != '\0')
+		*(new_str++) = *(subs1++);
+	while (*value != '\0')
+		*(new_str++) = *(value++);
+	while (*subs2 != '\0')
+		*(new_str++) = *(subs2++);
+	*new_str = '\0';
+	free(tmp1);
+	free(tmp2);
+}
+char	*get_env_value(t_list *env, char *env_key)
+{
+	char	*result;
+	t_list	*current;
+
+	current = env;
+	while (current)
 	{
-		*token_lst = new_token;
-	} 
-	else 
-	{
-		current = *token_lst;
-		while (current->next != NULL) 
-		{
-			current = current->next;
+		char *env_entry = (char *)(current->content);
+		if (ft_strncmp(env_entry, env_key, ft_strlen(env_key)) == 0 && env_entry[ft_strlen(env_key)] == '=') {
+			// Si encontramos la variable de entorno, devolvemos el valor
+			result = ft_strdup(env_entry + ft_strlen(env_key) + 1); // Apuntamos al inicio del valor (después del igual)
+			if (result == NULL)
+				return (NULL);
+			return result;
 		}
-		current->next = new_token;
-		new_token->prev = current;
-	}
-}
-
-char	*get_environment_variable(char *name) 
-{
-	return getenv(name);
-}
-
-void	expand_environment_variables(t_token *token) 
-{
-	char	*start;
-	char	*end;
-	size_t	var_name_length;
-	char	var_name[MAX_TOKEN_LENGTH];
-	char	*value;
-	
-	start = strchr(token->str, '$');
-	if (start != NULL) {
-		end = start + 1;
-		while (*end && !is_space(*end)) 
-		{
-			end++;
-		}
-		var_name_length = end - start - 1;
-		strncpy(var_name, start + 1, var_name_length);
-		var_name[var_name_length] = '\0';
-		value = get_environment_variable(var_name);
-		if (value != NULL) 
-		{
-			free(token->str); // Liberamos la cadena actual
-			token->str = ft_strdup(value); // Asignamos la nueva cadena
-		}
-	}
-}
-
-void	expand_exit_status(t_token *token) 
-{
-	char *start;
-	char exit_status_str[MAX_TOKEN_LENGTH];
-	
-	start = strstr(token->str, "$?");
-	if (start != NULL) 
-	{
-		sprintf(exit_status_str, "%d", errno); // errno holds the exit status
-		ft_memmove(start, exit_status_str, ft_strlen(exit_status_str));
-		ft_memmove(start + ft_strlen(exit_status_str), start + 2, ft_strlen(start + 2) + 1);
-	}
-}
-
-t_token	*expand_tokens(char *line) 
-{
-	t_token *token_lst;
-	t_token *current;
-	char	*token;
-	
-	token_lst = NULL;
-	token = strtok(line, " ");
-	while (token != NULL) 
-	{
-		append_token(&token_lst, 0, token); // Aquí el tipo de token es 0 por defecto
-		token = strtok(NULL, " ");
-	}
-
-	// Expandir variables de entorno y estado de salida
-	current = token_lst;
-	while (current != NULL) 
-	{
-		expand_environment_variables(current);
-		expand_exit_status(current);
 		current = current->next;
 	}
+	// Si no se encuentra la variable de entorno, devolvemos una cadena vacía
+	result = ft_strdup("");
+	if (result == NULL)
+		return (NULL);
+	return (result);
+}
 
-	return token_lst;
-}
-/*
-int	main() 
+char	*create_string(t_list *env, char *token, int start_d, int end_d)
 {
-	char line[] = "ls -l $HOME $?";
-	t_token *expanded_tokens = expand_tokens(line);
-	print_token_list(expanded_tokens);
-	free_tokens(expanded_tokens);
-	return 0;
+	char	*value;
+	char	*key;
+	char	*new_str;
+	int		len;
+
+	key = ft_substr(token, start_d + 1, end_d - start_d);
+	if (strcmp(key, "?") == 0)
+		value = ft_itoa(g_exit_status);
+	else
+		value = get_env_value(env, key);
+	len = ft_strlen(token) - (end_d - start_d + 1) + ft_strlen(value);
+	new_str = (char *)malloc(sizeof(char) * (len + 1));
+	if (!new_str)
+		return (NULL);
+	new_string(new_str, ft_substr(token, 0, start_d), value, ft_substr(token, end_d + 1, ft_strlen(token)));
+	free(key);
+	free(value);
+	return (new_str);
 }
-*/
+
+void	expander(t_list *env, t_token *token)
+{
+	t_token		*current;
+	int			start_d;
+	int			end_d;
+	char		*new_str;
+
+	current = token;
+	while (current)
+	{
+		if (current->type != '\'')
+		{
+			start_d = is_token_in_env(current->str);
+			if (start_d != -1)
+			{
+				end_d = find_dollar(current->str, start_d + 1);
+				new_str = create_string(env, current->str, start_d, end_d);
+				free(current->str);
+				current->str = new_str;
+			}
+		}
+		current = current->next;
+	}
+}

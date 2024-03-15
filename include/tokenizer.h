@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/15 09:59:43 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:23:33 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ typedef struct	s_envp
 extern int	g_exit_status;
 
 //new_tokenizer
-t_token	*tokenizer(char *line);
+t_token	*tokenizer(t_list *env, char *line);
 t_token	*tokenize_line(char *line);
 t_token	*create_token(char *content, int type);
 void	token_lst_add_back(t_token **token_lst, t_token *new);

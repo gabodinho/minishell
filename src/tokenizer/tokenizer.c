@@ -6,17 +6,20 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:17:44 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/05 16:42:50 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:25:00 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
-t_token	*tokenizer(char *line)
+void	expander(t_list *env, t_token *token);
+
+t_token	*tokenizer(t_list *env, char *line)
 {
 	t_token	*token_lst;
 
 	token_lst = tokenize_line(line);
+	expander(env, token_lst);
 	return (token_lst);
 }
 
