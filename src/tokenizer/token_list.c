@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:23:23 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/05 16:16:16 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/15 09:48:17 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,21 @@ t_token	*create_token(char *content, int type)
 	token = (t_token *)ft_calloc(1, sizeof(t_token));
 	if (!token)
 		return (NULL);
+	token->type = type;
 	if (content)
-	{
+		token->str = ft_strdup(content);
+	else
+		token->str = NULL;
+	/*
 		//if (type == DGREAT || type == DLESS)
 		if (type == REDIR)
 			token->str = ft_strdup(content);
 		else
 			token->str = content;
-	}
-	token->type = type;
+	}*/
+	//token->type = type;
+	token->next = NULL;
+	token->prev = NULL;
 	return (token);
 }
 

@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/14 14:11:35 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/15 09:59:43 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,13 @@
 
 # include "ft_printf.h"
 
+# define MAX_TOKEN_LENGTH 100
+
 //define el tipo de token
 # define T_NULL 0
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
-//# define DLESS 3
-//# define DGREAT 4
-//# define LESS 5
-//# define GREAT 6
-//# define HEREDOC 4
 # define DOUBLE_QUOTES 4
 # define SINGLE_QUOTES 5
 
