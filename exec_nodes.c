@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/15 01:58:23 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:42:57 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,24 +28,26 @@ static void	run_exec(t_node *node, t_list *envir)
 	char	**env_arr;
 
 	env_arr = conv_env(envir);
-	/*
+	path_to_exec = NULL;
 	// check wheter node -> param[0] is already a path
-	if (!is_path(node -> param[0]))				// todo
-		path_to_exec = exp_rel_path(node -> param[0]);	// todo inclusive access check
+	if (!access(node -> param[0], F_OK))
+		path_to_exec = node -> param[0];
+	else if (*node -> param[0] == '~')
+		path_to_exec = exp_home(node -> param[0], envir);
 	// search builtins
+	/*
+	also check if path is a directory using stat() -> see chatgpt
 	else if (!is_builtin(node -> param))		// todo
 		run_builtin(node -> param, envir);		// todo
-	else	*/
+	*/
+	else
 		path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
 	printf("path to exec: %s\n", path_to_exec);
 	if (path_to_exec)
 		execve(path_to_exec, node -> param, env_arr);
-	else
-	{
-		del_arr(env_arr);
-		free(path_to_exec);
-		panic(node -> param[0]);
-	}
+	del_arr(env_arr);
+	free(path_to_exec);
+	panic(node -> param[0]);
 }
 
 static void	run_pipe(t_node *node, t_list *envir)

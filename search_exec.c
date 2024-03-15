@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:12:05 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/15 01:55:25 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/15 12:56:34 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ char	*find_exec(char *exec_file, char *path_var)
 	}
 	del_arr(ptr);
 	return (NULL);
+}
+
+char	*exp_home(char *str, t_list *envir)
+{
+	char	*home_dir;
+
+	home_dir = NULL;
+	if (str[1] == '/' || !str[1])
+		home_dir = search_env("HOME", envir);
+	if (home_dir)
+		return (ft_strjoin(home_dir, str + 1));
+	else
+		return (str);
 }
 
 /*
