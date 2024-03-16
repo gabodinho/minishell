@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/15 13:42:57 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/16 02:13:03 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ static void	run_redir(t_node *node, t_list *envir)
 	run_tree(node -> subnode, envir);
 }
 
+
+// !!!ACHTUNG builtins sollten vor der Ausführung des trees ausgeführt werden um nichtin jedem exec node eine kopie des envirs zu haben -> oder Alternativen?
 static void	run_exec(t_node *node, t_list *envir)
 {
 	char	*path_to_exec;
@@ -35,11 +37,9 @@ static void	run_exec(t_node *node, t_list *envir)
 	else if (*node -> param[0] == '~')
 		path_to_exec = exp_home(node -> param[0], envir);
 	// search builtins
-	/*
-	also check if path is a directory using stat() -> see chatgpt
-	else if (!is_builtin(node -> param))		// todo
-		run_builtin(node -> param, envir);		// todo
-	*/
+//	also check if path is a directory using stat() -> see chatgpt
+	else if (!ft_strncmp(node -> param[0], "unset", 6))
+		run_builtin(node -> param, &envir);
 	else
 		path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
 	printf("path to exec: %s\n", path_to_exec);

@@ -74,6 +74,7 @@ char    *search_env(char *key, t_list *envir);
 void    del_arr(char **arr);
 char	*exp_home(char *str, t_list *envir);
 int		is_builtin(char *str);					// todo
-void	run_builtin(char **param, t_list *envir);			// todo
+void	run_builtin(char **param, t_list **envir);			// todo
+void	ft_unset(char **param, t_list **envir);
 
 #endif

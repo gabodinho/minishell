@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 16:12:05 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/15 12:56:34 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/16 03:07:59 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,12 @@ char	*exp_home(char *str, t_list *envir)
 		return (str);
 }
 
-/*
-void	run_builtin(char **param, t_list *envir)
+// einige builtins die das env verändern sollten nicht in childprocesses laufen
+void	run_builtin(char **param, t_list **envir)
 {
+	if (!strncmp(param[0], "unset", 6))
+		ft_unset(param, envir);
+	/*
 	if (!strncmp(cmd[0], "export"))
 		ft_export(cmd);
 	else if (!strncmp(cmd[0], "pwd")
@@ -65,7 +68,6 @@ void	run_builtin(char **param, t_list *envir)
 		ft_exit();
 	else if (!strncmp(cmd[0], "echo")
 		ft_echo(cmd);
-	return ;
+	*/
 }
-*/
 

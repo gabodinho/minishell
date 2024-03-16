@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 20:55:24 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/15 01:22:02 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/16 02:51:33 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,35 +69,115 @@ char	**conv_env(t_list *envir)
 	env_arr[i] = NULL;
 	return (env_arr);
 }
-		
 
-/* work in progress
-
-void	lst_rm(t_list **lst, int i)
+static int	is_valid_env_name(const char *name)
 {
-	int	lst_size;
+	int	i;
 
-	lst_size = ft_lstsize(*lst);
-	while (i < lst_size)
+	i = 1;
+	if (!ft_isalpha(*name) && *name != '_')
+        return (1);
+	while (name[i])
 	{
-
-
-void	unset(char *str, t_list **envir)
-{
-	t_list	*temp;
-	int		i;
-
-	if (!str || !envir)
-		return ;
-	i = 0;
-	temp = *envir;
-	while (temp)
-	{
-		if (!ft_strncmp(temp -> content, str, ft_strlen(str)))
-			return (lst_rm(envir, i));
-		temp = temp -> next;
+		if (!ft_isalnum(name[i]) && name[i] != '_')
+			return (1);
 		i++;
 	}
+	return (0);
 }
-*/
+
+static void	lst_rm_one(t_list **start, int i)
+{
+	t_list	*temp;
+	t_list	*temp2;
+
+	temp = *start;
+	printf("eingang");
+	if (i == 0)
+	{
+		*start = temp -> next;
+		free(temp -> content);
+		free(temp);
+	}
+	else
+	{
+		while (1 < i-- && temp)
+			temp = temp -> next;
+		printf("var = %s\n", (char *) temp -> next -> content);
+		if (temp -> next)
+		{
+			printf("yep\n");
+			temp2 = (temp -> next) -> next;
+			printf("new next: %s\n", (char *) temp2 -> content);
+//			free((temp -> next) -> content);
+//			free(temp -> next);
+			temp -> next = temp2;
+		}
+	}
+	printf("ausgang");
+}
+
+void	ft_unset(char **param, t_list **envir)
+{
+	int		i;
+	char	*errmsg;
+	t_list	*temp;
+
+	temp = *envir;
+	errmsg = NULL;
+	while (*++param)
+	{
+		printf("testtest: %s", *param);
+		if (!errmsg && is_valid_env_name(*param))
+			errmsg = *param;
+		else
+		{
+			temp = *envir;
+			i = 0;
+			while (temp)
+			{
+				if (!ft_strncmp(temp -> content, *param, ft_strlen(*param)))
+				{
+					lst_rm_one(envir, i);
+					break ;
+				}
+				temp = temp -> next;
+				i++;
+			}
+		}
+	}
+	print_env(*envir);
+	if (errmsg)
+		panic(errmsg);
+	else
+		exit(EXIT_SUCCESS);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
