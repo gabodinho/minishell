@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:52:06 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/15 09:55:25 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:51:42 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ int	process_command(char **line, t_token **token_lst)
 		if (is_quotes(current_char[i]))
 		{
 			if(!skip_quotes(current_char, &i))
-			{
-				printf("Error: Missing closing quote.\n");
-				return (0);
-			}
+				return (print_quotes_error(current_char[i]), 0);
 		}
 		else if (is_space(current_char[i]))
 			break;
