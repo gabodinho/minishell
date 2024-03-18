@@ -6,12 +6,11 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:02:46 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/12 10:02:44 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:45:33 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtins.h"
-
+#include "builtins.h"
 
 char	*b_strlcpy(char *src)
 {
@@ -30,16 +29,6 @@ char	*b_strlcpy(char *src)
 	tmp[j] = '\0';
 	free(src);
 	return (tmp);
-}
-
-int	ft_strcmp(const char *s1, const char *s2) 
-{
-	while (*s1 && *s2 && (*s1 == *s2)) 
-	{
-		s1++;
-		s2++;
-	}
-	return (*(unsigned char *)s1 - *(unsigned char *)s2);
 }
 
 int	b_strcmp(char *s1, char *s2)

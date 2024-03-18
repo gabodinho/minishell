@@ -6,12 +6,11 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:47 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/14 09:22:55 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:38:39 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtins.h"
-#include "../../libft/libft/libft.h"
+#include "builtins.h"
 
 int	echo_helper(char **av, char *c, int *i)
 {

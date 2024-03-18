@@ -6,62 +6,53 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:51:55 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/12 10:12:54 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:44:43 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtins.h"
+#include "builtins.h"
 
-int	b_strcmpt(char *s1, char *s2)
+void	lst_rm(t_list **lst, int i)
 {
-	int	i;
+	t_list	*tmp;
+	t_list	*prev;
+	int		count;
 
-	i = 0;
-	while (s1[i] && s2[i])
+	if (!lst || !*lst)
+		return ;
+	tmp = *lst;
+	prev = NULL;
+	count = 0;
+	while (tmp && count < i)
 	{
-		if (s1[i] == s2[i])
-			i ++;
-		else
-			return (s1[i] - s2[i]);
+		prev = tmp;
+		tmp = tmp->next;
+		count++;
 	}
-	return (0);
+	if (!tmp)
+		return ;
+	if (prev)
+		prev->next = tmp->next;
+	else
+		*lst = tmp->next;
+	//free(tmp->content);
+	free(tmp);
 }
 
-int	last_variable(char **env)
+void	unset_env_list(t_list **env_list, char *target_key)
 {
-	int	i;
+	t_list	*temp;
+	int		i;
 
+	if (!target_key || !env_list)
+		return ;
 	i = 0;
-	while (env[i + 1] != NULL)
-		i++;
-	return (i);
-}
-
-void	ft_unset(char *v_name, t_envp *env)
-{
-	int	i;
-	int	lv;
-
-	i = 0;
-	printf("calling ft_unset\n");
-	while (env->envp[i] != NULL)
+	temp = *env_list;
+	while (temp)
 	{
-		if (b_strcmpt(v_name, env->envp[i]) == 0)
-		{
-			if (env->envp[i + 1] == NULL)
-			{
-				env->envp[i] = NULL;
-				return ;
-			}
-			else
-			{
-				lv = last_variable(env->envp);
-				env->envp[i] = env->envp[lv];
-				env->envp[lv] = NULL;
-				return ;
-			}
-		}
+		if (!ft_strncmp(temp -> content, target_key, ft_strlen(target_key)))
+			return (lst_rm(env_list, i));
+		temp = temp -> next;
 		i++;
 	}
-	return ;
 }

@@ -6,73 +6,119 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:12 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/12 10:24:56 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:57:29 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtins.h"
+#include "builtins.h"
 
-int	exporter(char *v_name, char *v_value, t_envp *env)
+int	contains_spaces(const char *str)
 {
-	int	i;
-	int	k;
-	int	m;
-
-	i = 0;
-	k = -1;
-	m = 0;
-	while (env->envp[i] != NULL)
-		i++;
-	env->envp[i] = malloc(b_strlen(v_name) + b_strlen(v_value) + 2);
-	/*while (v_name[++k] != '\0')
-		env->envp[i][k] = v_name[k];
-	env->envp[i][k] = '=';
-	k++;
-	while (v_value[m] != '\0')
+	while (*str)
 	{
-		env->envp[i][k] = v_value[m];
-		k++;
-		m++;
+		if (*str == ' ')
+			return (1);
+		str++;
 	}
-	env->envp[i][k] = '\0';
-	i++;
-	env->envp[i] = NULL;*/
-	strcpy(env->envp[i], v_name);
-	strcat(env->envp[i], "=");
-	strcat(env->envp[i], v_value);
-	env->envp[i + 1] = NULL;
 	return (0);
 }
 
-void	export(char **builtin, t_envp *env)
-{
-	char	*v_name;
-	char	*v_value;
-
-	v_name = builtin[0];
-	v_value = builtin[2];
-	printf("calling export\n");
-	printf("Before export:\n");
-	for (int i =0; env->envp[i] != NULL; i++)
-		printf("%s\n", env->envp[i]);
-	if (v_value == NULL)
-		v_value = "";
-	if (*v_name == '=' || v_name == NULL)
-	{
-		printf("export: not an identifier: %s\n", v_name);
-		g_exit_status = 1;
-		return ;
-	}
-	if (var_finder(env->envp, v_name) != -1)
-		ft_unset(v_name, env);
-	if (exporter(v_name, v_value, env) != 0)
-	{
-		g_exit_status = 1;
-		return ;
-	}
-	printf("After export:\n");
-	for (int i =0; env->envp[i] != NULL; i++)
-		printf("%s\n", env->envp[i]);
-	g_exit_status = 0;
-	return ;
+char *ft_strnew(size_t size) {
+    char *str = (char *)malloc((size + 1) * sizeof(char)); // Aloca memoria para la cadena más el carácter nulo
+    if (!str) // Verifica si la asignación de memoria fue exitosa
+        return NULL;
+    for (size_t i = 0; i <= size; i++) // Inicializa todos los caracteres a '\0'
+        str[i] = '\0';
+    return str; // Devuelve el puntero a la cadena
 }
+
+void export_env_list(t_list **env_list, char *key, char *value) {
+    if (!env_list || !key) // Verifica si los argumentos son nulos
+        return;
+    if (contains_spaces(key)) {
+        perror("export: invalid identifier");
+        return;
+    }
+
+    // Busca si la variable de entorno ya está presente en la lista
+    t_list *current = *env_list;
+    while (current) {
+        char *env_entry = (char *)current->content;
+        if (ft_strncmp(env_entry, key, ft_strlen(key)) == 0 && env_entry[ft_strlen(key)] == '=') {
+            // Si la variable de entorno ya existe, actualiza su valor
+            if (value) {
+                char *new_entry = ft_strjoin(key, "=");
+                if (!new_entry) {
+                    perror("ft_strjoin");
+                    return;
+                }
+                char *temp = new_entry;
+                new_entry = ft_strjoin(new_entry, value);
+                free(temp);
+                if (!new_entry) {
+                    perror("ft_strjoin");
+                    return;
+                }
+                free(current->content); // Libera la memoria del contenido anterior
+                current->content = new_entry; // Actualiza el contenido con el nuevo valor
+            }
+            return;
+        }
+        current = current->next;
+    }
+
+    // Si la variable de entorno no existe, la añade a la lista
+    char *new_entry = NULL;
+    if (value) {
+        new_entry = ft_strjoin(key, "=");
+        if (!new_entry) {
+            perror("ft_strjoin");
+            return;
+        }
+        char *temp = new_entry;
+        new_entry = ft_strjoin(new_entry, value);
+        free(temp);
+        if (!new_entry) {
+            perror("ft_strjoin");
+            return;
+        }
+    } else {
+        // Si no hay valor, simplemente añade la clave a la lista de entorno
+        new_entry = ft_strdup(key);
+        if (!new_entry) {
+            perror("ft_strdup");
+            return;
+        }
+    }
+    ft_lstadd_back(env_list, ft_lstnew(new_entry));
+}
+
+
+void export_builtin(char **args, t_list **env_list) {
+    if (!args || !*args) // Verifica si los argumentos son nulos o la lista de argumentos está vacía
+        return;
+
+    // Itera sobre los argumentos y para cada uno, verifica si es una asignación de variable de entorno
+    for (int i = 0; args[i]; i++) {
+        if (contains_spaces(args[i])) {
+            printf("export: invalid identifier %s\n", args[i]);
+            return;
+        }
+
+        char *equal_sign = ft_strchr(args[i], '=');
+        if (equal_sign) {
+            // Si se encuentra un signo igual, divide la cadena en la clave y el valor
+            *equal_sign = '\0'; // Divide la cadena en la posición del signo igual
+            char *key = args[i];
+            char *value = equal_sign + 1;
+            export_env_list(env_list, key, value + 1);
+        } else {
+            // Si no se encuentra un signo igual, verifica si el argumento es solo un signo igual
+            if (ft_strcmp(args[i], "=") == 0) {
+                printf("export: invalid format for argument %s\n", args[i]);
+                return;
+            }
+        }
+    }
+}
+

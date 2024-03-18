@@ -6,12 +6,11 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:51:39 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/12 09:46:25 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:38:18 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtins.h"
-#include "../../libft/libft/libft.h"
+#include "builtins.h"
 
 void	if_pflag_is_one(char *path)
 {
