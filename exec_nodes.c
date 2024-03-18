@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/15 01:58:23 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:55:19 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,26 @@ static void	run_exec(t_node *node, t_list *envir)
 	else if (!is_builtin(node -> param))		// todo
 		run_builtin(node -> param, envir);		// todo
 	else	*/
-		path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
-	printf("path to exec: %s\n", path_to_exec);
-	if (path_to_exec)
-		execve(path_to_exec, node -> param, env_arr);
+	//	path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
+	//printf("path to exec: %s\n", path_to_exec);
+	
+	if (is_builtin(node->param[0]))
+		exec_builtins(node->param, envir);
 	else
 	{
+	path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
+	printf("path to exec: %s\n", path_to_exec);
+		if (path_to_exec)
+		{
+			g_exit_status = 0;
+			execve(path_to_exec, node -> param, env_arr);
+		}
+		else if (!path_to_exec)
+			g_exit_status = 127;
+		else
+			panic(node -> param[0]);
 		del_arr(env_arr);
 		free(path_to_exec);
-		panic(node -> param[0]);
 	}
 }
 
