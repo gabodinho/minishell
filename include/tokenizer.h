@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/18 12:46:59 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 13:39:08 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,6 @@ typedef struct	s_token
 	struct s_token	*prev; // token anterior
 	
 } t_token;
-
-typedef struct	s_envp
-{
-	char	**envp;
-	char 	*cd_hist;
-} t_envp;
 
 extern int	g_exit_status;
 
