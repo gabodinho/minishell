@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/15 15:36:08 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 09:37:31 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 int	g_exit_status = 0;
 // including the flag -lreadline to work!
+
 int main(int argc, char *argv[], char *envp[])
 {
     //char *line = "echo 'Hello, World!' > output.txt";
     t_token *token_lst;
-	//t_token	*expanded_token;
 	t_node	*tree;
 	char	*line;
 	t_list	*envir;
@@ -33,11 +33,10 @@ int main(int argc, char *argv[], char *envp[])
 		line = readline("minishell$ ");
 		if (!line)
 			break;
-		add_history(line);			//only add non empty lines to hist
+		if (line[0] != '\0')
+			add_history(line);			//only add non empty lines to hist
 		token_lst = tokenizer(envir, line);
-		//expanded_token = expand_tokens(line);
 		tree = parse_pipe(&token_lst, envir);
-		//print_token_list(token_lst);
 		print_token_list(token_lst);
 		print_tree(tree);
 		if (fork() == 0)
@@ -52,7 +51,6 @@ int main(int argc, char *argv[], char *envp[])
 		free(line);
 		clear_tree(tree);
 		clear_list(&token_lst);
-		//clear_list(&expanded_token);
 	}
-    return 0;
+    return(0);
 }

@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 09:39:49 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/15 15:43:51 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 09:40:47 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,13 @@ char	*get_env_value(t_list *env, char *env_key)
 	while (current)
 	{
 		char *env_entry = (char *)(current->content);
-		if (ft_strncmp(env_entry, env_key, ft_strlen(env_key)) == 0 && env_entry[ft_strlen(env_key)] == '=') {
+		if (ft_strncmp(env_entry, env_key, ft_strlen(env_key)) == 0 && env_entry[ft_strlen(env_key)] == '=') 
+		{
 			// Si encontramos la variable de entorno, devolvemos el valor
 			result = ft_strdup(env_entry + ft_strlen(env_key) + 1); // Apuntamos al inicio del valor (después del igual)
 			if (result == NULL)
 				return (NULL);
-			return result;
+			return (result);
 		}
 		current = current->next;
 	}
@@ -132,6 +133,8 @@ void	expander(t_list *env, t_token *token)
 	int			start_d;
 	int			end_d;
 	char		*new_str;
+	//int			single_quotes;
+	//t_token		*prev;
 
 	current = token;
 	while (current)
@@ -141,10 +144,21 @@ void	expander(t_list *env, t_token *token)
 			start_d = is_token_in_env(current->str);
 			if (start_d != -1)
 			{
+				//single_quotes = 0;
+				//prev = current->prev;
+				//while (prev && prev->type != '\n')
+				//{
+				//	if (prev->type == '\'')
+				//		single_quotes = !single_quotes;
+				//	prev = prev->prev;
+				//}
+				//if (!single_quotes)
+				//{
 				end_d = find_dollar(current->str, start_d + 1);
 				new_str = create_string(env, current->str, start_d, end_d);
 				free(current->str);
 				current->str = new_str;
+				//}
 			}
 		}
 		current = current->next;
