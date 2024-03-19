@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:12 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/18 17:17:57 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/19 10:22:30 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	export_env_list(t_list **env_list, char *key, char *value)
 					perror("ft_strjoin");
 					return;
 				}
-				free(current->content); // Libera la memoria del contenido anterior
+				//free(current->content); // Libera la memoria del contenido anterior
 				current->content = new_entry; // Actualiza el contenido con el nuevo valor
 			}
 			return;
@@ -127,7 +127,7 @@ void export_builtin(char **args, t_list **env_list)
 			*equal_sign = '\0'; // Divide la cadena en la posición del signo igual
 			key = args[i];
 			value = equal_sign + 1;
-			export_env_list(env_list, key, value + 1);
+			export_env_list(env_list, key, value);
 		} 
 		else 
 		{
