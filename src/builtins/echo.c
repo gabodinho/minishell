@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:47 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/19 13:30:31 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:08:14 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,44 +61,53 @@ int	echo_helper(char **av, char *c, int *i)
 	return (0);
 }
 
-void	our_echo(char **av) 
+void our_echo(char **av) 
 {
-	int	i;
-	int	no_newline;
+	int 	i;
+	bool	no_newline;
+	char	quote_char;
 	char	*str;
-	int	len;
+	size_t 	len;
 
 	i = 1;
-	no_newline = 0;
+	no_newline = false;
+	// Verificar si se especificó la opción -n
 	if (av[1] != NULL && strcmp(av[1], "-n") == 0) 
 	{
-		no_newline = 1;
+		no_newline = true;
 		i = 2;
 	}
+
+	// Recorrer los argumentos
 	while (av[i] != NULL) 
 	{
-		// Ignorar las comillas simples y dobles al imprimir
+		// Verificar si el argumento está entre comillas simples o dobles
 		if (av[i][0] == '"' || av[i][0] == '\'') 
 		{
-			str = av[i] + 1; // Saltar la comilla inicial
-			len = ft_strlen(str);
-			if (len > 0 && str[len - 1] == av[i][0]) 
+			quote_char = av[i][0];
+			str = av[i] + 1;  // Apuntar al primer carácter después de la comilla inicial
+			len = strlen(str);
+			// Verificar si el argumento termina con la misma comilla que al principio
+			if (len > 0 && str[len - 1] == quote_char) 
 			{
-				// Si la cadena termina con la misma comilla que al principio, eliminarla
+				// Si termina con la misma comilla, eliminarla y imprimir el contenido
 				str[len - 1] = '\0';
-				b_putstr(str);
+				printf("%s", str);
 			} 
-			else 
-				// Si la cadena no termina con la misma comilla, imprimir como está
-				b_putstr(av[i]);
-		}
+			else
+				// Si no termina con la misma comilla, imprimir el argumento como está
+				printf("%s", av[i]);
+		} 
 		else
-			b_putstr(av[i]);
+			// Si el argumento no está entre comillas, imprimirlo como está
+			printf("%s", av[i]);
+		// Agregar un espacio entre los argumentos si no es el último
 		if (av[i + 1] != NULL)
-			write(1, " ", 1); // Agregar un espacio entre los argumentos
+			printf(" ");
 		i++;
 	}
-	if (!no_newline)
-		write(1, "\n", 1); // Agregar una nueva línea al final si no se especifica la opción -n
+	// Imprimir una nueva línea si no se especificó la opción -n
+	if (!no_newline) 
+		printf("\n");
 	g_exit_status = 0;
 }

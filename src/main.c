@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/18 14:49:50 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:12:13 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ int main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		line = readline("minishell$ ");
-		if (!line)   //|| ft_strcmp(line, "exit") == 0)
+		if (!line || ft_strcmp(line, "exit") == 0)
+		{
+			exit_command(&line);
 			break;
+		}
 		if (line[0] != '\0')
 			add_history(line);			//only add non empty lines to hist
 		token_lst = tokenizer(envir, line);
