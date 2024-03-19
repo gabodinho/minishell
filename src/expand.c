@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 09:39:49 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/18 09:40:47 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/19 13:00:31 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	expander(t_list *env, t_token *token)
 	current = token;
 	while (current)
 	{
-		if (current->type != '\'')
+		if (current->str[0] != '\'')
 		{
 			start_d = is_token_in_env(current->str);
 			if (start_d != -1)
