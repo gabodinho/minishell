@@ -1,5 +1,26 @@
 {
     "files.associations": {
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "__config": "c",
+        "cstdio": "c",
+        "cwchar": "c",
+        "deque": "c",
+        "ios": "c",
+        "new": "c",
+        "optional": "c",
+        "stdexcept": "c",
+        "typeinfo": "c",
+        "variant": "c",
+        "vector": "c",
+        "algorithm": "c",
+        "charconv": "c",
+        "complex": "c",
+        "bitset": "c",
+        "string": "c",
+        "exception": "c",
+        "format": "c",
+        "limits": "c",
+        "sstream": "c",
+        "functional": "c"
     }
 }

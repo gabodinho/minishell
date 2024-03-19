@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/19 14:06:53 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:03:04 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,29 @@
 
 static void	run_redir(t_node *node, t_list *envir)
 {
+	int	new_fd;
+	int	saved_stdout;
+
 	if (!node -> file)
 		panic("missing file");
-	close(node -> fd);
-	if (open(node -> file, node -> mode, 0666) < 0)
-		panic(node -> file);
+	//close(node -> fd);
+	new_fd = open(node->file, node->mode, 0666);
+	if (new_fd < 0)
+	{
+		perror("open");
+		panic(node->file);
+	}
+	printf("opened file: %s with mode %d\n", node->file, node->mode);
+	saved_stdout = dup(STDOUT_FILENO);
+	dup2(new_fd, STDOUT_FILENO);
+	close(new_fd);
 	run_tree(node -> subnode, envir);
+	dup2(saved_stdout, STDOUT_FILENO);
+	close(saved_stdout);
+
+//	if (open(node -> file, node -> mode, 0666) < 0)
+//		panic(node -> file);
+//	run_tree(node -> subnode, envir);
 }
 
 int	is_path(char *str)
