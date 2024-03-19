@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/18 13:55:19 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/19 14:06:53 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ static void	run_redir(t_node *node, t_list *envir)
 	if (open(node -> file, node -> mode, 0666) < 0)
 		panic(node -> file);
 	run_tree(node -> subnode, envir);
+}
+
+int	is_path(char *str)
+{
+	if (str[0] == '/')
+		return (1);
+	return (0);
 }
 
 static void	run_exec(t_node *node, t_list *envir)
@@ -38,25 +45,36 @@ static void	run_exec(t_node *node, t_list *envir)
 	else	*/
 	//	path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
 	//printf("path to exec: %s\n", path_to_exec);
-	
+	path_to_exec = NULL;
 	if (is_builtin(node->param[0]))
+	{
 		exec_builtins(node->param, envir);
+		del_arr(env_arr);
+		return ;
+	}
+	else if (is_path(node -> param[0]))
+		path_to_exec = ft_strdup(node -> param[0]);
 	else
 	{
-	path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
-	printf("path to exec: %s\n", path_to_exec);
-		if (path_to_exec)
+		path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
+		printf("path to exec: %s\n", path_to_exec);
+	}
+	if (path_to_exec)
+	{
+		if (execve(path_to_exec, node -> param, env_arr) == -1)
 		{
-			g_exit_status = 0;
-			execve(path_to_exec, node -> param, env_arr);
+			perror("execve");
+			g_exit_status = 1;
 		}
-		else if (!path_to_exec)
-			g_exit_status = 127;
-		else
-			panic(node -> param[0]);
 		del_arr(env_arr);
 		free(path_to_exec);
 	}
+	else if (!path_to_exec)
+		g_exit_status = 127;
+	else
+		panic(node -> param[0]);
+	del_arr(env_arr);
+	free(path_to_exec);
 }
 
 static void	run_pipe(t_node *node, t_list *envir)
