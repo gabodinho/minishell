@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:20:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/18 15:51:12 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:43:19 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	exec_builtins(char **av, t_list *env)
 		return (print_env(env), 0); //change env.c
 	if (ft_strcmp(av[0], "unset") == 0)
 		return (unset_env_list(&env, av[1]), 0); //change
-	exit_command(av);
+	else
+		exit_command(av);
 	return (1);
 }
 	

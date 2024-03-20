@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/18 15:50:47 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/20 11:37:30 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	ft_env(t_envp *env);
 void	exit_command(char **av);
 //export
 void export_env_list(t_list **env_list, char *key, char *value);
-void export_builtin(char **args, t_list **env_list);
+//void export_builtin(char **args, t_list **env_list);
+void export_builtin(char **builtin, t_list **env_list);
 //pwd
 void	if_pflag_is_one(char *path);
 char	*our_pwd(char **av, int pflag);

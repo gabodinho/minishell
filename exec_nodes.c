@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/19 16:03:04 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/20 17:53:37 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,10 @@ static void	run_exec(t_node *node, t_list *envir)
 	{
 		if (execve(path_to_exec, node -> param, env_arr) == -1)
 		{
-			perror("execve");
+			panic(node -> param[0]);
 			g_exit_status = 1;
 		}
+		panic(node -> param[0]);
 		del_arr(env_arr);
 		free(path_to_exec);
 	}
@@ -92,6 +93,7 @@ static void	run_exec(t_node *node, t_list *envir)
 		panic(node -> param[0]);
 	del_arr(env_arr);
 	free(path_to_exec);
+	panic(node -> param[0]);
 }
 
 static void	run_pipe(t_node *node, t_list *envir)
