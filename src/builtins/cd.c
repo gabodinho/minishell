@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/24 16:07:24 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/24 16:09:04 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	update_existing_environment_variable(t_list *env_list, const char *key,
 	char	*entry;
 
 	key_len = ft_strlen(key);
-	env_key = malloc(key_len + strlen(value) + 1);
+	env_key = malloc(key_len + ft_strlen(value) + 1);
 	if (env_key == NULL)
 	{
 		perror("malloc");
@@ -60,7 +60,7 @@ void	add_new_environment_variable(t_list **env_list, const char *key,
 	t_list	*new_entry;
 
 	key_len = ft_strlen(key);
-	env_key = malloc(key_len + strlen(value) + 1);
+	env_key = malloc(key_len + ft_strlen(value) + 1);
 	if (env_key == NULL)
 		return ;
 	sprintf(env_key, "%s%s", key, value);
