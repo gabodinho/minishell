@@ -56,9 +56,9 @@ typedef struct s_node
 t_node	*heredoc_cmd(t_token *token);
 t_node	*redir_cmd(t_token *token);
 t_node	*pipe_cmd(t_token **left_list, t_token **right_list, t_list *envir);
-t_node	*parse_redir(t_node *cmd, t_token **toklist);
+void	parse_redir(t_node **cmd, t_token **toklist);
 t_node	*init_node(t_list *envir);
-void	add_attribute(t_node *node, char *str);
+void	add_attribute(t_node *node, t_token **toklist);
 t_node	*parse_exe(t_token **toklist, t_list *envir);
 t_node	*parse_pipe(t_token **toklist, t_list *envir);
 void	print_tree(t_node *tree);		// to be deleted for final vers

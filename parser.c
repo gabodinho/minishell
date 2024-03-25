@@ -6,11 +6,24 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/14 18:07:28 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/25 17:33:01 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+t_node	*add_last(t_node *redir, t_node *exec)
+{
+	t_node	*ptr;
+
+	ptr = redir;
+	if (!redir)
+		return (exec);
+	while (redir && redir -> subnode)
+		redir = redir -> subnode;
+	redir -> subnode = exec;
+	return (ptr);
+}
 
 t_node	*heredoc_cmd(t_token *token)
 {
@@ -64,13 +77,11 @@ t_node	*pipe_cmd(t_token **left_list, t_token **right_list, t_list *envir)
 	return (node);
 }
 
-t_node	*parse_redir(t_node *cmd, t_token **toklist)
+void	parse_redir(t_node **cmd, t_token **toklist)
 {
 	t_node	*node;
 
-	if (!*toklist)
-		return (cmd);
-	if (((*toklist) -> type == REDIR) && ft_strncmp((*toklist) -> str, "<<", 2))
+	if (ft_strncmp((*toklist) -> str, "<<", 2))
 	{
 		node = redir_cmd(*toklist);
 		if (node -> file)
@@ -78,18 +89,18 @@ t_node	*parse_redir(t_node *cmd, t_token **toklist)
 		else
 			*toklist = (*toklist)-> next;
 	}
-	else if ((*toklist) -> type == REDIR)
+	else
 	{
-		node = heredoc_cmd(*toklist);		// wip (inkrement toklist)
+		node = heredoc_cmd(*toklist);
 		if (node -> delim)
 			*toklist = (*toklist)-> next -> next;
 		else
 			*toklist = (*toklist)-> next;
 	}
+	if (*cmd)
+		(*cmd)-> subnode = node;
 	else
-		return (cmd);
-	node -> subnode = cmd;
-	return (node);
+		*cmd = node;
 }
 
 t_node	*init_node(t_list *envir)
@@ -107,7 +118,7 @@ t_node	*init_node(t_list *envir)
 	return (node);
 }
 
-void	add_attribute(t_node *node, char *str)
+void	add_attribute(t_node *node, t_token **toklist)
 {
 	int	i;
 
@@ -115,35 +126,39 @@ void	add_attribute(t_node *node, char *str)
 	while (i < 20 && (node -> param)[i])
 		i++;
 	if (i == 20)
-		printf("param limit in exec node");		// wip
+		panic("param limit in exec node");		// wip
+	else if (!*toklist || (*toklist)-> type == PIPE)
+		(node -> param)[i] = NULL;
 	else
-		(node -> param)[i] = str;
+	{
+		(node -> param)[i] = (*toklist)-> str;
+		*toklist = (*toklist)-> next;
+	}
 }
 
 t_node	*parse_exe(t_token **toklist, t_list *envir)
 {
 	t_node		*execmd;
-	t_node		*cmd;
+	t_node		*redircmd;
 	t_token		*token;
 
 	if (!*toklist)
 		return (NULL);
 	execmd = init_node(envir);
 	token = *toklist;
-	cmd = parse_redir(execmd, &token);
+	redircmd = NULL;
 	while (token)
 	{
 		if (token -> type == PIPE)
 			break ;
 		else if (token -> type == WORD)
-		{
-			add_attribute(execmd, token -> str);
-			token = token -> next;
-		}
-		cmd = parse_redir(cmd, &token);
+			add_attribute(execmd, &token);
+		else if (token -> type == REDIR)
+			parse_redir(&redircmd, &token);
 	}
-	add_attribute(execmd, NULL);
-	return (cmd);
+	add_attribute(execmd, &token);
+	add_last(redircmd, execmd);
+	return (redircmd);
 }
 
 // returns pipe node with two children or exec node with one child
