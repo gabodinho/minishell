@@ -58,7 +58,7 @@ typedef struct s_node
 t_node	*heredoc_cmd(t_token *token);
 t_node	*redir_cmd(t_token *token);
 t_node	*pipe_cmd(t_token **left_list, t_token **right_list, t_list *envir);
-t_node	*parse_redir(t_node *cmd, t_token **toklist);
+void	parse_redir(t_node **cmd, t_token **toklist);
 t_node	*init_node(t_list *envir);
 void	add_attribute(t_node *node, char *str);
 t_node	*parse_exe(t_token **toklist, t_list *envir);
@@ -74,9 +74,16 @@ char	**conv_env(t_list *envir);
 char	*find_exec(char *exec_file, char *path_var);
 char    *search_env(char *key, t_list *envir);
 void    del_arr(char **arr);
+<<<<<<< HEAD
 int		is_path(char *str);		// todo
 char	*exp_rel_path(char *exec_file, t_list *envir);	// todo
 //int		is_builtin(char *exec_file);					// todo
 //void	run_builtin(char **param, t_list *envir);			// todo
+=======
+char	*exp_home(char *str, t_list *envir);
+int		is_builtin(char *str);					// todo
+void	run_builtin(char **param, t_list **envir);			// todo
+void	ft_unset(char **param, t_list **envir);
+>>>>>>> ggiertzu
 
 #endif

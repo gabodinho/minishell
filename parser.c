@@ -6,11 +6,24 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/14 18:07:28 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:03:30 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+t_node	*add_last(t_node *redir, t_node *exec)
+{
+	t_node	*ptr;
+
+	ptr = redir;
+	if (!redir)
+		return (exec);
+	while (redir && redir -> subnode)
+		redir = redir -> subnode;
+	redir -> subnode = exec;
+	return (ptr);
+}
 
 t_node	*heredoc_cmd(t_token *token)
 {
@@ -41,10 +54,10 @@ t_node	*redir_cmd(t_token *token)
 	else
 	{
 		node -> fd = 1;
-		if (!ft_strncmp(token -> str, ">", 1))
-			node -> mode = O_WRONLY | O_CREAT | O_TRUNC;
-		else
+		if (!ft_strncmp(token -> str, ">>", 2))
 			node -> mode = O_WRONLY | O_CREAT | O_APPEND;
+		else
+			node -> mode = O_WRONLY | O_CREAT | O_TRUNC;
 	}
 	if (token -> next && (token -> next)-> type == WORD)
 		node -> file = (token -> next)-> str;		// check for error handling in og
@@ -64,13 +77,11 @@ t_node	*pipe_cmd(t_token **left_list, t_token **right_list, t_list *envir)
 	return (node);
 }
 
-t_node	*parse_redir(t_node *cmd, t_token **toklist)
+void	parse_redir(t_node **cmd, t_token **toklist)
 {
 	t_node	*node;
 
-	if (!*toklist)
-		return (cmd);
-	if (((*toklist) -> type == REDIR) && ft_strncmp((*toklist) -> str, "<<", 2))
+	if (ft_strncmp((*toklist) -> str, "<<", 2))
 	{
 		node = redir_cmd(*toklist);
 		if (node -> file)
@@ -78,18 +89,18 @@ t_node	*parse_redir(t_node *cmd, t_token **toklist)
 		else
 			*toklist = (*toklist)-> next;
 	}
-	else if ((*toklist) -> type == REDIR)
+	else
 	{
-		node = heredoc_cmd(*toklist);		// wip (inkrement toklist)
+		node = heredoc_cmd(*toklist);
 		if (node -> delim)
 			*toklist = (*toklist)-> next -> next;
 		else
 			*toklist = (*toklist)-> next;
 	}
+	if (*cmd)
+		(*cmd)-> subnode = node;
 	else
-		return (cmd);
-	node -> subnode = cmd;
-	return (node);
+		*cmd = node;
 }
 
 t_node	*init_node(t_list *envir)
@@ -115,7 +126,7 @@ void	add_attribute(t_node *node, char *str)
 	while (i < 20 && (node -> param)[i])
 		i++;
 	if (i == 20)
-		printf("param limit in exec node");		// wip
+		panic("param limit in exec node");		// wip
 	else
 		(node -> param)[i] = str;
 }
@@ -123,14 +134,15 @@ void	add_attribute(t_node *node, char *str)
 t_node	*parse_exe(t_token **toklist, t_list *envir)
 {
 	t_node		*execmd;
-	t_node		*cmd;
+	t_node		*redircmd;
 	t_token		*token;
-
+	
+	printf("parse");
 	if (!*toklist)
 		return (NULL);
 	execmd = init_node(envir);
 	token = *toklist;
-	cmd = parse_redir(execmd, &token);
+	redircmd = NULL;
 	while (token)
 	{
 		if (token -> type == PIPE)
@@ -140,10 +152,13 @@ t_node	*parse_exe(t_token **toklist, t_list *envir)
 			add_attribute(execmd, token -> str);
 			token = token -> next;
 		}
-		cmd = parse_redir(cmd, &token);
+		else if (token -> type == REDIR)
+			parse_redir(&redircmd, &token);
+		else
+			panic("unrecognized token");
 	}
 	add_attribute(execmd, NULL);
-	return (cmd);
+	return (add_last(redircmd, execmd));
 }
 
 // returns pipe node with two children or exec node with one child
@@ -154,7 +169,10 @@ t_node	*parse_pipe(t_token **toklist, t_list *envir)
 
 	token = *toklist;
 	if (!token)
+	{
+		printf("parsepipe");
 		return (NULL);
+	}
 	while (token && token -> type != PIPE)
 		token = token -> next;
 	if (token && token -> type == PIPE)		// create pipe node
