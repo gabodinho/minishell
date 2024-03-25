@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/18 13:39:08 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:58:23 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_token	*tokenizer(t_list *env, char *line);
 t_token	*tokenize_line(char *line);
 t_token	*create_token(char *content, int type);
 void	token_lst_add_back(t_token **token_lst, t_token *new);
+int		ft_strcmp(const char *s1, const char *s2);
 int		is_space(char c);
 void	skip_spaces(char **str);
 int		is_quotes(char c);
@@ -69,12 +70,5 @@ int		process_command(char **line, t_token **token_lst);
 void	print_token_list(t_token *token_lst); //quitar al final
 void	print_quotes_error(char c);
 
-/*libft
-char *ft_substr(char *s, unsigned int start, size_t len);
-int ft_strncmp(char *s1, char *s2, size_t n);
-char *ft_strchr(char *s, int c);
-void *ft_calloc(size_t count, size_t size);
-char *ft_strdup(const char *str);
-*/
 
 #endif

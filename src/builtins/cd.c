@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/24 16:09:04 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:59:39 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*change_directory(char *new_dir)
 	}
 	return (getcwd(NULL, 0));
 }
+
 // Función para actualizar una variable de entorno existente
 void	update_existing_environment_variable(t_list *env_list, const char *key,
 	const char *value)
@@ -43,7 +44,6 @@ void	update_existing_environment_variable(t_list *env_list, const char *key,
 		entry = (char *)env_list->content;
 		if (ft_strncmp(entry, key, key_len) == 0)
 		{
-			//free(entry);
 			env_list->content = env_key;
 			return ;
 		}
