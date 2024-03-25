@@ -6,11 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2024/03/20 17:53:37 by irivero-         ###   ########.fr       */
-=======
-/*   Updated: 2024/03/16 02:13:03 by ggiertzu         ###   ########.fr       */
->>>>>>> ggiertzu
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +41,7 @@ static void	run_redir(t_node *node, t_list *envir)
 
 int	is_path(char *str)
 {
-	if (str[0] == '/')
+	if (str[0] == '/' || str[0] == '.')
 		return (1);
 	return (0);
 }
@@ -59,19 +55,18 @@ static void	run_exec(t_node *node, t_list *envir)
 
 	env_arr = conv_env(envir);
 	path_to_exec = NULL;
-	// check wheter node -> param[0] is already a path
-	if (!access(node -> param[0], F_OK))
-		path_to_exec = node -> param[0];
-	else if (*node -> param[0] == '~')
-		path_to_exec = exp_home(node -> param[0], envir);
-	// search builtins
-<<<<<<< HEAD
-	else if (!is_builtin(node -> param))		// todo
-		run_builtin(node -> param, envir);		// todo
-	else	*/
-	//	path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
-	//printf("path to exec: %s\n", path_to_exec);
-	path_to_exec = NULL;
+	// // check wheter node -> param[0] is already a path
+	// if (!access(node -> param[0], F_OK))
+	// 	path_to_exec = node -> param[0];
+	// else if (*node -> param[0] == '~')
+	// 	path_to_exec = exp_home(node -> param[0], envir);
+	// // search builtins
+	// else if (!is_builtin(node -> param))		// todo
+	// 	run_builtin(node -> param, envir);		// todo
+	// else	*/
+	// //	path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
+	// //printf("path to exec: %s\n", path_to_exec);
+	// path_to_exec = NULL;
 	if (is_builtin(node->param[0]))
 	{
 		exec_builtins(node->param, envir);
@@ -100,16 +95,6 @@ static void	run_exec(t_node *node, t_list *envir)
 		g_exit_status = 127;
 	else
 		panic(node -> param[0]);
-=======
-//	also check if path is a directory using stat() -> see chatgpt
-	else if (!ft_strncmp(node -> param[0], "unset", 6))
-		run_builtin(node -> param, &envir);
-	else
-		path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
-	printf("path to exec: %s\n", path_to_exec);
-	if (path_to_exec)
-		execve(path_to_exec, node -> param, env_arr);
->>>>>>> ggiertzu
 	del_arr(env_arr);
 	free(path_to_exec);
 	panic(node -> param[0]);

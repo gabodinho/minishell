@@ -74,16 +74,9 @@ char	**conv_env(t_list *envir);
 char	*find_exec(char *exec_file, char *path_var);
 char    *search_env(char *key, t_list *envir);
 void    del_arr(char **arr);
-<<<<<<< HEAD
 int		is_path(char *str);		// todo
 char	*exp_rel_path(char *exec_file, t_list *envir);	// todo
 //int		is_builtin(char *exec_file);					// todo
 //void	run_builtin(char **param, t_list *envir);			// todo
-=======
-char	*exp_home(char *str, t_list *envir);
-int		is_builtin(char *str);					// todo
-void	run_builtin(char **param, t_list **envir);			// todo
-void	ft_unset(char **param, t_list **envir);
->>>>>>> ggiertzu
 
 #endif
