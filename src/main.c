@@ -57,7 +57,6 @@ int main(int argc, char *argv[], char *envp[])
 }
 */
 
-int	g_exit_status = 0;
 // including the flag -lreadline to work!
 
 int main(int argc, char *argv[], char *envp[])
