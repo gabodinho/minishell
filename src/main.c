@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/26 21:14:59 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:16:17 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,4 @@ int main(int argc, char *argv[], char *envp[])
 		clear_tree(tree);
 		clear_list(&token_lst);
 	}
-    return 0;
 }
