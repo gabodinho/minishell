@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:51:55 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/18 15:44:43 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:47:20 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	lst_rm(t_list **lst, int i)
 		prev->next = tmp->next;
 	else
 		*lst = tmp->next;
-	//free(tmp->content);
 	free(tmp);
 }
 
