@@ -13,6 +13,7 @@
 #include "tokenizer.h"
 #include "parser.h"
 
+/*
 // including the flag -lreadline to work!
 int main(int argc, char *argv[], char *envp[])
 {
@@ -50,21 +51,7 @@ int main(int argc, char *argv[], char *envp[])
 	}
     return 0;
 }
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishel_main_cp.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/26 15:14:26 by ggiertzu         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "tokenizer.h"
-#include "parser.h"
-#include "expander.h"
+*/
 
 int	g_exit_status = 0;
 // including the flag -lreadline to work!
