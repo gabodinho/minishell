@@ -1,33 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   exec_b.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 15:52:41 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/11 09:31:25 by irivero-         ###   ########.fr       */
+/*   Created: 2024/03/18 13:21:00 by irivero-          #+#    #+#             */
+/*   Updated: 2024/03/18 15:10:23 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtins.h"
-#include "../../libft/libft/libft.h"
+#ifndef EXEC_B_H
+# define EXEC_B_H
 
-int	ft_putstr(char *s)
-{
-	write(1, s, b_strlen(s));
-	write(1, "\n", 1);
-	return (0);
-}
+# include "builtins.h"
+# include "expander.h"
+# include "parser.h"
+# include "tokenizer.h"
+# include "libft.h"
 
-void	ft_env(t_envp *env)
-{
-	int	i = 0;
-	while (env->envp[i] != NULL)
-	{
-		if (ft_putstr(env->envp[i]) == -1)
-			return ;
-		i++;
-	}
-	return ;
-}
+bool	is_builtin(char *str);
+int		exec_builtins(char **av, t_list *env);
+
+#endif

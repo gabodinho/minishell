@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_nodes.c                                       :+:      :+:    :+:   */
+/*   search_exec_gabo_before_irene.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/20 17:53:37 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/19 16:24:43 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,90 +14,38 @@
 
 static void	run_redir(t_node *node, t_list *envir)
 {
-	int	new_fd;
-	int	saved_stdout;
-
 	if (!node -> file)
 		panic("missing file");
-	//close(node -> fd);
-	new_fd = open(node->file, node->mode, 0666);
-	if (new_fd < 0)
-	{
-		perror("open");
-		panic(node->file);
-	}
-	printf("opened file: %s with mode %d\n", node->file, node->mode);
-	saved_stdout = dup(STDOUT_FILENO);
-	dup2(new_fd, STDOUT_FILENO);
-	close(new_fd);
+	close(node -> fd);
+	if (open(node -> file, node -> mode, 0666) < 0)
+		panic(node -> file);
 	run_tree(node -> subnode, envir);
-	dup2(saved_stdout, STDOUT_FILENO);
-	close(saved_stdout);
-
-//	if (open(node -> file, node -> mode, 0666) < 0)
-//		panic(node -> file);
-//	run_tree(node -> subnode, envir);
 }
 
-int	is_path(char *str)
-{
-	if (str[0] == '/' || str[0] == '.')
-		return (1);
-	return (0);
-}
-
-
-// !!!ACHTUNG builtins sollten vor der Ausführung des trees ausgeführt werden um nichtin jedem exec node eine kopie des envirs zu haben -> oder Alternativen?
 static void	run_exec(t_node *node, t_list *envir)
 {
 	char	*path_to_exec;
 	char	**env_arr;
 
 	env_arr = conv_env(envir);
-	path_to_exec = NULL;
-	// // check wheter node -> param[0] is already a path
-	// if (!access(node -> param[0], F_OK))
-	// 	path_to_exec = node -> param[0];
-	// else if (*node -> param[0] == '~')
-	// 	path_to_exec = exp_home(node -> param[0], envir);
-	// // search builtins
-	// else if (!is_builtin(node -> param))		// todo
-	// 	run_builtin(node -> param, envir);		// todo
-	// else	*/
-	// //	path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
-	// //printf("path to exec: %s\n", path_to_exec);
-	// path_to_exec = NULL;
-	if (is_builtin(node->param[0]))
-	{
-		exec_builtins(node->param, envir);
-		del_arr(env_arr);
-		return ;
-	}
-	else if (is_path(node -> param[0]))
-		path_to_exec = ft_strdup(node -> param[0]);
+	/*
+	// check wheter node -> param[0] is already a path
+	if (!is_path(node -> param[0]))				// todo
+		path_to_exec = exp_rel_path(node -> param[0]);	// todo inclusive access check
+	// search builtins
+	else if (!is_builtin(node -> param))		// todo
+		run_builtin(node -> param, envir);		// todo
+	else	*/
+		path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
+	printf("path to exec: %s\n", path_to_exec);
+	if (path_to_exec)
+		execve(path_to_exec, node -> param, env_arr);
 	else
 	{
-		path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
-		printf("path to exec: %s\n", path_to_exec);
-	}
-	if (path_to_exec)
-	{
-		if (execve(path_to_exec, node -> param, env_arr) == -1)
-		{
-			panic(node -> param[0]);
-			g_exit_status = 1;
-		}
-		panic(node -> param[0]);
 		del_arr(env_arr);
 		free(path_to_exec);
-	}
-	else if (!path_to_exec)
-		g_exit_status = 127;
-	else
 		panic(node -> param[0]);
-	del_arr(env_arr);
-	free(path_to_exec);
-	panic(node -> param[0]);
+	}
 }
 
 static void	run_pipe(t_node *node, t_list *envir)

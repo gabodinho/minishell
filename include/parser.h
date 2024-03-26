@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:25:38 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/05 16:50:03 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:10:39 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "ft_printf.h"
 # include "tokenizer.h"
+# include "exec_b.h"
+# include "builtins.h"
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit, getenv
 # include <unistd.h> //getcwd, chdir, fork, execve, wait, write, read, pipe, dup, dup2, close, isatty, ttyname, ttyslot, unlink
@@ -72,9 +74,9 @@ char	**conv_env(t_list *envir);
 char	*find_exec(char *exec_file, char *path_var);
 char    *search_env(char *key, t_list *envir);
 void    del_arr(char **arr);
-char	*exp_home(char *str, t_list *envir);
-int		is_builtin(char *str);					// todo
-void	run_builtin(char **param, t_list **envir);			// todo
-void	ft_unset(char **param, t_list **envir);
+int		is_path(char *str);		// todo
+char	*exp_rel_path(char *exec_file, t_list *envir);	// todo
+//int		is_builtin(char *exec_file);					// todo
+//void	run_builtin(char **param, t_list *envir);			// todo
 
 #endif

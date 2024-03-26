@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/14 14:11:35 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:09:00 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,42 +31,34 @@
 
 # include "ft_printf.h"
 
+# define MAX_TOKEN_LENGTH 100
+
 //define el tipo de token
 # define T_NULL 0
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
-//# define DLESS 3
-//# define DGREAT 4
-//# define LESS 5
-//# define GREAT 6
-//# define HEREDOC 4
 # define DOUBLE_QUOTES 4
 # define SINGLE_QUOTES 5
 
 //estructura para un token
 typedef struct	s_token 
 {
-	int				type; // tipo de token 
-	char			*str; // cadena asociada al token
-	struct s_token	*next; // siguiente token
-	struct s_token	*prev; // token anterior
+	int				type;
+	char			*str;
+	struct s_token	*next;
+	struct s_token	*prev;
 	
 } t_token;
-
-typedef struct	s_envp
-{
-	char	**envp;
-	char 	*cd_hist;
-} t_envp;
 
 extern int	g_exit_status;
 
 //new_tokenizer
-t_token	*tokenizer(char *line);
+t_token	*tokenizer(t_list *env, char *line);
 t_token	*tokenize_line(char *line);
 t_token	*create_token(char *content, int type);
 void	token_lst_add_back(t_token **token_lst, t_token *new);
+int		ft_strcmp(char *s1, char *s2);
 int		is_space(char c);
 void	skip_spaces(char **str);
 int		is_quotes(char c);
@@ -75,14 +67,8 @@ int		is_shell_separator(char *c);
 void	clear_list(t_token **token_lst);
 int		add_separator_token(int type, char **line, t_token **token_lst);
 int		process_command(char **line, t_token **token_lst);
-void	print_token_list(t_token *token_lst);
+void	print_token_list(t_token *token_lst); //quitar al final
+void	print_quotes_error(char c);
 
-/*libft
-char *ft_substr(char *s, unsigned int start, size_t len);
-int ft_strncmp(char *s1, char *s2, size_t n);
-char *ft_strchr(char *s, int c);
-void *ft_calloc(size_t count, size_t size);
-char *ft_strdup(const char *str);
-*/
 
 #endif

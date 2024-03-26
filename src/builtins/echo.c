@@ -6,58 +6,57 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:47 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/14 09:22:55 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:14:32 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtins.h"
-#include "../../libft/libft/libft.h"
+#include "builtins.h"
 
-int	echo_helper(char **av, char *c, int *i)
+// Función para verificar si se debe omitir el salto de linea
+bool	should_omit_newline(char **av)
 {
-	if (av[1] == NULL)
+	return (av[1] != NULL && strcmp(av[1], "-n") == 0);
+}
+
+//Función para imprimir un argumento, manejando las comillas si es necesario
+void	print_argument(char *arg)
+{
+	char	quote_char;
+	size_t	len;
+
+	if (arg[0] == '"' || arg[0] == '\'')
 	{
-		write(1, "\n", 1);
-		return (1);
+		quote_char = arg[0];
+		len = ft_strlen(arg);
+		if (len > 0 && arg[len - 1] == quote_char)
+		{
+			arg[len - 1] = '\0';
+			printf("%s", arg + 1);
+		}
+		else
+			printf("%s", arg);
 	}
-	if (b_strcmp("-n", av[1]) == 0)
-	{
-		*i = 2;
-		*c = 'n';
-	}
-	if (ft_strcmp("$?", av[1]) != 0 && b_strcmp("$?", av[1]) == 0 && av[1][1] != '\0')
-	{
-		printf("no matches found: 0?\n");
-		g_exit_status = 1;
-		return (1);
-	}
-	else if (ft_strcmp("$?", av[1]) == 0)
-	{
-		printf("%i\n", g_exit_status);
-		return (1);
-	}
-	return (0);
+	else
+		printf("%s", arg);
 }
 
 void	our_echo(char **av)
 {
 	int		i;
-	char	c;
+	bool	no_newline;
 
-	c = 'y';
 	i = 1;
-	if (echo_helper(av, &c, &i) == 1)
-		return ;
+	no_newline = should_omit_newline(av);
+	if (no_newline)
+		i = 2;
 	while (av[i] != NULL)
 	{
-		b_putstr(av[i]);
+		print_argument(av[i]);
 		if (av[i + 1] != NULL)
-			write(1, " ", 1);
-		if (av[i + 1] == NULL && c == 'y' && av[i][0] != '\n')
-			write(1, "\n", 1);
+			printf(" ");
 		i++;
 	}
+	if (!no_newline)
+		printf("\n");
 	g_exit_status = 0;
-	//exit(g_exit_status);
-	return ;
 }

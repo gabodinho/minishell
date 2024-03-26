@@ -136,8 +136,7 @@ t_node	*parse_exe(t_token **toklist, t_list *envir)
 	t_node		*execmd;
 	t_node		*redircmd;
 	t_token		*token;
-	
-	printf("parse");
+
 	if (!*toklist)
 		return (NULL);
 	execmd = init_node(envir);
@@ -169,10 +168,7 @@ t_node	*parse_pipe(t_token **toklist, t_list *envir)
 
 	token = *toklist;
 	if (!token)
-	{
-		printf("parsepipe");
 		return (NULL);
-	}
 	while (token && token -> type != PIPE)
 		token = token -> next;
 	if (token && token -> type == PIPE)		// create pipe node

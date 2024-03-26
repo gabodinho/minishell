@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:14:22 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/05 16:16:21 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/18 12:52:04 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,14 @@ bool	skip_quotes(char *line, size_t  *i)
 		return (true);
 	}
 	return (false);
+}
+
+void	print_quotes_error(char c)
+{
+	ft_putstr_fd("minishell: unexpected EOF reached while looking for '", 2);
+	ft_putchar_fd(c, 2);
+	ft_putendl_fd("'", 2);
+	g_exit_status = 258;
 }
 /*temporal hasta acceso a libft
 char	*ft_substr(const char *str, int start, int length)

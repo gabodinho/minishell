@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 14:17:44 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/15 15:25:00 by irivero-         ###   ########.fr       */
+/*   Created: 2024/03/07 17:18:24 by irivero-          #+#    #+#             */
+/*   Updated: 2024/03/15 15:44:31 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#ifndef EXPANDER_H
+# define EXPANDER_H
+
+# include "parser.h"
+# include "tokenizer.h"
+# include "ft_printf.h"
+
+int		is_envirom(char *str, int i);
+int		is_env_char(char c);
+int		is_token_in_env(char *str);
+int		find_dollar(char *str, int i);
+void	new_string(char *new_str, char *subs1, char *value, char *subs2);
+char	*create_string(t_list *env, char *token, int start_d, int end_d);
+
+char 	*get_env_value(t_list *env,  char *env_key);
 
 void	expander(t_list *env, t_token *token);
 
-t_token	*tokenizer(t_list *env, char *line)
-{
-	t_token	*token_lst;
 
-	token_lst = tokenize_line(line);
-	expander(env, token_lst);
-	return (token_lst);
-}
-
-void print_token_list(t_token *token_lst) 
-{
-    while (token_lst) 
-	{
-        printf("Type: %d, Identifier: %s\n", token_lst->type, token_lst->str);
-		token_lst = token_lst->next;
-    }
-}
+#endif

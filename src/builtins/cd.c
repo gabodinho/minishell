@@ -6,74 +6,115 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/11 10:02:13 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/25 14:59:39 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/builtins.h"
+#include "builtins.h"
 
-char	*path_finder(char **env)
+// Función para cambiar el directorio actual
+char	*change_directory(char *new_dir)
 {
-	int	i;
-
-	i = 0;
-	while (env[i] != NULL)
+	if (chdir(new_dir) == -1)
 	{
-		if (b_strcmp("HOME=", env[i]) == 0)
-			break ;
-		i++;
+		perror("chdir");
+		return (NULL);
 	}
-	return (env[i]);
+	return (getcwd(NULL, 0));
 }
 
-char	*path_to_usr(char *path)
+// Función para actualizar una variable de entorno existente
+void	update_existing_environment_variable(t_list *env_list, const char *key,
+	const char *value)
 {
-	int	i;
+	size_t	key_len;
+	char	*env_key;
+	char	*entry;
 
-	i = 0;
-	while (path[i] != '/')
-		i++;
-	return (path + i);
-}
-
-char	*path_filler(char **paths, t_envp *env, char *path)
-{
-	char	*tmp;
-
-	path = path_finder(env->envp);
-	path = path_to_usr(path);
-	if (paths[1] && paths[1][0] == '~')
+	key_len = ft_strlen(key);
+	env_key = malloc(key_len + ft_strlen(value) + 1);
+	if (env_key == NULL)
 	{
-		tmp = malloc(b_strlen(path) + b_strlen(paths[1]) + 1);
-		ft_strlcpy(tmp, path, b_strlen(path) + 1);
-		ft_strlcat(tmp, paths[1] + 1, b_strlen(tmp) + b_strlen(paths[1]) + 1);
-		path = tmp;
-	}
-	return (path);
-}
-
-void	change_directory(char **paths, t_envp *env)
-{
-	char    *path;
-	char    *ptr[2];
-
-	ptr[0] = "1";
-	ptr[1] = NULL;
-	path = NULL;
-	if (env->cd_hist != NULL && (paths[1] && \
-	ft_strcmp(paths[1], "-") == 0) && paths[2] == NULL)
-		path = env->cd_hist;
-	else if (paths[1])
-		path = paths[1];
-	if (!env->cd_hist)
-		env->cd_hist = b_strlcpy(our_pwd(ptr, 0));
-	if (!path || b_strcmp(path, "~") == 0)
-		path = path_filler(paths, env, path);
-	if (chdir(path) == -1)
-	{
-		g_exit_status = 1;
-		printf("cd: no such file or directory: %s\n", path);
+		perror("malloc");
 		return ;
 	}
-	g_exit_status = 0;
+	sprintf(env_key, "%s%s", key, value);
+	while (env_list)
+	{
+		entry = (char *)env_list->content;
+		if (ft_strncmp(entry, key, key_len) == 0)
+		{
+			env_list->content = env_key;
+			return ;
+		}
+		env_list = env_list->next;
+	}
+}
+
+// Función para agregar una nueva variable de entorno
+void	add_new_environment_variable(t_list **env_list, const char *key,
+	const char *value)
+{
+	size_t	key_len;
+	char	*env_key;
+	t_list	*new_entry;
+
+	key_len = ft_strlen(key);
+	env_key = malloc(key_len + ft_strlen(value) + 1);
+	if (env_key == NULL)
+		return ;
+	sprintf(env_key, "%s%s", key, value);
+	new_entry = malloc(sizeof(t_list));
+	if (new_entry == NULL)
+	{
+		free(env_key);
+		return ;
+	}
+	new_entry->content = env_key;
+	new_entry->next = NULL;
+	while (*env_list && (*env_list)->next)
+		*env_list = (*env_list)->next;
+	if (*env_list)
+		(*env_list)->next = new_entry;
+	else
+		*env_list = new_entry;
+}
+
+// Función principal para actualizar una variable de entorno
+void	update_environment_variable(t_list **env_list, const char *key,
+	const char *value)
+{
+	if (*env_list == NULL)
+		add_new_environment_variable(env_list, key, value);
+	else
+		update_existing_environment_variable(*env_list, key, value);
+}
+
+// Función para el comando cd
+void	our_cd(char **av, t_list *env_list)
+{
+	char	*old_pwd;
+	char	*new_dir;
+	char	*new_pwd;
+
+	old_pwd = getcwd(NULL, 0);
+	if (old_pwd == NULL)
+	{
+		perror("getcwd");
+		return ;
+	}
+	if (av[1] != NULL)
+		new_dir = av[1];
+	else
+		new_dir = getenv("HOME");
+	new_pwd = change_directory(new_dir);
+	if (new_pwd == NULL)
+	{
+		free(old_pwd);
+		return ;
+	}
+	update_environment_variable(&env_list, "PWD=", new_pwd);
+	update_environment_variable(&env_list, "OLDPWD=", old_pwd);
+	free(old_pwd);
+	free(new_pwd);
 }
