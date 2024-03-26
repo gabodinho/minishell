@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/24 16:13:02 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:16:17 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int main(int argc, char *argv[], char *envp[])
 		line = readline("minishell$ ");
 		if (!line)
 			break;
-		if (line[0] != '\0' && !is_space(*line))
+		if (line[0] != '\0' && !is_space(line[0]))
 			add_history(line);			//only add non empty lines to hist
 		token_lst = tokenizer(envir, line);
 		tree = parse_pipe(&token_lst, envir);
@@ -48,12 +48,10 @@ int main(int argc, char *argv[], char *envp[])
 			run_tree(tree, envir);
 		}
 		wait(0);
-		if (ft_strcmp(line, "exit") == 0)
-			exit(g_exit_status);
 		free(line);
 		clear_tree(tree);
 		clear_list(&token_lst);
 	}
-
+	clear_history();
     return(0);
 }
