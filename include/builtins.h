@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/25 15:03:14 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:37:20 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,9 @@ void	our_echo(char **av);
 //exit
 void	exit_command(char **av);
 //export
-void export_builtin(char **builtin, t_list **env_list);
+int		get_arg_count(char **argv);
+void	free_arr(char **env, int len);
+void 	export_builtin(char **builtin, t_list **env_list);
 //pwd
 void	if_pflag_is_one(char *path);
 char	*our_pwd(char **av, int pflag);

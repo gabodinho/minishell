@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/25 14:58:23 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/25 15:09:00 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@
 //estructura para un token
 typedef struct	s_token 
 {
-	int				type; // tipo de token 
-	char			*str; // cadena asociada al token
-	struct s_token	*next; // siguiente token
-	struct s_token	*prev; // token anterior
+	int				type;
+	char			*str;
+	struct s_token	*next;
+	struct s_token	*prev;
 	
 } t_token;
 
@@ -58,7 +58,7 @@ t_token	*tokenizer(t_list *env, char *line);
 t_token	*tokenize_line(char *line);
 t_token	*create_token(char *content, int type);
 void	token_lst_add_back(t_token **token_lst, t_token *new);
-int		ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(char *s1, char *s2);
 int		is_space(char c);
 void	skip_spaces(char **str);
 int		is_quotes(char c);
