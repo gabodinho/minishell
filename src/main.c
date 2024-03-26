@@ -15,6 +15,7 @@
 #include "expander.h"
 
 int	g_exit_status = 0;
+
 // including the flag -lreadline to work!
 
 int main(int argc, char *argv[], char *envp[])
@@ -45,13 +46,12 @@ int main(int argc, char *argv[], char *envp[])
 				exit(EXIT_FAILURE);
 //			printf("syntax check passed\n");
 //			run_tree(parse_pipe(&token_lst));
-			run_tree(tree, envir);
+			run_tree(tree, &envir);
 		}
 		wait(0);
 		free(line);
 		clear_tree(tree);
 		clear_list(&token_lst);
 	}
-	clear_history();
-    return(0);
+    return 0;
 }
