@@ -64,7 +64,7 @@ void	add_attribute(t_node *node, char *str);
 t_node	*parse_exe(t_token **toklist, t_list *envir);
 t_node	*parse_pipe(t_token **toklist, t_list *envir);
 void	print_tree(t_node *tree);		// to be deleted for final vers
-void	run_tree(t_node *tree, t_list *envir);
+void	run_tree(t_node *tree, t_list **envir);
 void	clear_tree(t_node *tree);
 void	panic(char *msg);
 int		syntax_check(t_token *toklist);

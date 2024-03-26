@@ -20,6 +20,6 @@
 # include "libft.h"
 
 bool	is_builtin(char *str);
-int		exec_builtins(char **av, t_list *env);
+int		exec_builtins(char **av, t_list **env);
 
 #endif

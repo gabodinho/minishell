@@ -12,7 +12,7 @@
 
 #include "parser.h"
 
-static void	run_redir(t_node *node, t_list *envir)
+static void	run_redir(t_node *node, t_list **envir)
 {
 	int	new_fd;
 	int	saved_stdout;
@@ -48,12 +48,12 @@ int	is_path(char *str)
 
 
 // !!!ACHTUNG builtins sollten vor der Ausführung des trees ausgeführt werden um nichtin jedem exec node eine kopie des envirs zu haben -> oder Alternativen?
-static void	run_exec(t_node *node, t_list *envir)
+static void	run_exec(t_node *node, t_list **envir)
 {
 	char	*path_to_exec;
 	char	**env_arr;
 
-	env_arr = conv_env(envir);
+	env_arr = conv_env(*envir);
 	path_to_exec = NULL;
 	// // check wheter node -> param[0] is already a path
 	// if (!access(node -> param[0], F_OK))
@@ -77,7 +77,7 @@ static void	run_exec(t_node *node, t_list *envir)
 		path_to_exec = ft_strdup(node -> param[0]);
 	else
 	{
-		path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
+		path_to_exec = find_exec(node -> param[0], search_env("PATH", *envir));
 		printf("path to exec: %s\n", path_to_exec);
 	}
 	if (path_to_exec)
@@ -100,7 +100,7 @@ static void	run_exec(t_node *node, t_list *envir)
 	panic(node -> param[0]);
 }
 
-static void	run_pipe(t_node *node, t_list *envir)
+static void	run_pipe(t_node *node, t_list **envir)
 {
 	int	p_fd[2];
 
@@ -128,7 +128,7 @@ static void	run_pipe(t_node *node, t_list *envir)
 }
 
 
-static void	run_here(t_node *node, t_list *envir)
+static void	run_here(t_node *node, t_list **envir)
 {
 	char	*buff;
 	int		tmp_fd;
@@ -156,7 +156,7 @@ static void	run_here(t_node *node, t_list *envir)
 }
 
 
-void	run_tree(t_node *tree, t_list *envir)
+void	run_tree(t_node *tree, t_list **envir)
 {
 	if (!tree)
 		panic("no tree");
