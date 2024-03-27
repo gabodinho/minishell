@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/20 17:53:37 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/27 11:53:57 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,12 +130,54 @@ static void	run_pipe(t_node *node, t_list **envir)
 
 static void	run_here(t_node *node, t_list **envir)
 {
+	int		pipe_fd[2];
+	int		stdin_cpy;
+	pid_t	pid;
+	char	*buf;
+
+	if (pipe(pipe_fd) == -1)
+		panic("heredoc: pipe");
+	pid = fork();
+	if (pid < 0)
+		panic("heredoc");
+	else if (!pid)
+	{
+		stdin_cpy = dup(STDIN_FILENO);
+		dup2(pipe_fd[0], STDIN_FILENO);
+		close(pipe_fd[1]);
+		close(pipe_fd[0]);
+		while (1)
+		{
+			write(STDOUT_FILENO, "heredoc> ", 9);
+			buf = get_next_line(stdin_cpy);
+			if (!ft_strncmp(node -> delim, buf, ft_strlen(node -> delim)))
+				break ;
+		}
+		dup2(stdin_cpy, STDIN_FILENO);
+		close(stdin_cpy);
+		exit(0);
+	}
+	else
+	{
+		dup2(pipe_fd[1], STDIN_FILENO);
+		close(pipe_fd[1]);
+        close(pipe_fd[0]);
+		wait(0);
+	}
+	run_tree(node -> subnode, envir);
+}
+
+/*
+static void	run_here(t_node *node, t_list **envir)
+{
 	char	*buff;
 	int		tmp_fd;
 	int		prompt_fd;
+	char	*tmp_file;
 
 	buff = NULL;
-	tmp_fd = open("tmp_file", O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
+	tmp_file = ft_strjoin(node -> delim, "_file.tmp");
+	tmp_fd = open(tmp_file, O_WRONLY | O_CREAT | O_EXCL | O_TRUNC, 0600);
 	prompt_fd = open("/dev/tty", O_WRONLY);
 	while (1)
 	{
@@ -148,13 +190,13 @@ static void	run_here(t_node *node, t_list **envir)
 	}
 	close(tmp_fd);
 	close(prompt_fd);
-	tmp_fd = open("tmp_file", O_RDONLY);
-	unlink("tmp_file");
+	tmp_fd = open(tmp_file, O_RDONLY);
+	unlink(tmp_file);
 	dup2(tmp_fd, STDIN_FILENO);
 	close(tmp_fd);
 	run_tree(node -> subnode, envir);
 }
-
+*/
 
 void	run_tree(t_node *tree, t_list **envir)
 {
