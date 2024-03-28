@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/27 11:53:57 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:18:23 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,23 +143,25 @@ static void	run_here(t_node *node, t_list **envir)
 	else if (!pid)
 	{
 		stdin_cpy = dup(STDIN_FILENO);
-		dup2(pipe_fd[0], STDIN_FILENO);
-		close(pipe_fd[1]);
+		dup2(pipe_fd[1], STDIN_FILENO);
+		close(STDIN_FILENO);
 		close(pipe_fd[0]);
 		while (1)
 		{
-			write(STDOUT_FILENO, "heredoc> ", 9);
+//			write(STDOUT_FILENO, "heredoc> ", 9);
 			buf = get_next_line(stdin_cpy);
 			if (!ft_strncmp(node -> delim, buf, ft_strlen(node -> delim)))
 				break ;
+			write(pipe_fd[1], buf, ft_strlen(buf));
 		}
+		close(pipe_fd[1]);
 		dup2(stdin_cpy, STDIN_FILENO);
 		close(stdin_cpy);
 		exit(0);
 	}
 	else
 	{
-		dup2(pipe_fd[1], STDIN_FILENO);
+		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[1]);
         close(pipe_fd[0]);
 		wait(0);
