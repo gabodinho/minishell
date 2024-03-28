@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:02:46 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/25 15:02:10 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/28 15:01:07 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	export_one_var(char **arr, t_list **env_list)
 		val = ft_strdup("");
 	str = ft_strjoin(var, ft_strdup("="));
 	str = ft_strjoin(str, val);
-	unset_env_list(env_list, var);
+	unset_env_list(env_list, &var);
 	ft_lstadd_back(env_list, ft_lstnew(str));
 }

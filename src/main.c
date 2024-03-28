@@ -6,13 +6,14 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/25 15:16:17 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/28 17:05:29 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 #include "parser.h"
 #include "expander.h"
+#include "signals.h"
 
 int	g_exit_status = 0;
 
@@ -29,6 +30,11 @@ int main(int argc, char *argv[], char *envp[])
 	(void) argv;
 
 	envir = get_env(envp);
+	suppress_output();
+	if (isatty(STDIN_FILENO))
+		signal_interactive();
+	else
+		signal_non_interactive();
 	while (1)
 	{
 		line = readline("minishell$ ");
