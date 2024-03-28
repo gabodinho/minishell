@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:20:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/20 15:43:19 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:49:25 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ bool	is_builtin(char *str)
 
 int	exec_builtins(char **av, t_list **env)
 {
+	char	**keys;
 	if (ft_strcmp(av[0], "echo") == 0)
 		return (our_echo(av), 0);
 	if (ft_strcmp(av[0], "cd") == 0)
@@ -40,7 +41,14 @@ int	exec_builtins(char **av, t_list **env)
 	if (ft_strcmp(av[0], "env") == 0)
 		return (print_env(*env), 0); //change env.c
 	if (ft_strcmp(av[0], "unset") == 0)
-		return (unset_env_list(env, av[1]), 0); //change
+	{
+		if (av[1] != NULL)
+		{
+			keys = av + 1;
+			unset_env_list(env, keys);
+		}
+		return (0);
+	}
 	else
 		exit_command(av);
 	return (1);

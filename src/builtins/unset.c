@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:51:55 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/25 15:47:20 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:45:29 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,27 @@ void	lst_rm(t_list **lst, int i)
 	free(tmp);
 }
 
-void	unset_env_list(t_list **env_list, char *target_key)
+void	unset_env_list(t_list **env_list, char **target_key)
 {
 	t_list	*temp;
 	int		i;
 
 	if (!target_key || !env_list)
 		return ;
-	i = 0;
-	temp = *env_list;
-	while (temp)
+	while (*target_key)
 	{
-		if (!ft_strncmp(temp -> content, target_key, ft_strlen(target_key)))
-			return (lst_rm(env_list, i));
-		temp = temp -> next;
-		i++;
+		i = 0;
+		temp = *env_list;
+		while (temp)
+		{
+			if (!ft_strncmp(temp -> content, *target_key, ft_strlen(*target_key)))
+			{
+				lst_rm(env_list, i);
+				break ;
+			}
+			temp = temp -> next;
+			i++;
+		}
+		target_key++;
 	}
 }

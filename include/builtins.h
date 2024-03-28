@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/25 15:37:20 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/28 13:45:40 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	if_pflag_is_one(char *path);
 char	*our_pwd(char **av, int pflag);
 //unset
 void	lst_rm(t_list **lst, int i);
-void	unset_env_list(t_list **env_list, char *target_key);
+void	unset_env_list(t_list **env_list, char **target_key);
 
 //utils
 void	print_export_error(char *var, char *val, char *message);
