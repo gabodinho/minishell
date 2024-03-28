@@ -25,6 +25,7 @@ int main(int argc, char *argv[], char *envp[])
 	t_node	*tree;
 	char	*line;
 	t_list	*envir;
+	pid_t	pid;
 	(void) argc;
 	(void) argv;
 
@@ -38,9 +39,12 @@ int main(int argc, char *argv[], char *envp[])
 			add_history(line);			//only add non empty lines to hist
 		token_lst = tokenizer(envir, line);
 		tree = parse_pipe(&token_lst, envir);
-		print_token_list(token_lst);
-		print_tree(tree);
-		if (fork() == 0)
+//		print_token_list(token_lst);
+//		print_tree(tree);
+		pid = fork();
+		if (pid < 0)
+			panic("fork");
+		else if (!pid)
 		{
 			if (syntax_check(token_lst))
 				exit(EXIT_FAILURE);
@@ -48,7 +52,8 @@ int main(int argc, char *argv[], char *envp[])
 //			run_tree(parse_pipe(&token_lst));
 			run_tree(tree, &envir);
 		}
-		wait(0);
+		else
+			waitpid(pid, NULL, 0);
 		free(line);
 		clear_tree(tree);
 		clear_list(&token_lst);
