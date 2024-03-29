@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:39:53 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/29 14:49:40 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:59:35 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	suppress_output(void)
 void	sigint_handler(int signum)
 {
 	(void)signum;
-	ft_putstr_fd("\n", 1);
 	rl_replace_line("", 0);
 	rl_on_new_line();
+	write(1, "\n", 1);
 	rl_redisplay();
 }
 
