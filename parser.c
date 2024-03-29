@@ -77,7 +77,7 @@ t_node	*pipe_cmd(t_token **left_list, t_token **right_list, t_list *envir)
 	return (node);
 }
 
-void	parse_redir(t_node **cmd, t_token **toklist)
+t_node	*parse_redir(t_node *cmd, t_token **toklist)
 {
 	t_node	*node;
 
@@ -97,10 +97,7 @@ void	parse_redir(t_node **cmd, t_token **toklist)
 		else
 			*toklist = (*toklist)-> next;
 	}
-	if (*cmd)
-		(*cmd)-> subnode = node;
-	else
-		*cmd = node;
+	return (add_last(cmd, node));
 }
 
 t_node	*init_node(t_list *envir)
@@ -152,7 +149,7 @@ t_node	*parse_exe(t_token **toklist, t_list *envir)
 			token = token -> next;
 		}
 		else if (token -> type == REDIR)
-			parse_redir(&redircmd, &token);
+			redircmd = parse_redir(redircmd, &token);
 		else
 			panic("unrecognized token");
 	}
@@ -215,6 +212,8 @@ void	print_tree(t_node *tree)
 			}
 			else if (tree -> ntype == N_REDIR)
 				printf("\tmode: %d, fd: %d, file: %s\n", tree -> mode, tree -> fd, tree -> file);
+			else if (tree -> ntype == N_HERE)
+				printf("\theredoc with delim: %s\n", tree -> delim);
 			tree = tree -> subnode;
 		}
 	}
