@@ -15,7 +15,7 @@
 // Función para verificar si se debe omitir el salto de linea
 bool	should_omit_newline(char **av)
 {
-	return (av[1] != NULL && strcmp(av[1], "-n") == 0);
+	return (av[1] != NULL && ft_strcmp(av[1], "-n") == 0);
 }
 
 //Función para imprimir un argumento, manejando las comillas si es necesario
