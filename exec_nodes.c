@@ -144,8 +144,8 @@ void	write_to_pipe(int pfd[2], t_node *node)
 	while (1)
 	{
 		buf = readline("heredoc> ");
-		if (!buf)
-			panic("heredoc: readline");
+//		if (!buf)
+//			panic("heredoc: readline");
 		if (!ft_strncmp(node -> delim, buf, ft_strlen(buf)))
 			break ;
 		write(pfd[1], buf, ft_strlen(buf));
@@ -195,4 +195,5 @@ void	run_tree(t_node *tree, t_list **envir)
 		run_here(tree, envir);
 	else
 		run_exec(tree, envir);
+	exit(0);
 }

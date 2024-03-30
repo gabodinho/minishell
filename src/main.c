@@ -56,7 +56,7 @@ int main(int argc, char *argv[], char *envp[])
 			panic("readline");
 		if (line[0] != '\0' && !is_space(line[0]))
 			add_history(line);
-		token_lst = tokenizer(envir, line);
+		token_lst = tokenizer(envir, line, exit_status);
 		tree = parse_pipe(&token_lst, envir);
 		if (!syntax_check(token_lst))
 			exit_status = execute_cmds(tree, &envir, exit_status);
