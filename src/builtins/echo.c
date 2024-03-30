@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:47 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/25 14:14:32 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/30 09:02:20 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // Función para verificar si se debe omitir el salto de linea
 bool	should_omit_newline(char **av)
 {
-	return (av[1] != NULL && strcmp(av[1], "-n") == 0);
+	return (av[1] != NULL && ft_strcmp(av[1], "-n") == 0);
 }
 
 //Función para imprimir un argumento, manejando las comillas si es necesario

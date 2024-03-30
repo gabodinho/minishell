@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 09:39:49 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/19 13:00:31 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/03/30 08:55:33 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	*create_string(t_list *env, char *token, int start_d, int end_d)
 	int		len;
 
 	key = ft_substr(token, start_d + 1, end_d - start_d);
-	if (strcmp(key, "?") == 0)
+	if (ft_strcmp(key, "?") == 0)
 		value = ft_itoa(g_exit_status);
 	else
 		value = get_env_value(env, key);
