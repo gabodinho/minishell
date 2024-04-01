@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:12 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/01 10:42:02 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/01 12:42:16 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,41 +65,36 @@ void	handle_export(char **argv, t_list **env_list)
 	}
 }
 
+void	print_env_declare(t_list *envlist)
+{
+	while (envlist)
+	{
+		printf("declare -x ");
+		printf("%s\n", (char *) envlist -> content);
+		envlist = envlist -> next;
+	}
+}
+
 void	export_builtin(char **argv, t_list **env_list)
 {
 	int		count;
 	char	**arr;
 
-	count = 0;
-	arr = NULL;
 	count = non_empty_str(argv);
 	arr = empty_str(argv);
 	g_exit_status = 0;
 	if (count == 1 || arr == NULL)
-	{
-		print_env(*env_list);
-		return ;
-	}
+		print_env_declare(*env_list);
 	else if (count == 2 && arr != NULL)
 	{
-		if (!ft_strcmp(arr[1], "#"))
-		{
-			print_env(*env_list);
-			return ;
-		}
-		else if (ft_strchr(arr[1], '='))
+		if (ft_strchr(arr[1], '='))
 			handle_export(arr, env_list);
 		else if (!is_start_valid(arr[1][0]) || !is_char_valid(arr[1]))
 		{
 			g_exit_status = 1;
 			error_msg_export(arr[1], NULL, " : not a valid identifier");
 		}
-		else
-			return ;
 	}
 	else
-	{
 		handle_export(arr, env_list);
-		return ;
-	}
 }
