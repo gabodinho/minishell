@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/28 13:45:40 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/01 10:04:35 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,13 @@ void	our_echo(char **av);
 //exit
 void	exit_command(char **av);
 //export
-int		get_arg_count(char **argv);
-void	free_arr(char **env, int len);
-void 	export_builtin(char **builtin, t_list **env_list);
+
+void 	export_builtin(char **argv, t_list **env_list);
+//export helpers
+void	error_msg_export(char *var, char *val, char *message);
+int		non_empty_str(char **arr);
+char	**empty_str(char **arr);
+void	export_one(char **arr, t_list **env_list);
 //pwd
 void	if_pflag_is_one(char *path);
 char	*our_pwd(char **av, int pflag);
@@ -50,11 +54,10 @@ void	lst_rm(t_list **lst, int i);
 void	unset_env_list(t_list **env_list, char **target_key);
 
 //utils
-void	print_export_error(char *var, char *val, char *message);
-int		is_valid_var_start(unsigned char c);
-int		is_valid_var_char(char *var);
+int		is_start_valid(unsigned char c);
+int		is_char_valid(char *var);
 char	*remove_one_quote_set(char *str);
-void	export_one_var(char **arr, t_list **env_list);
-
+int		get_arg_count(char **argv);
+void	free_arr(char **env, int len);
 
 #endif

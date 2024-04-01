@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:51:55 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/28 13:45:29 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/01 09:49:48 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	unset_env_list(t_list **env_list, char **target_key)
 		temp = *env_list;
 		while (temp)
 		{
-			if (!ft_strncmp(temp -> content, *target_key, ft_strlen(*target_key)))
+			if (!ft_strncmp(temp -> content, *target_key,
+					ft_strlen(*target_key)))
 			{
 				lst_rm(env_list, i);
 				break ;

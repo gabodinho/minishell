@@ -3,35 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:02:46 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/28 15:01:07 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/01 10:05:32 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	print_export_error(char *var, char *val, char *message)
+int	is_start_valid(unsigned char c)
 {
-	ft_putstr_fd("bash: export: `", 2);
-	ft_putstr_fd(var, 2);
-	ft_putchar_fd('=', 2);
-	ft_putstr_fd(val, 2);
-	ft_putchar_fd('\'', 2);
-	ft_putstr_fd(message, 2);
-	ft_putstr_fd("\n", 2);
-}
-
-int	is_valid_var_start(unsigned char c)
-{
-	if (ft_isalnum(c) || c == '_' || c != '=')
+	if (ft_isalnum(c) || c == '_')
 		return (1);
 	else
 		return (0);
 }
 
-int	is_valid_var_char(char *var)
+int	is_char_valid(char *var)
 {
 	int	i;
 
@@ -57,18 +46,29 @@ char	*remove_one_quote_set(char *str)
 	return (str);
 }
 
-void	export_one_var(char **arr, t_list **env_list)
+int	get_arg_count(char **argv)
 {
-	char	*var;
-	char	*val;
-	char	*str;
+	int	len;
 
-	var = arr[0];
-	val = arr[1];
-	if (val == NULL)
-		val = ft_strdup("");
-	str = ft_strjoin(var, ft_strdup("="));
-	str = ft_strjoin(str, val);
-	unset_env_list(env_list, &var);
-	ft_lstadd_back(env_list, ft_lstnew(str));
+	len = 0;
+	if (!argv)
+		return (len);
+	while (argv[len])
+		len ++;
+	return (len);
+}
+
+void	free_arr(char **env, int len)
+{
+	int	i;
+
+	i = 0;
+	while (i < len)
+	{
+		free(env[i]);
+		env[i] = NULL;
+		i ++;
+	}
+	free(env);
+	env = NULL;
 }
