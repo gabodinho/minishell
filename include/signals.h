@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:40:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/28 17:05:17 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:09:25 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,6 @@ void	sigint_handler(int signum);
 void	sigquit_handler(int signum);
 void	signal_interactive(void);
 void	signal_non_interactive(void);
+void	set_signals(void);
 
 #endif

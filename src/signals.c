@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:39:53 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/29 14:59:35 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/01 13:09:15 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,13 @@ void	signal_non_interactive(void)
 {
 	signal(SIGINT, sigquit_handler);
 	signal(SIGQUIT, sigquit_handler);
+}
+
+void	set_signals(void)
+{
+	suppress_output();
+	if (isatty(STDIN_FILENO))
+		signal_interactive();
+	else
+		signal_non_interactive();
 }
