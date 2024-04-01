@@ -117,6 +117,7 @@ static void	lst_rm_one(t_list **start, int i)
 	printf("ausgang");
 }
 
+/*
 void	ft_unset(char **param, t_list **envir)
 {
 	int		i;
@@ -152,7 +153,7 @@ void	ft_unset(char **param, t_list **envir)
 	else
 		exit(EXIT_SUCCESS);
 }
-
+*/
 
 
 
