@@ -69,7 +69,7 @@ char	**conv_env(t_list *envir)
 	env_arr[i] = NULL;
 	return (env_arr);
 }
-
+/*
 static int	is_valid_env_name(const char *name)
 {
 	int	i;
@@ -117,7 +117,7 @@ static void	lst_rm_one(t_list **start, int i)
 	printf("ausgang");
 }
 
-/*
+
 void	ft_unset(char **param, t_list **envir)
 {
 	int		i;
