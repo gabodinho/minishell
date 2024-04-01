@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+         #
+#    By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/22 19:51:00 by ggiertzu          #+#    #+#              #
-#    Updated: 2024/03/28 17:11:05 by irivero-         ###   ########.fr        #
+#    Updated: 2024/04/01 10:51:53 by irivero-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ src/tokenizer/token_list.c src/tokenizer/token_utils.c exec_nodes.c \
 src/tokenizer/tokenizer.c src/main.c syntax_check.c environment.c src/expand.c\
 search_exec.c src/exec_builtins.c src/builtins/echo.c src/builtins/exit.c \
 src/builtins/pwd.c src/builtins/builtins_utils.c src/builtins/cd.c \
-src/builtins/unset.c src/builtins/export.c src/signals.c
+src/builtins/unset.c src/builtins/export.c src/signals.c \
+src/builtins/export_helpers.c
 
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell
