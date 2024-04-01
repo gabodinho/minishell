@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_nodes.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/28 22:36:58 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/01 19:22:24 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	reset_stdin(void)
 	close(tty_fd);
 }
 
-
 // !!!ACHTUNG builtins sollten vor der Ausführung des trees ausgeführt werden um nichtin jedem exec node eine kopie des envirs zu haben -> oder Alternativen?
 static void	run_exec(t_node *node, t_list **envir)
 {
@@ -76,13 +75,7 @@ static void	run_exec(t_node *node, t_list **envir)
 	// //	path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
 	// //printf("path to exec: %s\n", path_to_exec);
 	// path_to_exec = NULL;
-	if (is_builtin(node->param[0]))
-	{
-		exec_builtins(node->param, envir);
-		del_arr(env_arr);
-		return ;
-	}
-	else if (is_path(node -> param[0]))
+	if (is_path(node -> param[0]))
 		path_to_exec = ft_strdup(node -> param[0]);
 	else
 	{
@@ -104,6 +97,7 @@ static void	run_exec(t_node *node, t_list **envir)
 		g_exit_status = 127;
 	else
 		panic(node -> param[0]);
+
 	del_arr(env_arr);
 	free(path_to_exec);
 	panic(node -> param[0]);
@@ -182,7 +176,36 @@ static void	run_here(t_node *node, t_list **envir)
 	run_tree(node -> subnode, envir);
 }
 
+void	run_tree(t_node *tree, t_list **envir)
+{
+	pid_t	pid;
+	
+	if (!tree)
+		panic("no tree");
+	if (is_builtin(tree->param[0]))
+	{
+		exec_builtins(tree->param, envir);
+		return ;
+	}
+	pid = fork();
+	if (pid < 0)
+		panic("fork");
+	else if (pid == 0)
+	{
+		if (tree->ntype == N_PIPE)
+			run_pipe(tree, envir);
+		else if (tree->ntype == N_REDIR)
+			run_redir(tree, envir);
+		else if (tree->ntype == N_HERE)
+			run_here(tree, envir);
+		else
+			run_exec(tree, envir);
+	}
+	else
+		waitpid(pid, NULL, 0);
+}
 
+/*
 void	run_tree(t_node *tree, t_list **envir)
 {
 	if (!tree)
@@ -193,6 +216,9 @@ void	run_tree(t_node *tree, t_list **envir)
 		run_redir(tree, envir);
 	else if (tree -> ntype == N_HERE)
 		run_here(tree, envir);
+	else if (is_builtin(tree -> param[0]))
+		exec_builtins(tree -> param, envir);
 	else
 		run_exec(tree, envir);
 }
+*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/28 17:05:29 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/01 19:20:11 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,12 @@ int main(int argc, char *argv[], char *envp[])
 	t_node	*tree;
 	char	*line;
 	t_list	*envir;
-	pid_t	pid;
+	//pid_t	pid;
 	(void) argc;
 	(void) argv;
 
 	envir = get_env(envp);
-	suppress_output();
-	if (isatty(STDIN_FILENO))
-		signal_interactive();
-	else
-		signal_non_interactive();
+	set_signals();
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -47,7 +43,13 @@ int main(int argc, char *argv[], char *envp[])
 		tree = parse_pipe(&token_lst, envir);
 //		print_token_list(token_lst);
 //		print_tree(tree);
-		pid = fork();
+		if (ft_strcmp(line, "exit") == 0)
+		{
+			printf("exit\n");
+			break;
+		}
+		run_tree(tree, &envir);
+		/*pid = fork();
 		if (pid < 0)
 			panic("fork");
 		else if (!pid)
@@ -60,6 +62,7 @@ int main(int argc, char *argv[], char *envp[])
 		}
 		else
 			waitpid(pid, NULL, 0);
+			*/
 		free(line);
 		clear_tree(tree);
 		clear_list(&token_lst);
