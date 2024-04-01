@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/01 19:20:11 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/01 19:46:42 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ int main(int argc, char *argv[], char *envp[])
 	t_list	*envir;
 	char	*line;
 	int		exit_status;
+	pid_t	pid;
 	(void) argc;
 	(void) argv;
 
