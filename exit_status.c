@@ -17,21 +17,18 @@ int	get_exit_status(int status)
 	int	exit_status;
 
 	exit_status = WEXITSTATUS(status);
-	if (WIFEXITED(status))
-		printf("Child process exited normally ");
-	else
-		printf("Child process exited abonrmally ");
-	printf("with exit status: %d\n", exit_status);
+	if (!WIFEXITED(status))
+		perror("abnormal exit");
 	return (exit_status);
 }
 
-int	is_exit(t_node *tree)
+int	is_builtin_exec(t_node *tree)
 {
 	if (tree -> ntype == N_PIPE)
 		return (1);
 	while (tree -> ntype != N_EXE)
 		tree = tree -> subnode;
-	if (!strncmp(tree -> param[0], "exit", ft_strlen(tree -> param[0])))
+	if (is_builtin(tree -> param[0]))
 		return (0);
 	else
 		return (1);

@@ -17,23 +17,28 @@
 
 int	g_exit_status = 0;
 
-// including the flag -lreadline to work!
-
-// under construction!!
-static int	execute_cmds(t_node *tree, t_list **envir, int prev_status)
+static int	execute_cmds(t_node *tree, t_list **envir)
 {
 	int	status;
 	int	pid;
-	(void)	prev_status;	//reactivate for further use
 
-	pid = fork();
-	if (pid < 0)
-		panic("fork");
-	else if (pid == 0)
-		run_tree(tree, envir);	//hand prev status to execution
+	if (!is_builtin_exec(tree))
+	{
+		run_builtin_tree(tree, envir);
+		return (0);			// change this for builtin return status
+	}
 	else
-		waitpid(pid, &status, 0);
-	return (get_exit_status(status));
+	{
+		pid = fork();
+		if (pid < 0)
+			panic("fork");
+		else if (pid == 0)
+			run_tree(tree, envir);
+		else
+			waitpid(pid, &status, 0);
+		return (get_exit_status(status));
+	}
+
 }
 
 int main(int argc, char *argv[], char *envp[])
@@ -59,7 +64,7 @@ int main(int argc, char *argv[], char *envp[])
 		token_lst = tokenizer(envir, line, exit_status);
 		tree = parse_pipe(&token_lst, envir);
 		if (!syntax_check(token_lst))
-			exit_status = execute_cmds(tree, &envir, exit_status);
+			exit_status = execute_cmds(tree, &envir);
 		else
 			exit_status = 127;
 		free(line);
