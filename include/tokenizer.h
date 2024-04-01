@@ -42,19 +42,19 @@
 # define SINGLE_QUOTES 5
 
 //estructura para un token
-typedef struct	s_token 
+typedef struct	s_token
 {
 	int				type;
 	char			*str;
 	struct s_token	*next;
 	struct s_token	*prev;
-	
+
 } t_token;
 
 extern int	g_exit_status;
 
 //new_tokenizer
-t_token	*tokenizer(t_list *env, char *line);
+t_token	*tokenizer(t_list *env, char *line, int exit_status);
 t_token	*tokenize_line(char *line);
 t_token	*create_token(char *content, int type);
 void	token_lst_add_back(t_token **token_lst, t_token *new);

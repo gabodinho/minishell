@@ -138,8 +138,6 @@ void	write_to_pipe(int pfd[2], t_node *node)
 	while (1)
 	{
 		buf = readline("heredoc> ");
-		if (!buf)
-			panic("heredoc: readline");
 		if (!ft_strncmp(node -> delim, buf, ft_strlen(buf)))
 			break ;
 		write(pfd[1], buf, ft_strlen(buf));
@@ -176,10 +174,11 @@ static void	run_here(t_node *node, t_list **envir)
 	run_tree(node -> subnode, envir);
 }
 
+/*
 void	run_tree(t_node *tree, t_list **envir)
 {
 	pid_t	pid;
-	
+
 	if (!tree)
 		panic("no tree");
 	if (is_builtin(tree->param[0]))
@@ -204,8 +203,8 @@ void	run_tree(t_node *tree, t_list **envir)
 	else
 		waitpid(pid, NULL, 0);
 }
+*/
 
-/*
 void	run_tree(t_node *tree, t_list **envir)
 {
 	if (!tree)
@@ -220,5 +219,18 @@ void	run_tree(t_node *tree, t_list **envir)
 		exec_builtins(tree -> param, envir);
 	else
 		run_exec(tree, envir);
+	exit(0);
 }
-*/
+
+// make this function return the return values of the builtins
+void	run_builtin_tree(t_node *tree, t_list **envir)
+{
+	if (!tree)
+		panic("no tree");
+	else if (tree -> ntype == N_REDIR)
+		run_redir(tree, envir);
+	else if (tree -> ntype == N_HERE)
+		run_here(tree, envir);
+	else
+		exec_builtins(tree->param, envir);
+}

@@ -14,55 +14,61 @@
 #include "parser.h"
 #include "expander.h"
 #include "signals.h"
+#include "exit.h"
 
 int	g_exit_status = 0;
 
-// including the flag -lreadline to work!
+static int	execute_cmds(t_node *tree, t_list **envir)
+{
+	int	status;
+	int	pid;
+
+	if (!is_builtin_exec(tree))
+	{
+		run_builtin_tree(tree, envir);
+		return (0);			// change this for builtin return status
+	}
+	else
+	{
+		pid = fork();
+		if (pid < 0)
+			panic("fork");
+		else if (pid == 0)
+			run_tree(tree, envir);
+		else
+			waitpid(pid, &status, 0);
+		return (get_exit_status(status));
+	}
+
+}
 
 int main(int argc, char *argv[], char *envp[])
 {
     //char *line = "echo 'Hello, World!' > output.txt";
     t_token *token_lst;
 	t_node	*tree;
-	char	*line;
 	t_list	*envir;
-	//pid_t	pid;
+	char	*line;
+	int		exit_status;
 	(void) argc;
 	(void) argv;
 
 	envir = get_env(envp);
 	set_signals();
+	exit_status = 0;
 	while (1)
 	{
 		line = readline("minishell$ ");
 		if (!line)
-			break;
+			panic("readline");
 		if (line[0] != '\0' && !is_space(line[0]))
-			add_history(line);			//only add non empty lines to hist
-		token_lst = tokenizer(envir, line);
+			add_history(line);
+		token_lst = tokenizer(envir, line, exit_status);
 		tree = parse_pipe(&token_lst, envir);
-//		print_token_list(token_lst);
-//		print_tree(tree);
-		if (ft_strcmp(line, "exit") == 0)
-		{
-			printf("exit\n");
-			break;
-		}
-		run_tree(tree, &envir);
-		/*pid = fork();
-		if (pid < 0)
-			panic("fork");
-		else if (!pid)
-		{
-			if (syntax_check(token_lst))
-				exit(EXIT_FAILURE);
-//			printf("syntax check passed\n");
-//			run_tree(parse_pipe(&token_lst));
-			run_tree(tree, &envir);
-		}
+		if (!syntax_check(token_lst))
+			exit_status = execute_cmds(tree, &envir);
 		else
-			waitpid(pid, NULL, 0);
-			*/
+			exit_status = 127;
 		free(line);
 		clear_tree(tree);
 		clear_list(&token_lst);

@@ -66,7 +66,7 @@ void	new_string(char *new_str, char *subs1, char *value, char *subs2)
 {
 	char	*tmp1;
 	char	*tmp2;
-	
+
 	tmp1 = subs1;
 	tmp2 = subs2;
 	while (*subs1 != '\0')
@@ -88,7 +88,7 @@ char	*get_env_value(t_list *env, char *env_key)
 	while (current)
 	{
 		char *env_entry = (char *)(current->content);
-		if (ft_strncmp(env_entry, env_key, ft_strlen(env_key)) == 0 && env_entry[ft_strlen(env_key)] == '=') 
+		if (ft_strncmp(env_entry, env_key, ft_strlen(env_key)) == 0 && env_entry[ft_strlen(env_key)] == '=')
 		{
 			// Si encontramos la variable de entorno, devolvemos el valor
 			result = ft_strdup(env_entry + ft_strlen(env_key) + 1); // Apuntamos al inicio del valor (después del igual)
@@ -105,7 +105,7 @@ char	*get_env_value(t_list *env, char *env_key)
 	return (result);
 }
 
-char	*create_string(t_list *env, char *token, int start_d, int end_d)
+char	*create_string(t_list *env, char *token, int start_d, int end_d, int exit_status)
 {
 	char	*value;
 	char	*key;
@@ -113,8 +113,8 @@ char	*create_string(t_list *env, char *token, int start_d, int end_d)
 	int		len;
 
 	key = ft_substr(token, start_d + 1, end_d - start_d);
-	if (ft_strcmp(key, "?") == 0)
-		value = ft_itoa(g_exit_status);
+	if (ft_strncmp(key, "?", ft_strlen(key)) == 0)
+		value = ft_itoa(exit_status);
 	else
 		value = get_env_value(env, key);
 	len = ft_strlen(token) - (end_d - start_d + 1) + ft_strlen(value);
@@ -127,7 +127,7 @@ char	*create_string(t_list *env, char *token, int start_d, int end_d)
 	return (new_str);
 }
 
-void	expander(t_list *env, t_token *token)
+void	expander(t_list *env, t_token *token, int exit_status)
 {
 	t_token		*current;
 	int			start_d;
@@ -155,7 +155,7 @@ void	expander(t_list *env, t_token *token)
 				//if (!single_quotes)
 				//{
 				end_d = find_dollar(current->str, start_d + 1);
-				new_str = create_string(env, current->str, start_d, end_d);
+				new_str = create_string(env, current->str, start_d, end_d, exit_status);
 				free(current->str);
 				current->str = new_str;
 				//}
