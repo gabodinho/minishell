@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/01 19:22:24 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/01 19:46:22 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,11 @@ static void	run_exec(t_node *node, t_list **envir)
 	// //	path_to_exec = find_exec(node -> param[0], search_env("PATH", envir));
 	// //printf("path to exec: %s\n", path_to_exec);
 	// path_to_exec = NULL;
+	if (is_builtin(node -> param[0]))
+	{
+		exec_builtins(node -> param, envir);
+		return ;
+	}
 	if (is_path(node -> param[0]))
 		path_to_exec = ft_strdup(node -> param[0]);
 	else
@@ -175,7 +180,7 @@ static void	run_here(t_node *node, t_list **envir)
 	}
 	run_tree(node -> subnode, envir);
 }
-
+/*
 void	run_tree(t_node *tree, t_list **envir)
 {
 	pid_t	pid;
@@ -204,8 +209,8 @@ void	run_tree(t_node *tree, t_list **envir)
 	else
 		waitpid(pid, NULL, 0);
 }
+*/
 
-/*
 void	run_tree(t_node *tree, t_list **envir)
 {
 	if (!tree)
@@ -221,4 +226,3 @@ void	run_tree(t_node *tree, t_list **envir)
 	else
 		run_exec(tree, envir);
 }
-*/
