@@ -50,7 +50,6 @@ int main(int argc, char *argv[], char *envp[])
 	t_list	*envir;
 	char	*line;
 	int		exit_status;
-	pid_t	pid;
 	(void) argc;
 	(void) argv;
 
