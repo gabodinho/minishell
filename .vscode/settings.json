@@ -21,6 +21,7 @@
         "format": "c",
         "limits": "c",
         "sstream": "c",
-        "functional": "c"
+        "functional": "c",
+        "cstdlib": "c"
     }
 }

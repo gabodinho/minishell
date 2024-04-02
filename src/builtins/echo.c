@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:47 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/30 09:02:20 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:02:29 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
 // Función para verificar si se debe omitir el salto de linea
-bool	should_omit_newline(char **av)
+int	should_omit_newline(char **av)
 {
-	return (av[1] != NULL && ft_strcmp(av[1], "-n") == 0);
+	if (av[1] != NULL && ft_strcmp(av[1], "-n") == 0)
+		return (1);
+	return (0);
 }
 
 //Función para imprimir un argumento, manejando las comillas si es necesario
@@ -40,7 +42,7 @@ void	print_argument(char *arg)
 		printf("%s", arg);
 }
 
-void	our_echo(char **av)
+int	our_echo(char **av)
 {
 	int		i;
 	bool	no_newline;
@@ -58,5 +60,5 @@ void	our_echo(char **av)
 	}
 	if (!no_newline)
 		printf("\n");
-	g_exit_status = 0;
+	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:51:55 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/01 09:49:48 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:41:40 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	unset_env_list(t_list **env_list, char **target_key)
 {
 	t_list	*temp;
 	int		i;
-
+	
 	if (!target_key || !env_list)
 		return ;
 	while (*target_key)

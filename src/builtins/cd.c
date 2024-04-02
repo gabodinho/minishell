@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/25 14:59:39 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/02 09:56:27 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
-
-// Función para cambiar el directorio actual
-char	*change_directory(char *new_dir)
-{
-	if (chdir(new_dir) == -1)
-	{
-		perror("chdir");
-		return (NULL);
-	}
-	return (getcwd(NULL, 0));
-}
 
 // Función para actualizar una variable de entorno existente
 void	update_existing_environment_variable(t_list *env_list, const char *key,
@@ -90,8 +79,51 @@ void	update_environment_variable(t_list **env_list, const char *key,
 		update_existing_environment_variable(*env_list, key, value);
 }
 
-// Función para el comando cd
-void	our_cd(char **av, t_list *env_list)
+int	our_cd_internal(char **av, t_list *env_list, char *old_pwd)
+{
+	char	*new_dir;
+	char	*new_pwd;
+
+	if (av[1] != NULL)
+		new_dir = av[1];
+	else
+		new_dir = getenv("HOME");
+	if (!new_dir || access(new_dir, F_OK) == -1)
+	{
+		free(old_pwd);
+		return (1);
+	}
+	new_pwd = change_directory(new_dir);
+	if (!new_pwd)
+	{
+		free(old_pwd);
+		return (1);
+	}
+	update_environment_variable(&env_list, "PWD=", new_pwd);
+	update_environment_variable(&env_list, "OLDPWD=", old_pwd);
+	free(old_pwd);
+	free(new_pwd);
+	return (0);
+}
+
+// Función principal para el comando cd
+int	our_cd(char **av, t_list *env_list)
+{
+	char	*old_pwd;
+	int		result;
+
+	old_pwd = getcwd(NULL, 0);
+	if (!old_pwd)
+	{
+		perror("getcwd");
+		return (1);
+	}
+	result = our_cd_internal(av, env_list, old_pwd);
+	return (result);
+}
+
+/* Función para el comando cd
+int	our_cd(char **av, t_list *env_list)
 {
 	char	*old_pwd;
 	char	*new_dir;
@@ -101,20 +133,27 @@ void	our_cd(char **av, t_list *env_list)
 	if (old_pwd == NULL)
 	{
 		perror("getcwd");
-		return ;
+		return (1);
 	}
 	if (av[1] != NULL)
 		new_dir = av[1];
 	else
 		new_dir = getenv("HOME");
+	if (access(new_dir, F_OK) == -1)
+	{
+		free(old_pwd);
+		return (1);
+	}
 	new_pwd = change_directory(new_dir);
 	if (new_pwd == NULL)
 	{
 		free(old_pwd);
-		return ;
+		return (1);
 	}
 	update_environment_variable(&env_list, "PWD=", new_pwd);
 	update_environment_variable(&env_list, "OLDPWD=", old_pwd);
 	free(old_pwd);
 	free(new_pwd);
+	return (0);
 }
+*/

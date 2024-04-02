@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:12 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/01 12:42:16 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/02 10:52:22 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,15 +45,17 @@ void	process_export_argument(char **arr, t_list **env_list)
 		export_one(arr, env_list);
 }
 
-void	handle_export(char **argv, t_list **env_list)
+int	handle_export(char **argv, t_list **env_list)
 {
 	char	*arr[3];
 	int		i;
+	int		exit_status;
 
 	arr[0] = NULL;
 	arr[1] = NULL;
 	arr[2] = NULL;
 	i = 1;
+	exit_status = 0;
 	while (argv[i] != NULL)
 	{
 		if (ft_strchr(argv[i], '='))
@@ -63,6 +65,7 @@ void	handle_export(char **argv, t_list **env_list)
 		}
 		i++;
 	}
+	return (exit_status);
 }
 
 void	print_env_declare(t_list *envlist)
@@ -75,26 +78,29 @@ void	print_env_declare(t_list *envlist)
 	}
 }
 
-void	export_builtin(char **argv, t_list **env_list)
+int	export_builtin(char **argv, t_list **env_list)
 {
 	int		count;
 	char	**arr;
+	int		exit_status;
 
 	count = non_empty_str(argv);
 	arr = empty_str(argv);
-	g_exit_status = 0;
+	exit_status = 0;
 	if (count == 1 || arr == NULL)
 		print_env_declare(*env_list);
 	else if (count == 2 && arr != NULL)
 	{
 		if (ft_strchr(arr[1], '='))
-			handle_export(arr, env_list);
+			exit_status = handle_export(arr, env_list);
 		else if (!is_start_valid(arr[1][0]) || !is_char_valid(arr[1]))
 		{
-			g_exit_status = 1;
+			exit_status = 1;
 			error_msg_export(arr[1], NULL, " : not a valid identifier");
 		}
 	}
 	else
-		handle_export(arr, env_list);
+		exit_status = handle_export(arr, env_list);
+	free_arr(arr, count);
+	return (exit_status);
 }

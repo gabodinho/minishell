@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/01 10:04:35 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/02 11:27:14 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,22 @@
 # include "tokenizer.h"
 # include "exec_b.h"
 # include "../libft/libft/libft.h"
-# include <stdlib.h>
-# include <unistd.h>
-# include <string.h>
-# include <stdio.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <errno.h>
-# include <fcntl.h>
 
 extern int	g_exit_status;
 
 //cd
-void	our_cd(char **av, t_list *env);
+int		our_cd(char **av, t_list *env);
+//cd helpers
+char	*change_directory(char *new_dir);
 //echo
-int		echo_helper(char **av, char *c, int *i);
-void	our_echo(char **av);
+int		our_echo(char **av);
 //exit
 void	exit_command(char **av);
+//env
+int		has_options(char **av);
+int		print_env_without_options(char **av, t_list *env);
 //export
-
-void 	export_builtin(char **argv, t_list **env_list);
+int 	export_builtin(char **argv, t_list **env_list);
 //export helpers
 void	error_msg_export(char *var, char *val, char *message);
 int		non_empty_str(char **arr);
