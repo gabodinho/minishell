@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 15:14:22 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/18 12:52:04 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:48:49 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,11 @@ int	ft_strcmp(char *s1, char *s2)
 int	is_space(char c)
 {
 	if (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'
-			|| c == '\r')
+		|| c == '\r')
 		return (1);
 	return (0);
 }
 
-//skip spaces 
 void	skip_spaces(char **str)
 {
 	while (**str && is_space(**str))
@@ -40,8 +39,8 @@ void	skip_spaces(char **str)
 
 int	is_shell_separator(char *c)
 {
-	if (*c == '|' || *c == '(' || *c == ')' || *c == '<' || *c == '>' || *c == '\t'
-		|| !ft_strncmp(c, "&&", 2))
+	if (*c == '|' || *c == '(' || *c == ')' || *c == '<' || *c == '>'
+		|| *c == '\t' || !ft_strncmp(c, "&&", 2))
 		return (1);
 	return (0);
 }
@@ -52,52 +51,3 @@ int	is_quotes(char c)
 		return (1);
 	return (0);
 }
-
-bool	skip_quotes(char *line, size_t  *i)
-{
-	char	quote;
-	char	*end_quote;
-
-	quote = line[*i];
-	end_quote = ft_strchr(line + *i + 1, quote);
-	if (end_quote != NULL)
-	{
-		//(*i) += 1 + (end_quote - (line + *i + 1));
-		(*i)++;
-		while (line[*i] != quote)
-			(*i)++;
-		(*i)++;
-		return (true);
-	}
-	return (false);
-}
-
-void	print_quotes_error(char c)
-{
-	ft_putstr_fd("minishell: unexpected EOF reached while looking for '", 2);
-	ft_putchar_fd(c, 2);
-	ft_putendl_fd("'", 2);
-	g_exit_status = 258;
-}
-/*temporal hasta acceso a libft
-char	*ft_substr(const char *str, int start, int length)
-{
-	if (str == NULL || start < 0 || length < 0)
-    	return NULL;
-    int str_len = 0;
-    while (str[str_len] != '\0')
-        str_len++;
-    if (start >= str_len)
-        return NULL;
-    int sub_len = (length == 0) ? str_len - start : length;
-    char *substring = (char *)malloc((sub_len + 1) * sizeof(char));
-    if (substring == NULL)
-        return NULL;
-    const char *src = str + start;
-    char *dest = substring;
-    while (*src != '\0' && sub_len-- > 0)
-        *dest++ = *src++;
-    *dest = '\0';
-    return (substring);
-}
-*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 17:23:23 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/15 09:48:17 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/02 13:45:02 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,6 @@ t_token	*create_token(char *content, int type)
 		token->str = ft_strdup(content);
 	else
 		token->str = NULL;
-	/*
-		//if (type == DGREAT || type == DLESS)
-		if (type == REDIR)
-			token->str = ft_strdup(content);
-		else
-			token->str = content;
-	}*/
-	//token->type = type;
 	token->next = NULL;
 	token->prev = NULL;
 	return (token);
