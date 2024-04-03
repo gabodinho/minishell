@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/03 09:36:27 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/03 12:02:22 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,14 @@ int	our_cd_internal(char **av, t_list *env_list, char *old_pwd)
 		new_dir = getenv("HOME");
 	if (!new_dir || access(new_dir, F_OK) == -1)
 	{
-		printf("minishell: %s: No such file or directory\n", new_dir);
+		printf("cd: %s: No such file or directory\n", new_dir);
 		free(old_pwd);
 		return (1);
 	}
 	new_pwd = change_directory(new_dir);
 	if (!new_pwd)
 	{
-		printf("minishell: %s: No such file or directory\n", new_dir);
+		printf("cd: %s: No such file or directory\n", new_dir);
 		free(old_pwd);
 		return (1);
 	}
