@@ -6,21 +6,15 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 09:53:29 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/01 10:05:08 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:05:09 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-void	error_msg_export(char *var, char *val, char *message)
+void	error_msg_export(char *arg, char *message)
 {
-	ft_putstr_fd("minishell: export: `", 2);
-	if (var)
-		ft_putstr_fd(var, 2);
-	ft_putstr_fd(val, 2);
-	ft_putchar_fd('\'', 2);
-	ft_putstr_fd(message, 2);
-	ft_putstr_fd("\n", 2);
+	fprintf(stderr, "minishell: export: %s%s\n", arg, message);
 }
 
 int	non_empty_str(char **arr)

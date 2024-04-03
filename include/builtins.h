@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/02 12:51:38 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:05:45 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		print_env_without_options(char **av, t_list *env);
 //export
 int 	export_builtin(char **argv, t_list **env_list);
 //export helpers
-void	error_msg_export(char *var, char *val, char *message);
+void	error_msg_export(char *arg, char *message);
 int		non_empty_str(char **arr);
 char	**empty_str(char **arr);
 void	export_one(char **arr, t_list **env_list);

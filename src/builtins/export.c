@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:12 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/02 11:31:33 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/03 10:06:06 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	process_export_argument(char **arr, t_list **env_list)
 {
 	if (!is_start_valid(arr[0][0]) || !is_char_valid(arr[0]))
 	{
-		g_exit_status = 1;
-		error_msg_export(arr[0], arr[2], " : not a valid identifier");
+		error_msg_export(arr[0], " : not a valid identifier");
 	}
 	else
 		export_one(arr, env_list);
@@ -96,12 +95,12 @@ int	export_builtin(char **argv, t_list **env_list)
 		else if (!is_start_valid(arr[1][0]) || !is_char_valid(arr[1]))
 		{
 			exit_status = 1;
-			error_msg_export(arr[1], NULL, " : not a valid identifier");
+			error_msg_export(arr[1], " : not a valid identifier");
 		}
 	}
 	else
 	{
-		exit_status = 0,
+		exit_status = 0;
 		handle_export(arr, env_list);
 	}
 	free_arr(arr, count);
