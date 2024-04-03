@@ -67,7 +67,7 @@ void	print_tree(t_node *tree);		// to be deleted for final vers
 void	run_tree(t_node *tree, t_list **envir);
 void	clear_tree(t_node *tree);
 void	panic(char *msg);
-int		syntax_check(t_token *toklist);
+int		syntax_check(t_token *toklist, int print_err);
 t_list	*get_env(char **envp);
 void	print_env(t_list *envlist);
 char	**conv_env(t_list *envir);

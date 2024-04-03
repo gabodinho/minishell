@@ -18,7 +18,7 @@ void	panic(char *msg)
 	exit(EXIT_FAILURE);
 }
 
-static int	synt_err(t_token	*prev, t_token *current)
+static int	synt_err(t_token *prev, t_token *current, int print_err)
 {
 	char	*culprit;
 
@@ -37,14 +37,15 @@ static int	synt_err(t_token	*prev, t_token *current)
 		culprit = current -> str;
 	if (culprit)
 	{
-		printf("minishell: syntax error near unexpected token `%s'\n", culprit);
+		if (print_err)
+			printf("minishell: syntax error near unexpected token `%s'\n", culprit);
 		return (1);
 	}
 	else
 		return (0);
 }
 
-int	syntax_check(t_token *toklist)
+int	syntax_check(t_token *toklist, int print_err)
 {
 	t_token	*prev;
 
@@ -53,7 +54,7 @@ int	syntax_check(t_token *toklist)
 		return (0);
 	while (toklist)
 	{
-		if (synt_err(prev, toklist))
+		if (synt_err(prev, toklist, print_err))
 			return (1);
 		else
 		{
@@ -61,7 +62,7 @@ int	syntax_check(t_token *toklist)
 			toklist = toklist -> next;
 		}
 	}
-	if (synt_err(prev, toklist))
+	if (synt_err(prev, toklist, print_err))
 		return (1);
 	else
 		return (0);

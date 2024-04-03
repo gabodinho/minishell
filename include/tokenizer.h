@@ -69,6 +69,6 @@ int		add_separator_token(int type, char **line, t_token **token_lst);
 int		process_command(char **line, t_token **token_lst);
 void	print_token_list(t_token *token_lst); //quitar al final
 int		print_quotes_error(char c);
-t_token *get_full_token_lst(t_list *envir, char **line, int exit_status);
+t_token *get_full_token_lst(t_list *envir, int exit_status);
 
 #endif

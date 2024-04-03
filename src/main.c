@@ -47,7 +47,6 @@ int main(int argc, char *argv[], char *envp[])
     t_token *token_lst;
 	t_node	*tree;
 	t_list	*envir;
-	char	*line;
 	int		exit_status;
 	(void) argc;
 	(void) argv;
@@ -57,17 +56,16 @@ int main(int argc, char *argv[], char *envp[])
 	exit_status = 0;
 	while (1)
 	{
-		line = readline("minishell$ ");
-		if (!line)
-			perror("readline");
-//		token_lst = tokenizer(envir, line, exit_status);
-		token_lst = get_full_token_lst(envir, &line, exit_status);
+		// line = readline("minishell$ ");
+		// if (!line)
+		// 	perror("readline");
+		// token_lst = tokenizer(envir, line, exit_status);
+		token_lst = get_full_token_lst(envir, exit_status);
 		tree = parse_pipe(&token_lst, envir);
-		if (!syntax_check(token_lst))
+		if (!syntax_check(token_lst, 1))
 			exit_status = execute_cmds(tree, &envir);
 		else
 			exit_status = 127;
-		free(line);
 		clear_tree(tree);
 		clear_list(&token_lst);
 	}
