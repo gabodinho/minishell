@@ -36,7 +36,7 @@ char	*find_exec(char *exec_file, char *path_var)
 	del_arr(ptr);
 	return (NULL);
 }
-
+/*
 char	*exp_home(char *str, t_list *envir)
 {
 	char	*home_dir;
@@ -49,25 +49,4 @@ char	*exp_home(char *str, t_list *envir)
 	else
 		return (str);
 }
-
-// // einige builtins die das env verändern sollten nicht in childprocesses laufen
-// void	run_builtin(char **param, t_list **envir)
-// {
-// 	if (!strncmp(param[0], "unset", 6))
-// 		ft_unset(param, envir);
-// 	/*
-// 	if (!strncmp(cmd[0], "export"))
-// 		ft_export(cmd);
-// 	else if (!strncmp(cmd[0], "pwd")
-// 		ft_pwd(envir);
-// 	else if (!strncmp(cmd[0], "unset")
-// 		ft_unset(cmd, envir);
-// 	else if (!strncmp(cmd[0], "env")
-// 		ft_env(envir);
-// 	else if (!strncmp(cmd[0], "exit")
-// 		ft_exit();
-// 	else if (!strncmp(cmd[0], "echo")
-// 		ft_echo(cmd);
-// 	*/
-// }
-
+*/

@@ -78,7 +78,8 @@ int		is_path(char *str);		// todo
 char	*exp_rel_path(char *exec_file, t_list *envir);	// todo
 void	write_to_pipe(int pfd[2], t_node *node);
 void	reset_stdin(void);
-void	run_builtin_tree(t_node *tree, t_list **envir);
+void	reset_stdout(void);
+int		run_builtin_tree(t_node *tree, t_list **envir);
 //int		is_builtin(char *exec_file);					// todo
 //void	run_builtin(char **param, t_list *envir);			// todo
 

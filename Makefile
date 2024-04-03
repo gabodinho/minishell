@@ -28,7 +28,7 @@ search_exec.c src/exec_builtins.c src/builtins/echo.c src/builtins/exit.c \
 src/builtins/pwd.c src/builtins/builtins_utils.c src/builtins/cd.c \
 src/builtins/unset.c src/builtins/export.c src/signals.c \
 src/builtins/export_helpers.c exit_status.c src/builtins/env.c \
-src/builtins/cd_helpers.c
+src/builtins/cd_helpers.c src/tokenizer/token_quotes.c
 
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell

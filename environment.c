@@ -26,6 +26,7 @@ t_list	*get_env(char **envp)
 {
 	t_list	*start;
 
+	start = NULL;
 	while (*envp)
 		ft_lstadd_back(&start, ft_lstnew(*envp++));
 	return (start);

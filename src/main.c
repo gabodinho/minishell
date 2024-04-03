@@ -23,11 +23,10 @@ static int	execute_cmds(t_node *tree, t_list **envir)
 	int	status;
 	int	pid;
 
-	if (!is_builtin_exec(tree))
-	{
-		run_builtin_tree(tree, envir);
-		return (0);			// change this for builtin return status
-	}
+	if (!tree)
+		return (0);
+	else if (!is_builtin_exec(tree))
+		return (run_builtin_tree(tree, envir));
 	else
 	{
 		pid = fork();
@@ -60,7 +59,7 @@ int main(int argc, char *argv[], char *envp[])
 	{
 		line = readline("minishell$ ");
 		if (!line)
-			panic("readline");
+			perror("readline");
 		if (line[0] != '\0' && !is_space(line[0]))
 			add_history(line);
 		token_lst = tokenizer(envir, line, exit_status);
