@@ -43,8 +43,7 @@ static int	execute_cmds(t_node *tree, t_list **envir)
 
 int main(int argc, char *argv[], char *envp[])
 {
-    //char *line = "echo 'Hello, World!' > output.txt";
-    t_token *token_lst;
+	t_token *token_lst;
 	t_node	*tree;
 	t_list	*envir;
 	int		exit_status;
@@ -56,10 +55,6 @@ int main(int argc, char *argv[], char *envp[])
 	exit_status = 0;
 	while (1)
 	{
-		// line = readline("minishell$ ");
-		// if (!line)
-		// 	perror("readline");
-		// token_lst = tokenizer(envir, line, exit_status);
 		token_lst = get_full_token_lst(envir, exit_status);
 		tree = parse_pipe(&token_lst, envir);
 		if (!syntax_check(token_lst, 1))

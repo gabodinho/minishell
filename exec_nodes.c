@@ -64,6 +64,16 @@ static void	run_exec(t_node *node, t_list **envir)
 
 	env_arr = conv_env(*envir);
 	path_to_exec = NULL;
+	// int i = 0;
+	// while(node -> param[i])
+	// {
+	// 	printf("arg %i: %s\n", i, node -> param[i]);
+	// 	i++;
+	// }
+	// if (!node -> param[i])
+	// 	printf("arg end\n");
+	if (!node -> param[0])
+		return ;
 	if (is_builtin(node -> param[0]))
 // (add strategy for exitstatus in case of pipe?)
 		return (exec_builtins(node -> param, envir), (void) 0);

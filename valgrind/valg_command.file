@@ -1,1 +1,1 @@
-valgrind --leak-check=full --show-leak-kinds=all --suppressions=valgrind/suppres.txt --gen-suppressions=all ./minishell
+valgrind --leak-check=full --show-leak-kinds=all --suppressions=valgrind/suppress.file --gen-suppressions=all ./minishell

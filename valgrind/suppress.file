@@ -46,3 +46,15 @@
    fun:readline
    fun:get_full_token_lst
 }
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   ...
+   fun:readline
+   fun:get_further_input
+   fun:get_full_token_lst
+   fun:main
+}

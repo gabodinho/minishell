@@ -12,6 +12,29 @@
 
 #include "parser.h"
 
+int	count_words(t_token *token)
+{
+	int	res;
+
+	res = 0;
+	while (token)
+	{
+		if (token -> type == PIPE)
+			break ;
+		else if (token -> type == WORD)
+		{
+			res++;
+			token = token -> next;
+		}
+		else if (token -> type == REDIR)
+			token = token -> next -> next;
+		else
+			token = token -> next;
+	}
+	return (res);
+}
+
+
 t_node	*add_last(t_node *redir, t_node *exec)
 {
 	t_node	*ptr;
@@ -100,7 +123,7 @@ t_node	*parse_redir(t_node *cmd, t_token **toklist)
 	return (add_last(cmd, node));
 }
 
-t_node	*init_node(t_list *envir)
+t_node	*init_node(t_list *envir, int words)
 {
 	t_node	*node;
 	int			i;
@@ -110,7 +133,8 @@ t_node	*init_node(t_list *envir)
 	node -> ntype = N_EXE;
 	node -> subnode = NULL;
 	node -> envir = envir;
-	while (i < 20)
+	node -> param = malloc(sizeof(char *) * (words + 1));
+	while (i <= words)
 		(node -> param)[i++] = NULL;
 	return (node);
 }
@@ -120,12 +144,11 @@ void	add_attribute(t_node *node, char *str)
 	int	i;
 
 	i = 0;
-	while (i < 20 && (node -> param)[i])
+	while ((node -> param)[i])
 		i++;
-	if (i == 20)
-		panic("param limit in exec node");		// wip
-	else
-		(node -> param)[i] = str;
+//	if (i == 20)
+//		panic("param limit in exec node");		// wip
+	(node -> param)[i] = str;
 }
 
 t_node	*parse_exe(t_token **toklist, t_list *envir)
@@ -136,7 +159,7 @@ t_node	*parse_exe(t_token **toklist, t_list *envir)
 
 	if (!*toklist)
 		return (NULL);
-	execmd = init_node(envir);
+	execmd = init_node(envir, count_words(*toklist));
 	token = *toklist;
 	redircmd = NULL;
 	while (token)
