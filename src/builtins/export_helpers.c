@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 09:53:29 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/03 10:05:09 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/03 13:47:17 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,18 @@
 
 void	error_msg_export(char *arg, char *message)
 {
-	fprintf(stderr, "minishell: export: %s%s\n", arg, message);
+	ft_putstr_fd("minishell: export: '", 2);
+	if (arg != NULL)
+	{
+		//ft_putstr_fd("= ", 2);
+		ft_putstr_fd(arg, 2);
+		if (message != NULL)
+		{
+			ft_putstr_fd("'", 2);
+			ft_putstr_fd(message, 2);
+		}
+	}
+	ft_putstr_fd("\n", 2);
 }
 
 int	non_empty_str(char **arr)
