@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/03 10:05:45 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:42:28 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include "tokenizer.h"
 # include "exec_b.h"
 # include "../libft/libft/libft.h"
-
-extern int	g_exit_status;
 
 //cd
 int		our_cd(char **av, t_list *env);

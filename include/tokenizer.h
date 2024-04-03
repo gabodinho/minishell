@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/02 13:43:09 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:42:36 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ typedef struct	s_token
 	struct s_token	*prev;
 
 } t_token;
-
-extern int	g_exit_status;
 
 //new_tokenizer
 t_token	*tokenizer(t_list *env, char *line, int exit_status);

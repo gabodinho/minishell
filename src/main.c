@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/01 19:46:42 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/03 15:43:33 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 #include "signals.h"
 #include "exit.h"
 
-int	g_exit_status = 0;
-
 static int	execute_cmds(t_node *tree, t_list **envir)
 {
 	int	status;
 	int	pid;
 
+	status = 0;
 	if (!tree)
 		return (0);
 	else if (!is_builtin_exec(tree))
