@@ -119,12 +119,17 @@ static void	run_pipe(t_node *node, t_list **envir)
 void	write_to_pipe(int pfd[2], t_node *node)
 {
 	char	*buf;
+	int		len;
 
 	close(pfd[0]);
 	while (1)
 	{
 		buf = readline("heredoc> ");
-		if (!ft_strncmp(node -> delim, buf, ft_strlen(buf)))
+		if (ft_strlen(buf) > ft_strlen(node -> delim))
+			len = ft_strlen(buf);
+		else
+			len = ft_strlen(node -> delim);
+		if (!ft_strncmp(node -> delim, buf, len))
 			break ;
 		write(pfd[1], buf, ft_strlen(buf));
 		write(pfd[1], "\n", 1);
@@ -196,8 +201,6 @@ void	run_tree(t_node *tree, t_list **envir)
 	int	exit_val;
 
 	exit_val = 0;
-	if (!tree)
-		panic("no tree");
 	if (tree -> ntype == N_PIPE)
 		run_pipe(tree, envir);
 	else if (tree -> ntype == N_REDIR)
