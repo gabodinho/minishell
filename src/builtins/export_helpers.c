@@ -59,16 +59,17 @@ char	**empty_str(char **arr)
 
 void	export_one(char **arr, t_list **env_list)
 {
-	char	*var;
+	char	*var[2];
 	char	*val;
 	char	*str;
 
-	var = arr[0];
+	var[0] = arr[0];
+	var[1] = 0;
 	val = arr[1];
 	if (val == NULL)
 		val = ft_strdup("");
-	str = ft_strjoin(var, ft_strdup("="));
+	str = ft_strjoin(var[0], ft_strdup("="));
 	str = ft_strjoin(str, val);
-	unset_env_list(env_list, &var);
+	unset_env_list(env_list, var);
 	ft_lstadd_back(env_list, ft_lstnew(str));
 }
