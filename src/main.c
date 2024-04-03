@@ -60,9 +60,8 @@ int main(int argc, char *argv[], char *envp[])
 		line = readline("minishell$ ");
 		if (!line)
 			perror("readline");
-		if (line[0] != '\0' && !is_space(line[0]))
-			add_history(line);
-		token_lst = tokenizer(envir, line, exit_status);
+//		token_lst = tokenizer(envir, line, exit_status);
+		token_lst = get_full_token_lst(envir, &line, exit_status);
 		tree = parse_pipe(&token_lst, envir);
 		if (!syntax_check(token_lst))
 			exit_status = execute_cmds(tree, &envir);
