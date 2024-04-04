@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/04 10:26:45 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:42:02 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
-# define STRING 4
+# define DQUOTE 4
 
 //estructura para un token
 typedef struct	s_token
@@ -67,5 +67,8 @@ int		process_command(char **line, t_token **token_lst);
 void	print_token_list(t_token *token_lst); //quitar al final
 int		print_quotes_error(char c);
 t_token *get_full_token_lst(t_list *envir, int exit_status);
+
+bool	is_quoted_string(const char *str);
+void	remove_quotes(char *str);
 
 #endif

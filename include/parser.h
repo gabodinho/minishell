@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:25:38 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/18 14:10:39 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/04 12:46:16 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct s_node
 	int		fd;
 	char	*delim;			//herenode
 }	t_node;
+
+void handle_double_quotes(char *str);
 
 t_node	*heredoc_cmd(t_token *token);
 t_node	*redir_cmd(t_token *token);
