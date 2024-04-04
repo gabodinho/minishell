@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:52:06 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/02 18:41:30 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:26:48 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,26 @@ char	*get_command_identifier(char *line)
 	return (ft_substr(line, 0, i));
 }
 
+bool	is_quoted_string(const char *str)
+{
+	size_t	len;
+
+	len = ft_strlen(str);
+	return (len >= 2 && str[0] == '"' && str[len - 1] == '"');
+}
+
+void	remove_quotes(char *str)
+{
+	size_t	len;
+	
+	len = ft_strlen(str);
+	if (len >= 2 && str[0] == '"' && str[len - 1] == '"')
+	{
+		ft_memmove(str, str + 1, len - 2);
+		str[len - 2] = '\0';
+	}
+}
+
 int	process_command(char **line, t_token **token_lst)
 {
 	t_token	*token;
@@ -77,7 +97,13 @@ int	process_command(char **line, t_token **token_lst)
 	identifier = get_command_identifier(*line);
 	if (!identifier)
 		return (0);
-	token = create_token(identifier, WORD);
+	if (is_quoted_string(identifier))
+	{
+		remove_quotes(identifier);
+		token = create_token(identifier, STRING);
+	}
+	else
+		token = create_token(identifier, WORD);
 	free(identifier);
 	if (!token)
 		return (0);

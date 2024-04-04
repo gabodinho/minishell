@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/03 15:42:36 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:26:45 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@
 # define WORD 1
 # define PIPE 2
 # define REDIR 3
-# define DOUBLE_QUOTES 4
-# define SINGLE_QUOTES 5
+# define STRING 4
 
 //estructura para un token
 typedef struct	s_token

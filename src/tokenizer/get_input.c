@@ -1,17 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokenizer.c                                        :+:      :+:    :+:   */
+/*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:17:44 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/03 19:50:37 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/04 10:43:09 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 #include "parser.h"
+#include "signals.h"
 
 static int	last_token_is_pipe(t_token *token_lst)
 {
@@ -69,9 +70,10 @@ t_token	*get_full_token_lst(t_list *envir, int exit_status)
 	t_token	*token_lst;
 	char	*line;
 
+	
 	line = readline("minishell$ ");
 	if (!line)
-		return (perror("readline"), NULL);
+		exit(0);
 	token_lst = tokenizer(envir, line, exit_status);
 	if (!syntax_check(token_lst, 0) && last_token_is_pipe(token_lst))
 		line = get_further_input(token_lst, line, envir, exit_status);
