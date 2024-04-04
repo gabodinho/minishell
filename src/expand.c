@@ -25,7 +25,7 @@ int	is_envirom(char *str, int i)
 			return (1);
 		if (str[i + 1] == '?')
 			return (1);
-		if (str[i + 1] == '-')
+		if (str[i + 1] == '_')
 			return (1);
 	}
 	return (0);
