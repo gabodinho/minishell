@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/04 13:05:56 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:18:02 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ void handle_double_quotes(char *str)
 	size_t	i;
 
 	i = ft_strlen(str);
-	if (i >= 2 && str[0] == '"' && str[i - 1] == '"')
+	if (i >= 2 && ((str[0] == '"' && str[i - 1] == '"') || (str[0] == '\'' && str[i - 1] == '\'')))
 	{
 		ft_memmove(str, str + 1, i - 2);
 		str[i - 2] = '\0';
