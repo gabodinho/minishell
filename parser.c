@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/04 13:18:02 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:06:00 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,18 +151,6 @@ void	add_attribute(t_node *node, char *str)
 	(node -> param)[i] = str;
 }
 
-void handle_double_quotes(char *str)
-{
-	size_t	i;
-
-	i = ft_strlen(str);
-	if (i >= 2 && ((str[0] == '"' && str[i - 1] == '"') || (str[0] == '\'' && str[i - 1] == '\'')))
-	{
-		ft_memmove(str, str + 1, i - 2);
-		str[i - 2] = '\0';
-	}
-}
-
 t_node	*parse_exe(t_token **toklist, t_list *envir)
 {
 	t_node		*execmd;
@@ -180,12 +168,6 @@ t_node	*parse_exe(t_token **toklist, t_list *envir)
 			break ;
 		else if (token -> type == WORD)
 		{
-			add_attribute(execmd, token -> str);
-			token = token -> next;
-		}
-		else if (token -> type == DQUOTE)
-		{
-			handle_double_quotes(token -> str);
 			add_attribute(execmd, token -> str);
 			token = token -> next;
 		}

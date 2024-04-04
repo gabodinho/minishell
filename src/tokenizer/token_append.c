@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:52:06 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/04 12:58:38 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:03:03 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,14 +127,6 @@ int	process_command(char **line, t_token **token_lst)
 		{
 			if (!skip_quotes(current_char, &i))
 				return (print_quotes_error(current_char[i]), 0);
-			identifier = ft_substr(*line, 0, i);
-			if (!identifier)
-				return (0);
-			token = create_token(identifier, DQUOTE);
-			if (!token)
-				return (free(identifier), 0);
-			*line = *line + i;
-			return (token_lst_add_back(token_lst, token), 1);
 		}
 		else if (is_space(current_char[i]))
 			break ;

@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:11:16 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/04 12:45:21 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/04 16:03:13 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@ int	process_separator_type(char **line, t_token **token_lst)
 	if (!ft_strncmp(*line, "<<", 2) || !ft_strncmp(*line, ">>", 2)
 		|| !ft_strncmp(*line, "<", 1) || !ft_strncmp(*line, ">", 1))
 		return (add_separator_token(REDIR, line, token_lst) && 1);
-	else if (!ft_strncmp(*line, "\"", 1))
-	{
-		token = create_token("\"", DQUOTE);
-		if (!token)
-			return (0);
-		token_lst_add_back(token_lst, token);
-		(*line)++;
-		return (1);
-	}
 	else
 		return (add_separator_token(PIPE, line, token_lst) && 1);
 }
