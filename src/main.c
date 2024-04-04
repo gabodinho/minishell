@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/03 15:43:33 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/04 13:10:23 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		token_lst = get_full_token_lst(envir, exit_status);
+		//print_token_list(token_lst);
 		tree = parse_pipe(&token_lst, envir);
 		if (!syntax_check(token_lst, 1))
 			exit_status = execute_cmds(tree, &envir);
