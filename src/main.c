@@ -16,7 +16,7 @@
 #include "signals.h"
 #include "exit.h"
 
-int	g_signal;
+//int	g_signal;
 void	signals_cmd(int signum);
 
 static int	execute_cmds(t_node *tree, t_list **envir)
