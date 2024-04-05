@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:39:53 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/01 13:09:15 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:51:40 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,42 +29,43 @@ void	suppress_output(void)
 	}
 }
 
-void	sigint_handler(int signum)
+void	sigint_main(int signum)
 {
-	(void)signum;
+	g_signal = signum;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	write(1, "\n", 1);
-	rl_redisplay();
 }
 
-void	sigquit_handler(int signum)
+void	sigint_other(int signum)
 {
-	if (signum == SIGQUIT)
-	{
-		write(2, "Quit: 3\n", 9);
-	}
+	g_signal = signum;
 	write(1, "\n", 1);
-	rl_on_new_line();
 }
 
-void	signal_interactive(void)
+void	set_signals_main(void)
 {
-	signal(SIGINT, sigint_handler);
+	signal(SIGINT, sigint_main);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	signal_non_interactive(void)
+void	set_signals_other(void)
 {
-	signal(SIGINT, sigquit_handler);
-	signal(SIGQUIT, sigquit_handler);
+	signal(SIGINT, sigint_other);
+	signal(SIGQUIT, SIG_IGN);
 }
 
-void	set_signals(void)
+void	set_signals_heredoc(int signum)
 {
-	suppress_output();
-	if (isatty(STDIN_FILENO))
-		signal_interactive();
-	else
-		signal_non_interactive();
+	g_signal = signum;
+	rl_on_new_line();
+	exit(0);
+}
+
+void	signals_cmd(int signum)
+{
+	(void) signum;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	write(1, "\n", 1);
 }

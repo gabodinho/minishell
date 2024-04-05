@@ -6,11 +6,16 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/01 19:46:22 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:50:54 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+void	set_signals_other(void);
+void	set_signals_heredoc(int signum);
+
+int	g_signal;
 
 static void	run_redir(t_node *node, t_list **envir, int is_builtin)
 {
@@ -122,9 +127,12 @@ void	write_to_pipe(int pfd[2], t_node *node)
 	int		len;
 
 	close(pfd[0]);
-	while (1)
+	signal(SIGINT, set_signals_heredoc);
+	while (g_signal != SIGINT)
 	{
 		buf = readline("heredoc> ");
+		if (!buf)
+			break ;
 		if (ft_strlen(buf) > ft_strlen(node -> delim))
 			len = ft_strlen(buf);
 		else
@@ -145,6 +153,7 @@ static void	run_here(t_node *node, t_list **envir, int is_builtin)
 	pid_t	pid;
 
 	reset_stdin();
+	set_signals_other();
 	if (pipe(pipe_fd) == -1)
 		panic("heredoc: pipe");
 	pid = fork();

@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:40:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/01 13:09:25 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/05 14:51:59 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 
 # include "tokenizer.h"
 
+extern int	g_signal;
+
 void	suppress_output(void);
-void	sigint_handler(int signum);
-void	sigquit_handler(int signum);
-void	signal_interactive(void);
-void	signal_non_interactive(void);
-void	set_signals(void);
+void	set_signals_main(void);
+void	set_signals_other(void);
+void	set_signals_heredoc(int signum);
+void	signals_cmd(int signum);
 
 #endif

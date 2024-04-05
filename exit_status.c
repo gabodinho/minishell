@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_status.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 13:52:03 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/29 16:06:01 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/05 13:26:37 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_exit_status(int status)
 
 	exit_status = WEXITSTATUS(status);
 	if (!WIFEXITED(status))
-		perror("abnormal exit");
+		exit_status = 1;
 	return (exit_status);
 }
 
