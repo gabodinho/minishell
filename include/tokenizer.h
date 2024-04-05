@@ -66,5 +66,7 @@ int		process_command(char **line, t_token **token_lst);
 void	print_token_list(t_token *token_lst); //quitar al final
 int		print_quotes_error(char c);
 t_token *get_full_token_lst(t_list *envir, int exit_status);
+char	*join_and_free(char *old, char *new);
+
 
 #endif
