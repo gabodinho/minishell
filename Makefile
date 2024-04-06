@@ -29,7 +29,7 @@ src/builtins/pwd.c src/builtins/builtins_utils.c src/builtins/cd.c \
 src/builtins/unset.c src/builtins/export.c src/signals.c \
 src/builtins/export_helpers.c exit_status.c src/builtins/env.c \
 src/builtins/cd_helpers.c src/tokenizer/token_quotes.c \
-src/tokenizer/get_input.c
+src/tokenizer/get_input.c pre_expand.c expand_extension.c
 
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell

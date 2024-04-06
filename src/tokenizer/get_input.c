@@ -40,6 +40,12 @@ char	*join_and_free(char *old, char *new)
 {
 	char	*ptr;
 
+	if (!old && new)
+		return (new);
+	else if (old && !new)
+		return (old);
+	else if (!old && !new)
+		return (NULL);
 	ptr = ft_strjoin(old, new);
 	free(old);
 	free(new);

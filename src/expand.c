@@ -127,6 +127,7 @@ char	*create_string(t_list *env, char *token, int start_d, int end_d, int exit_s
 	return (new_str);
 }
 
+/*
 void	expander(t_list *env, t_token *token, int exit_status)
 {
 	t_token		*current;
@@ -164,3 +165,4 @@ void	expander(t_list *env, t_token *token, int exit_status)
 		current = current->next;
 	}
 }
+*/
