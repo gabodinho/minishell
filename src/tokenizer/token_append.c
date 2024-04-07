@@ -80,7 +80,7 @@ bool	is_quoted_string(const char *str)
 void	remove_quotes(char *str)
 {
 	size_t	len;
-	
+
 	len = ft_strlen(str);
 	if (len >= 2 && str[0] == '"' && str[len - 1] == '"')
 	{
@@ -137,8 +137,9 @@ int	process_command(char **line, t_token **token_lst)
 	if (!identifier)
 		return (0);
 	token = create_token(identifier, WORD);
+	free(identifier);	//added this line to remove a leak caused by identifier
 	if (!token)
-		return (free(identifier), 0);
+		return (0);
 	*line = *line + i;
 	return (token_lst_add_back(token_lst, token), 1);
 }

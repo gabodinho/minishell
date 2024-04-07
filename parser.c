@@ -207,6 +207,8 @@ void	clear_tree(t_node *tree)
 	}
 	else if (tree)
 		clear_tree(tree -> subnode);
+	if (tree && tree -> ntype == N_EXE)
+		free(tree -> param);
 	if (tree)
 		free(tree);
 }

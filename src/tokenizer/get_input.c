@@ -36,10 +36,16 @@ static void	append_token_lst(t_token *old, t_token *new)
 	old -> next = new;
 }
 
-static char	*join_and_free(char *old, char *new)
+char	*join_and_free(char *old, char *new)
 {
 	char	*ptr;
 
+	if (!old && new)
+		return (new);
+	else if (old && !new)
+		return (old);
+	else if (!old && !new)
+		return (NULL);
 	ptr = ft_strjoin(old, new);
 	free(old);
 	free(new);
@@ -70,7 +76,7 @@ t_token	*get_full_token_lst(t_list *envir, int exit_status)
 	t_token	*token_lst;
 	char	*line;
 
-	
+
 	line = readline("minishell$ ");
 	if (!line)
 		exit(0);

@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:18:24 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/15 15:44:31 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/06 01:13:47 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@
 # include "parser.h"
 # include "tokenizer.h"
 # include "ft_printf.h"
+
+typedef struct t_exp
+{
+	char			*str;
+	int				quotes;
+	struct t_exp	*next;
+}	t_exp;
 
 int		is_envirom(char *str, int i);
 int		is_env_char(char c);
@@ -27,6 +34,8 @@ char	*create_string(t_list *env, char *token, int start_d, int end_d, int exit_s
 char 	*get_env_value(t_list *env,  char *env_key);
 
 void	expander(t_list *env, t_token *token, int exit_status);
+void	clear_exp(t_exp **exp);
+t_exp	*split_quotes(char *str);
 
 
 #endif
