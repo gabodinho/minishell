@@ -76,11 +76,11 @@ void	export_one(char **arr, t_list **env_list)
 
 	var[0] = arr[0];
 	var[1] = 0;
-	val = arr[1];
+	val = ft_strdup(arr[1]);
 	if (val == NULL)
 		val = ft_strdup("");
-	str = ft_strjoin(var[0], ft_strdup("="));
-	str = ft_strjoin(str, val);
+	str = ft_strjoin(var[0], "=");
+	str = join_and_free(str, val);
 	unset_env_list(env_list, var);
 	ft_lstadd_back(env_list, ft_lstnew(str));
 }
