@@ -13,6 +13,7 @@
 #ifndef EXEC_B_H
 # define EXEC_B_H
 
+# include "structs.h"
 # include "builtins.h"
 # include "expander.h"
 # include "parser.h"
@@ -20,6 +21,6 @@
 # include "libft.h"
 
 bool	is_builtin(char *str);
-int		exec_builtins(char **av, t_list **env);
+int		exec_builtins(char **av, t_data *data);
 
 #endif

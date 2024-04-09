@@ -66,7 +66,13 @@ static char	*get_further_input(t_token *token_lst, char *prev, t_list *envir, in
 	{
 		line = readline("> ");
 		if (!line)
-			return (prev);
+		{
+			free(prev);
+			clear_list(&token_lst);
+			ft_lstclear(&envir, free);
+			printf("minishell: syntax error: unexpected EOF\nexit");
+			exit(2);
+		}
 		new_tok_lst = tokenizer(envir, line, exit_status);
 		prev = join_and_free(prev, line);
 		append_token_lst(token_lst, new_tok_lst);
@@ -84,7 +90,11 @@ t_token	*get_full_token_lst(t_list *envir, int exit_status)
 
 	line = readline("minishell$ ");
 	if (!line)
+	{
+		ft_lstclear(&envir, free);
+		printf("exit\n");
 		exit(0);
+	}
 	token_lst = tokenizer(envir, line, exit_status);
 	if (!syntax_check(token_lst, 0) && last_token_is_pipe(token_lst))
 	{

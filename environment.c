@@ -28,7 +28,7 @@ t_list	*get_env(char **envp)
 
 	start = NULL;
 	while (*envp)
-		ft_lstadd_back(&start, ft_lstnew(*envp++));
+		ft_lstadd_back(&start, ft_lstnew(ft_strdup(*envp++)));
 	return (start);
 }
 

@@ -13,16 +13,10 @@
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
+# include "structs.h"
 # include "parser.h"
 # include "tokenizer.h"
 # include "ft_printf.h"
-
-typedef struct t_exp
-{
-	char			*str;
-	int				quotes;
-	struct t_exp	*next;
-}	t_exp;
 
 int		is_envirom(char *str, int i);
 int		is_env_char(char c);

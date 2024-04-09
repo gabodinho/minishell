@@ -22,6 +22,9 @@
         "limits": "c",
         "sstream": "c",
         "functional": "c",
-        "cstdlib": "c"
+        "cstdlib": "c",
+        "expander.h": "c",
+        "parser.h": "c",
+        "exec_b.h": "c"
     }
 }
