@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:17:44 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/04 10:43:09 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/09 13:05:57 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,12 @@ static char	*get_further_input(t_token *token_lst, char *prev, t_list *envir, in
 {
 	char	*line;
 	t_token	*new_tok_lst;
+	siginfo_t *info;
 
+	info = malloc(sizeof(siginfo_t));
+
+	printf("signal before: %d\n", g_signal);
+	printf("signal code: %d\n", info -> si_code);
 	while (last_token_is_pipe(token_lst))
 	{
 		line = readline("> ");
@@ -82,7 +87,11 @@ t_token	*get_full_token_lst(t_list *envir, int exit_status)
 		exit(0);
 	token_lst = tokenizer(envir, line, exit_status);
 	if (!syntax_check(token_lst, 0) && last_token_is_pipe(token_lst))
+	{
 		line = get_further_input(token_lst, line, envir, exit_status);
+		printf("signal: %d\n", g_signal);
+	}
+		
 	if (*line != '\0' && !is_space(*line))
 		add_history(line);
 	free(line);

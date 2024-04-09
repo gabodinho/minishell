@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/05 14:51:51 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/09 12:53:04 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int main(int argc, char *argv[], char *envp[])
 			exit_status = execute_cmds(tree, &envir);
 		else
 			exit_status = 127;
-		if (g_signal == SIGINT)
-			exit_status = 128 + g_signal;
+		//if (g_signal == SIGINT)
+		//	exit_status = 128 + g_signal;
 		clear_tree(tree);
 		clear_list(&token_lst);
 	}
