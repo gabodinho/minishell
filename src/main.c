@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/05 14:51:51 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:42:26 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,12 @@ static int	execute_cmds(t_node *tree, t_list **envir)
 
 	status = 0;
 	signal(SIGINT, signals_cmd);
+	signal(SIGQUIT, signals_cmd);
+	//signal(SIGQUIT, display_new_line);
 	if (!tree)
 		return (0);
+	if (g_signal == SIGQUIT)
+		return (printf("sigquit"));
 	else if (!is_builtin_exec(tree))
 		return (run_builtin_tree(tree, envir));
 	else
@@ -55,6 +59,7 @@ int main(int argc, char *argv[], char *envp[])
 
 	envir = get_env(envp);
 	exit_status = 0;
+	suppress_output();
 	while (1)
 	{
 		g_signal = 0;

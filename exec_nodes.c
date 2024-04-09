@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:43:08 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/05 14:50:54 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:36:58 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	set_signals_other(void);
 void	set_signals_heredoc(int signum);
+void	display_new_line(int signum);
 
 int	g_signal;
 
@@ -146,7 +147,8 @@ void	write_to_pipe(int pfd[2], t_node *node)
 
 	close(pfd[0]);
 	tty_fd = open("/dev/tty", O_WRONLY);
-//	signal(SIGINT, set_signals_heredoc);
+	signal(SIGINT, set_signals_heredoc);
+	signal(SIGQUIT, display_new_line);
 	while (g_signal != SIGINT)
 	{
 		write(tty_fd, "heredoc> ", 9);
