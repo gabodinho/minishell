@@ -14,6 +14,8 @@
 # define SIGNALS_H
 
 # include "tokenizer.h"
+# include "structs.h"
+
 
 void	suppress_output(void);
 void	sigint_handler(int signum);

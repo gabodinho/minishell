@@ -13,10 +13,11 @@
 #ifndef PARSER_H
 # define PARSER_H
 
+# include "structs.h"
 # include "ft_printf.h"
 # include "tokenizer.h"
-# include "exec_b.h"
-# include "builtins.h"
+// # include "exec_b.h"
+// # include "builtins.h"
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit, getenv
 # include <unistd.h> //getcwd, chdir, fork, execve, wait, write, read, pipe, dup, dup2, close, isatty, ttyname, ttyslot, unlink
@@ -33,29 +34,37 @@
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
-typedef enum e_ntype
-{
-	N_REDIR,
-	N_HERE,
-	N_PIPE,
-	N_EXE
-}	t_ntype;
+// typedef enum e_ntype
+// {
+// 	N_REDIR,
+// 	N_HERE,
+// 	N_PIPE,
+// 	N_EXE
+// }	t_ntype;
 
-typedef struct s_node
-{
-	t_ntype	ntype;
-	struct s_node	*right;	//pipenode
-	struct s_node   *left;
-	struct s_node   *subnode;//allnodes
-	char	**param;		//exenode
-	struct s_list	*envir;
-	char	*file;			//redirnode
-	int		mode;
-	int		fd;
-	char	*delim;			//herenode
-}	t_node;
+// typedef struct s_node
+// {
+// 	t_ntype	ntype;
+// 	struct s_node	*right;	//pipenode
+// 	struct s_node   *left;
+// 	struct s_node   *subnode;//allnodes
+// 	char	**param;		//exenode
+// 	struct s_list	*envir;
+// 	char	*file;			//redirnode
+// 	int		mode;
+// 	int		fd;
+// 	char	*delim;			//herenode
+// }	t_node;
+
+// typedef struct s_data
+// {
+// 	struct s_node	*tree;
+// 	struct s_token	**tok_lst;
+// 	struct s_list	**envir;
+// }	t_data;
 
 void handle_double_quotes(char *str);
+int	exec_builtins(char **av, t_data *data);
 
 t_node	*heredoc_cmd(t_token *token);
 t_node	*redir_cmd(t_token *token);
@@ -66,7 +75,7 @@ void	add_attribute(t_node *node, char *str);
 t_node	*parse_exe(t_token **toklist, t_list *envir);
 t_node	*parse_pipe(t_token **toklist, t_list *envir);
 void	print_tree(t_node *tree);		// to be deleted for final vers
-void	run_tree(t_node *tree, t_list **envir);
+void	run_tree(t_node *tree, t_data *data);
 void	clear_tree(t_node *tree);
 void	panic(char *msg);
 int		syntax_check(t_token *toklist, int print_err);
@@ -81,7 +90,7 @@ char	*exp_rel_path(char *exec_file, t_list *envir);	// todo
 void	write_to_pipe(int pfd[2], t_node *node);
 void	reset_stdin(void);
 void	reset_stdout(void);
-int		run_builtin_tree(t_node *tree, t_list **envir);
+int		run_builtin_tree(t_data *data);
 //int		is_builtin(char *exec_file);					// todo
 //void	run_builtin(char **param, t_list *envir);			// todo
 
