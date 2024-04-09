@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:39:53 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/05 14:51:40 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:38:59 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,15 @@ void	set_signals_main(void)
 void	set_signals_other(void)
 {
 	signal(SIGINT, sigint_other);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, sigint_other);
 }
 
 void	set_signals_heredoc(int signum)
 {
 	g_signal = signum;
-	rl_on_new_line();
+	//rl_replace_line("", 0);
+	//rl_on_new_line();
+	rl_clear_history();
 	exit(0);
 }
 
@@ -68,4 +70,10 @@ void	signals_cmd(int signum)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	write(1, "\n", 1);
+}
+
+void	display_new_line(int signum)
+{
+	(void) signum;
+	exit(0);
 }
