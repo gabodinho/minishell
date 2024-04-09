@@ -14,6 +14,8 @@
 # define SIGNALS_H
 
 # include "tokenizer.h"
+# include "structs.h"
+
 
 extern int	g_signal;
 

@@ -13,6 +13,7 @@
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
+# include "structs.h"
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit, getenv
 # include <unistd.h> //getcwd, chdir, fork, execve, wait, write, read, pipe, dup, dup2, close, isatty, ttyname, ttyslot, unlink
@@ -40,14 +41,13 @@
 # define REDIR 3
 
 //estructura para un token
-typedef struct	s_token
-{
-	int				type;
-	char			*str;
-	struct s_token	*next;
-	struct s_token	*prev;
-
-} t_token;
+// typedef struct	s_token
+// {
+// 	int				type;
+// 	char			*str;
+// 	struct s_token	*next;
+// 	struct s_token	*prev;
+// } t_token;
 
 //new_tokenizer
 t_token	*tokenizer(t_list *env, char *line, int exit_status);

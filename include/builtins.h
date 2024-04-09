@@ -13,11 +13,13 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+# include "structs.h"
 # include "expander.h"
 # include "parser.h"
 # include "tokenizer.h"
 # include "exec_b.h"
 # include "../libft/libft/libft.h"
+
 
 //cd
 int		our_cd(char **av, t_list *env);
@@ -26,7 +28,7 @@ char	*change_directory(char *new_dir);
 //echo
 int		our_echo(char **av);
 //exit
-void	exit_command(char **av);
+void	exit_command(char **av, t_data *data);
 //env
 int		has_options(char **av);
 int		print_env_without_options(char **av, t_list *env);

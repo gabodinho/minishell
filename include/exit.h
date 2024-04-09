@@ -13,6 +13,7 @@
 #ifndef EXIT_H
 # define EXIT_H
 
+# include "structs.h"
 # include "builtins.h"
 # include "expander.h"
 # include "parser.h"
