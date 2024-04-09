@@ -97,23 +97,40 @@ static void	run_exec(t_node *node, t_list **envir)
 static void	run_pipe(t_node *node, t_list **envir)
 {
 	int	p_fd[2];
+	int	pid1;
+	int	pid2;
 
 	pipe(p_fd);
-	if (fork() == 0)
+	pid1 = fork();
+	if (pid1 < 0)
+		panic("pipe: fork");
+	else if (pid1 == 0)
 	{
-		close(1);
-		dup(p_fd[1]);
+		dup2(p_fd[1], STDOUT_FILENO);
 		close(p_fd[0]);
 		close(p_fd[1]);
+		// close(1);
+		// dup(p_fd[1]);
+		// close(p_fd[0]);
+		// close(p_fd[1]);
 		run_tree(node -> left, envir);
 	}
-	if (fork() == 0)
+	else
 	{
-		close(0);
-		dup(p_fd[0]);
-		close(p_fd[1]);
-		close(p_fd[0]);
-		run_tree(node -> right, envir);
+		pid2 = fork();
+		if (pid2 < 0)
+			panic("pipe: fork");
+		else if (pid2 == 0)
+		{
+			dup2(p_fd[0], STDIN_FILENO);
+			close(p_fd[1]);
+			close(p_fd[0]);
+			// close(0);
+			// dup(p_fd[0]);
+			// close(p_fd[1]);
+			// close(p_fd[0]);
+			run_tree(node -> right, envir);
+		}
 	}
 	close(p_fd[0]);
 	close(p_fd[1]);
@@ -125,24 +142,29 @@ void	write_to_pipe(int pfd[2], t_node *node)
 {
 	char	*buf;
 	int		len;
+	int		tty_fd;
 
 	close(pfd[0]);
-	signal(SIGINT, set_signals_heredoc);
+	tty_fd = open("/dev/tty", O_WRONLY);
+//	signal(SIGINT, set_signals_heredoc);
 	while (g_signal != SIGINT)
 	{
-		buf = readline("heredoc> ");
+		write(tty_fd, "heredoc> ", 9);
+		buf = get_next_line(STDIN_FILENO);
+//		buf = readline("heredoc> ");
 		if (!buf)
 			break ;
 		if (ft_strlen(buf) > ft_strlen(node -> delim))
-			len = ft_strlen(buf);
+			len = ft_strlen(buf) - 1;
 		else
 			len = ft_strlen(node -> delim);
 		if (!ft_strncmp(node -> delim, buf, len))
 			break ;
 		write(pfd[1], buf, ft_strlen(buf));
-		write(pfd[1], "\n", 1);
+//		write(pfd[1], "\n", 1);
 	}
 	close(pfd[1]);
+	close(tty_fd);
 	free(buf);
 }
 
@@ -152,8 +174,8 @@ static void	run_here(t_node *node, t_list **envir, int is_builtin)
 	int		pipe_fd[2];
 	pid_t	pid;
 
-	reset_stdin();
-	set_signals_other();
+//	reset_stdin();
+//	set_signals_other();
 	if (pipe(pipe_fd) == -1)
 		panic("heredoc: pipe");
 	pid = fork();
