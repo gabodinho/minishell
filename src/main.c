@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/09 21:33:38 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:35:35 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	signals_cmd(int signum);
 
 //static int	execute_cmds(t_node *tree, t_list **envir);
 //int	g_signal;
-void	signals_cmd(int signum);
 
 t_data*	get_data(t_token **toklst, t_list **envir, t_node *tree)
 {
@@ -43,6 +42,8 @@ static int	execute_cmds(t_data *data)
 
 	status = 0;
 //	signal(SIGINT, signals_cmd);
+	signal(SIGINT, signals_cmd);
+	signal(SIGQUIT, signals_cmd);
 	if (!(data -> tree))
 		return (0);
 	else if (!is_builtin_exec(data -> tree))
@@ -77,7 +78,7 @@ int main(int argc, char *argv[], char *envp[])
 	while (1)
 	{
 		g_signal = 0;
-	//	set_signals_main();
+		set_signals_main();
 		token_lst = get_full_token_lst(envir, exit_status);
 		//print_token_list(token_lst);
 		tree = parse_pipe(&token_lst, envir);
