@@ -6,7 +6,7 @@
 #    By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/22 19:51:00 by ggiertzu          #+#    #+#              #
-#    Updated: 2024/04/10 14:27:20 by irivero-         ###   ########.fr        #
+#    Updated: 2024/04/10 14:30:13 by irivero-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ src/builtins/export_helpers_0.c src/builtins/export_helpers_1.c \
 exit_status.c src/builtins/env.c src/builtins/cd_helpers.c \
 src/tokenizer/token_quotes.c src/tokenizer/get_input.c src/expander/pre_expand.c \
 src/expander/expand_extension.c exec_nodes.c src/clear_shell.c \
-src/expander/expand_helper_0.c \
+src/expander/expand_helper_0.c src/expander/expand_quotes.c\
 
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell
