@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:51:39 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/02 12:52:11 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:05:29 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ void	if_pflag_is_one(char *path)
 	free(path);
 }
 
+int	handle_pwd_options(void)
+{
+	ft_putstr_fd("minishell: pwd: no options allowed\n", 2);
+	return (1);
+}
+
+int	handle_getcwd_error(void)
+{
+	perror("getcwd");
+	return (127);
+}
+
 int	our_pwd(char **av, int pflag)
 {
 	char	*path;
@@ -29,19 +41,11 @@ int	our_pwd(char **av, int pflag)
 	i = 0;
 	path = malloc(1024 * sizeof(char));
 	if (has_options(av))
-	{
-		ft_putstr_fd("minishell: pwd: no options allowed\n", 2);
-		exit_status = 1;
-		return (exit_status);
-	}
+		return (handle_pwd_options());
 	while (av[i] != NULL && av[i])
 		i++;
 	if (getcwd(path1, sizeof(path1)) == NULL)
-	{
-		perror("getcwd");
-		exit_status = 127;
-		return (exit_status);
-	}
+		return (handle_getcwd_error());
 	if (ft_strcmp(av[0], "pwd") == 0 || i > 1)
 		printf("%s\n", path1);
 	exit_status = 0;
@@ -49,11 +53,6 @@ int	our_pwd(char **av, int pflag)
 	if (pflag == 1)
 		if_pflag_is_one(path);
 	else
-	{
-		//printf("%s\n", path);
 		free(path);
-		return (exit_status);
-	}
-	exit(exit_status);
 	return (exit_status);
 }

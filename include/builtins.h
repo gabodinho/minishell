@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 09:53:43 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:30:19 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,9 @@ void	error_msg_export(char *arg, char *message);
 int		non_empty_str(char **arr);
 char	**empty_str(char **arr);
 void	export_one(char **arr, t_list **env_list);
+int		handle_export_without_equal_sign(void);
+int		handle_export_with_equal_sign(char *arg, char *equal_sign,
+	t_list **env_list);
 //pwd
 void	if_pflag_is_one(char *path);
 int		our_pwd(char **av, int pflag);

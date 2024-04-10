@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_helpers.c                                   :+:      :+:    :+:   */
+/*   export_helpers_0.c.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 09:53:29 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 09:51:23 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 13:28:09 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,19 @@ void	export_one(char **arr, t_list **env_list)
 	str = join_and_free(str, val);
 	unset_env_list(env_list, var);
 	ft_lstadd_back(env_list, ft_lstnew(str));
+}
+
+int	process_export_argument(char **arr, t_list **env_list)
+{
+	int	exit_status;
+
+	exit_status = 0;
+	if (!is_start_valid(arr[0][0]) || !is_char_valid(arr[0]))
+	{
+		error_msg_export(arr[1], " : not a valid identifier");
+		exit_status = 1;
+	}
+	else
+		export_one(arr, env_list);
+	return (exit_status);
 }
