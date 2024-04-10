@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:17:44 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/09 13:05:57 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 09:45:48 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,31 +52,24 @@ char	*join_and_free(char *old, char *new)
 	return (ptr);
 }
 
-static char	*get_further_input(t_token **token_lst, char *prev, t_list *envir, int exit_status)
+static char	*get_further_input(t_token **token_lst, char *prev,
+	t_list *envir, int exit_status)
 {
 	char	*line;
 	t_token	*new_tok_lst;
 
-	// siginfo_t *info;
-	// info = malloc(sizeof(siginfo_t));
-	// printf("signal before: %d\n", g_signal);
-	// printf("signal code: %d\n", info -> si_code);
 	set_signal_further_tok();
 	while (last_token_is_pipe(*token_lst))
 	{
 		line = readline("> ");
 		if (!line)
 		{
-			free(prev);
-			clear_list(token_lst);
-			ft_lstclear(&envir, free);
-			printf("minishell: syntax error: unexpected EOF\nexit\n");
-			exit(2);
+			handle_eof_error(token_lst, prev, envir);
+			return (NULL);
 		}
 		else if (g_signal == 1010)
 		{
 			clear_list(token_lst);
-			// printf("^C\n");
 			return (prev);
 		}
 		new_tok_lst = tokenizer(envir, line, exit_status);
@@ -93,7 +86,6 @@ t_token	*get_full_token_lst(t_list *envir, int exit_status)
 	t_token	*token_lst;
 	char	*line;
 
-
 	line = readline("minishell$ ");
 	if (!line)
 	{
@@ -104,7 +96,6 @@ t_token	*get_full_token_lst(t_list *envir, int exit_status)
 	token_lst = tokenizer(envir, line, exit_status);
 	if (!syntax_check(token_lst, 0) && last_token_is_pipe(token_lst))
 		line = get_further_input(&token_lst, line, envir, exit_status);
-	// printf("signal: %d\n", g_signal);
 	if (*line != '\0' && !is_space(*line))
 		add_history(line);
 	free(line);

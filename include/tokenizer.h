@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/04 16:02:45 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 09:45:32 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	print_token_list(t_token *token_lst); //quitar al final
 int		print_quotes_error(char c);
 t_token *get_full_token_lst(t_list *envir, int exit_status);
 char	*join_and_free(char *old, char *new);
+void	handle_eof_error(t_token **token_lst, char *line, t_list *envir);
 
 
 #endif

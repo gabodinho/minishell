@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:52:06 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/04 16:03:03 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 09:35:46 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,49 +69,6 @@ char	*get_command_identifier(char *line)
 	return (ft_substr(line, 0, i));
 }
 
-bool	is_quoted_string(const char *str)
-{
-	size_t	len;
-
-	len = ft_strlen(str);
-	return (len >= 2 && str[0] == '"' && str[len - 1] == '"');
-}
-
-void	remove_quotes(char *str)
-{
-	size_t	len;
-
-	len = ft_strlen(str);
-	if (len >= 2 && str[0] == '"' && str[len - 1] == '"')
-	{
-		ft_memmove(str, str + 1, len - 2);
-		str[len - 2] = '\0';
-	}
-}
-
-/*
-int	process_command(char **line, t_token **token_lst)
-{
-	t_token	*token;
-	char	*identifier;
-
-	identifier = get_command_identifier(*line);
-	if (!identifier)
-		return (0);
-	if (is_quoted_string(identifier))
-	{
-		remove_quotes(identifier);
-		token = create_token(identifier, DQUOTE);
-	}
-	else
-		token = create_token(identifier, WORD);
-	free(identifier);
-	if (!token)
-		return (0);
-	*line = *line + ft_strlen(token->str);
-	return (token_lst_add_back(token_lst, token), 1);
-}
-*/
 int	process_command(char **line, t_token **token_lst)
 {
 	t_token	*token;
@@ -123,11 +80,8 @@ int	process_command(char **line, t_token **token_lst)
 	current_char = *line;
 	while (current_char[i] && !is_shell_separator(current_char + i))
 	{
-		if (is_quotes(current_char[i]))
-		{
-			if (!skip_quotes(current_char, &i))
-				return (print_quotes_error(current_char[i]), 0);
-		}
+		if (is_quotes(current_char[i]) && !skip_quotes(current_char, &i))
+			return (print_quotes_error(current_char[i]), 0);
 		else if (is_space(current_char[i]))
 			break ;
 		else
@@ -137,7 +91,7 @@ int	process_command(char **line, t_token **token_lst)
 	if (!identifier)
 		return (0);
 	token = create_token(identifier, WORD);
-	free(identifier);	//added this line to remove a leak caused by identifier
+	free(identifier);
 	if (!token)
 		return (0);
 	*line = *line + i;
