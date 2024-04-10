@@ -6,12 +6,12 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 09:37:44 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 09:44:32 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 10:04:07 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
-
+#include "builtins.h"
 
 void	handle_eof_error(t_token **token_lst, char *line, t_list *envir)
 {
@@ -20,4 +20,13 @@ void	handle_eof_error(t_token **token_lst, char *line, t_list *envir)
 	ft_lstclear(&envir, free);
 	printf("minishell: syntax error: unexpected EOF\nexit\n");
 	exit(2);
+}
+
+void	exit_with_cleaup(t_data *data, int exit_status)
+{
+	clear_list(data->tok_lst);
+	ft_lstclear(data->envir, free);
+	clear_tree(data->tree);
+	free(data);
+	exit(exit_status);
 }

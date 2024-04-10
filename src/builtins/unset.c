@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:51:55 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/02 12:43:38 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 10:11:20 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	unset_env_list(t_list **env_list, char **target_key)
 {
 	t_list	*temp;
 	int		i;
-	
+
 	if (!target_key || !env_list)
 		return (1);
 	while (*target_key)

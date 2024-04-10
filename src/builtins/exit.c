@@ -6,13 +6,35 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:33 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/02 10:28:03 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 10:11:03 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 #include "exec_b.h"
 #include "parser.h"
+
+int	get_exit_status_cmd(char **av)
+{
+	int	exit_status;
+
+	if (av[1] != NULL)
+	{
+		exit_status = ft_atoi(av[1]);
+		if (ft_strlen(av[1]) > 3 || exit_status < 0 || exit_status > 255)
+		{
+			ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+			return (255);
+		}
+		if (av[2] != NULL)
+		{
+			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
+			return (1);
+		}
+		return (exit_status);
+	}
+	return (0);
+}
 
 void	exit_command(char **av, t_data *data)
 {
@@ -24,39 +46,8 @@ void	exit_command(char **av, t_data *data)
 		return ;
 	}
 	ft_putendl_fd("exit", 2);
-	if (av[1] != NULL)
-	{
-		exit_status = ft_atoi(av[1]);
-		if (ft_strlen(av[1]) > 3 || exit_status < 0 || exit_status > 255)
-		{
-			ft_putstr_fd("minishell: exit: ", 2);
-			ft_putendl_fd("numeric argument required", 2);
-			clear_list(data -> tok_lst);
-			ft_lstclear(data -> envir, free);
-			clear_tree(data -> tree);
-			free(data);
-			exit(255);
-		}
-		if (av[2] != NULL)
-		{
-			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-			return ;
-		}
-		else
-		{
-			clear_list(data -> tok_lst);
-			ft_lstclear(data -> envir, free);
-			clear_tree(data -> tree);
-			free(data);
-			exit (exit_status);
-		}
-	}
-	else
-	{
-		clear_list(data -> tok_lst);
-		ft_lstclear(data -> envir, free);
-		clear_tree(data -> tree);
-		free(data);
-		exit(0);
-	}
+	exit_status = get_exit_status_cmd(av);
+	if (exit_status == 1)
+		return ;
+	exit_with_cleaup(data, exit_status);
 }

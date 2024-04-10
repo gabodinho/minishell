@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/03 15:42:28 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 09:53:43 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # include "exec_b.h"
 # include "../libft/libft/libft.h"
 
+
+void	exit_with_cleaup(t_data *data, int exit_status);
 
 //cd
 int		our_cd(char **av, t_list *env);

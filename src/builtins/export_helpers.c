@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 09:53:29 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/03 13:47:17 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 09:51:23 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	error_msg_export(char *arg, char *message)
 	ft_putstr_fd("minishell: export: '", 2);
 	if (arg != NULL)
 	{
-		//ft_putstr_fd("= ", 2);
 		ft_putstr_fd(arg, 2);
 		if (message != NULL)
 		{
