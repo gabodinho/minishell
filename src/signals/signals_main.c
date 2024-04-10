@@ -40,3 +40,13 @@ void	set_signals_main(void)
 	signal(SIGINT, sigint_main);
 	signal(SIGQUIT, SIG_IGN);
 }
+
+int	get_exit_status(int status)
+{
+	int	exit_status;
+
+	exit_status = WEXITSTATUS(status);
+	if (!WIFEXITED(status))
+		exit_status = 1;
+	return (exit_status);
+}

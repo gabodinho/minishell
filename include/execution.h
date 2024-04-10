@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef EXECUTION_H
+# define EXECUTION_H
 
 # include "ft_printf.h"
 # include "structs.h"
@@ -30,22 +30,25 @@
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
-// parse_exe.c
-t_node	*parse_exe(t_token **toklist, t_list *envir);
-// parse_pipe.c
-t_node	*parse_pipe(t_token **toklist, t_list *envir);
-// parse_redir.c
-t_node	*parse_redir(t_node *cmd, t_token **toklist);
-// parse_utils.c
-void	panic(char *msg);
-int		syntax_check(t_token *toklist, int print_err);
-void	clear_tree(t_node *tree);
-t_node	*add_last(t_node *redir, t_node *exec);
-// environment.c
-t_list	*get_env(char **envp);
-void	print_env(t_list *envlist);
-char	**conv_env(t_list *envir);
-char    *search_env(char *key, t_list *envir);
-void    del_arr(char **arr);
+// exec_utils
+int		is_path(char *str);
+void	reset_stdin(void);
+void	reset_stdout(void);
+char	*find_exec(char *exec_file, char *path_var);
+int		is_builtin_exec(t_node *tree);
+// exec_heredoc
+void	run_here(t_node *node, t_data *data, int is_builtin);
+// exec_pipe
+void	run_pipe(t_node *node, t_data *data);
+// exec_redir
+void	run_redir(t_node *node, t_data *data, int is_builtin);
+// exec_exec
+void	run_exec(t_node *node, t_data *data);
+// exec_tree
+void	run_tree(t_node *tree, t_data *data);
+int		run_builtin_tree(t_data *data);
+// exec_builtins
+bool	is_builtin(char *str);
+int		exec_builtins(char **av, t_data *data);
 
 #endif

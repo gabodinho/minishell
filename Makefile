@@ -21,17 +21,44 @@ ifeq ($(shell uname),Linux)
 endif
 
 HEADERS	:= -I $(LIBFT_D)/libft -I include -I $(LIBFT_D) -I .
-SRCS	:= parser.c src/tokenizer/token_line.c src/tokenizer/token_append.c	\
-src/tokenizer/token_list.c src/tokenizer/token_utils.c  \
-src/tokenizer/tokenizer.c src/main.c syntax_check.c environment.c \
-src/expander/expand.c search_exec.c src/exec_builtins.c src/builtins/echo.c \
-src/builtins/exit.c src/builtins/pwd.c src/builtins/builtins_utils.c \
-src/builtins/cd.c src/builtins/unset.c src/builtins/export.c src/signals/signals.c \
-src/builtins/export_helpers_0.c src/builtins/export_helpers_1.c \
-exit_status.c src/builtins/env.c src/builtins/cd_helpers.c \
-src/tokenizer/token_quotes.c src/tokenizer/get_input.c src/expander/pre_expand.c \
-src/expander/expand_extension.c exec_nodes.c src/clear_shell.c \
-src/expander/expand_helper_0.c src/expander/expand_quotes.c src/signals/signals_main.c\
+SRCS := \
+	src/builtins/builtins_utils.c \
+	src/builtins/cd.c \
+	src/builtins/cd_helpers.c \
+	src/builtins/echo.c \
+	src/builtins/env.c \
+	src/builtins/exit.c \
+	src/builtins/export.c \
+	src/builtins/export_helpers_0.c \
+	src/builtins/export_helpers_1.c \
+	src/builtins/pwd.c \
+	src/builtins/unset.c \
+	src/execution/exec_exec.c \
+	src/execution/exec_heredoc.c \
+	src/execution/exec_pipe.c \
+	src/execution/exec_redir.c \
+	src/execution/exec_tree.c \
+	src/main.c \
+	src/environment.c \
+	src/signals/signals.c \
+	src/signals/signals_main.c \
+	src/clear_shell.c \
+	src/expander/expand.c \
+	src/expander/expand_extension.c \
+	src/expander/expand_helper_0.c \
+	src/expander/expand_quotes.c \
+	src/expander/pre_expand.c \
+	src/tokenizer/get_input.c \
+	src/tokenizer/token_append.c \
+	src/tokenizer/token_line.c \
+	src/tokenizer/token_list.c \
+	src/tokenizer/token_quotes.c \
+	src/tokenizer/token_utils.c \
+	src/tokenizer/tokenizer.c \
+	src/parser/parse_exe.c \
+	src/parser/parse_pipe.c \
+	src/parser/parse_redir.c \
+	src/parser/parse_utils.c \
 
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell

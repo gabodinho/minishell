@@ -18,6 +18,19 @@ void	panic(char *msg)
 	exit(EXIT_FAILURE);
 }
 
+t_node	*add_last(t_node *redir, t_node *exec)
+{
+	t_node	*ptr;
+
+	ptr = redir;
+	if (!redir)
+		return (exec);
+	while (redir && redir -> subnode)
+		redir = redir -> subnode;
+	redir -> subnode = exec;
+	return (ptr);
+}
+
 static int	synt_err(t_token *prev, t_token *current, int print_err)
 {
 	char	*culprit;
@@ -67,3 +80,51 @@ int	syntax_check(t_token *toklist, int print_err)
 	else
 		return (0);
 }
+
+void	clear_tree(t_node *tree)
+{
+	if (tree && tree -> ntype == N_PIPE)
+	{
+		clear_tree(tree -> left);
+		clear_tree(tree -> right);
+	}
+	else if (tree)
+		clear_tree(tree -> subnode);
+	if (tree && tree -> ntype == N_EXE)
+		free(tree -> param);
+	if (tree)
+		free(tree);
+}
+/*
+void	print_tree(t_node *tree)
+{
+	int	i;
+
+	i = 0;
+	while (tree)
+	{
+		if (tree && tree -> ntype == N_PIPE)
+		{
+			printf("Pipe node\nleft subtree:\n");
+			print_tree(tree -> left);
+			tree = tree -> right;
+			printf("right subtree:\n");
+		}
+		else if (tree)
+		{
+			printf("node type: %d\n", tree -> ntype);
+			if (tree -> ntype == N_EXE)
+			{
+				while (tree -> param[i] && i < 20)
+					printf("\t%s\n", tree -> param[i++]);
+			}
+			else if (tree -> ntype == N_REDIR)
+				printf("\tmode: %d, fd: %d, file: %s\n", tree -> mode, tree -> fd, tree -> file);
+			else if (tree -> ntype == N_HERE)
+				printf("\theredoc with delim: %s\n", tree -> delim);
+			tree = tree -> subnode;
+		}
+	}
+	return ;
+}
+*/

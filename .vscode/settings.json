@@ -25,6 +25,8 @@
         "cstdlib": "c",
         "expander.h": "c",
         "parser.h": "c",
-        "exec_b.h": "c"
+        "exec_b.h": "c",
+        "signals.h": "c",
+        "execution.h": "c"
     }
 }

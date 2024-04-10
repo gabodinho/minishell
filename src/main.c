@@ -13,14 +13,13 @@
 #include "tokenizer.h"
 #include "parser.h"
 #include "expander.h"
-#include "exec_b.h"
+#include "execution.h"
 #include "builtins.h"
 #include "signals.h"
-#include "exit.h"
 
-void	signals_cmd(int signum);
+int	g_signal;
 
-t_data	*get_data(t_token **toklst, t_list **envir, t_node *tree)
+static t_data	*get_data(t_token **toklst, t_list **envir, t_node *tree)
 {
 	t_data	*data;
 
@@ -56,7 +55,7 @@ static int	execute_cmds(t_data *data)
 	}
 }
 
-int	run_shell(t_list *envir)
+static void	run_shell(t_list *envir)
 {
 	t_token	*token_lst;
 	t_node	*tree;
@@ -85,13 +84,12 @@ int	run_shell(t_list *envir)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_list	*envir;
-	int		exit_status;
 
 	(void) argc;
 	(void) argv;
 	envir = get_env(envp);
-	exit_status = run_shell(envir);
-	return (exit_status);
+	run_shell(envir);
+	return (0);
 }
 
 /*

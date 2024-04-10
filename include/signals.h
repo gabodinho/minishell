@@ -16,7 +16,6 @@
 # include "tokenizer.h"
 # include "structs.h"
 
-
 extern int	g_signal;
 
 void	suppress_output(void);
@@ -27,6 +26,6 @@ void	signals_cmd(int signum);
 void	display_new_line(int signum);
 void	sigint_further_tok(int signum);
 void	set_signal_further_tok(void);
-
+int		get_exit_status(int status);
 
 #endif
