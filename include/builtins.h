@@ -13,12 +13,13 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
+# include "libft.h"
 # include "structs.h"
 # include "expander.h"
 # include "parser.h"
 # include "tokenizer.h"
 # include "exec_b.h"
-# include "../libft/libft/libft.h"
+
 
 
 void	exit_with_cleaup(t_data *data, int exit_status);

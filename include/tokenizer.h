@@ -13,6 +13,7 @@
 #ifndef TOKENIZER_H
 # define TOKENIZER_H
 
+# include "ft_printf.h"
 # include "structs.h"
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit, getenv
@@ -30,7 +31,6 @@
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
-# include "ft_printf.h"
 
 # define MAX_TOKEN_LENGTH 100
 

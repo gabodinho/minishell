@@ -13,8 +13,8 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "structs.h"
 # include "ft_printf.h"
+# include "structs.h"
 # include "tokenizer.h"
 // # include "exec_b.h"
 // # include "builtins.h"

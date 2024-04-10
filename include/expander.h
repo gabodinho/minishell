@@ -13,10 +13,10 @@
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
+# include "ft_printf.h"
 # include "structs.h"
 # include "parser.h"
 # include "tokenizer.h"
-# include "ft_printf.h"
 
 int		is_envirom(char *str, int i);
 int		is_env_char(char c);
