@@ -13,12 +13,12 @@
 #ifndef EXIT_H
 # define EXIT_H
 
+# include "ft_printf.h"
 # include "structs.h"
 # include "builtins.h"
 # include "expander.h"
 # include "parser.h"
 # include "tokenizer.h"
-# include "libft.h"
 
 int get_exit_status(int status);
 int	is_builtin_exec(t_node *tree);
