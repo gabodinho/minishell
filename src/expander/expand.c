@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 09:39:49 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 14:11:16 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:34:11 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,7 @@ char	*get_env_value(t_list *env, char *env_key)
 	return (result);
 }
 
-char	*create_string(t_list *env, char *token, int start_d, int end_d,
-	int exit_status)
+char	*create_string(t_string_info *info, char *token, int start_d, int end_d)
 {
 	char	*value;
 	char	*key;
@@ -67,9 +66,9 @@ char	*create_string(t_list *env, char *token, int start_d, int end_d,
 
 	key = ft_substr(token, start_d + 1, end_d - start_d);
 	if (ft_strncmp(key, "?", ft_strlen(key)) == 0)
-		value = ft_itoa(exit_status);
+		value = ft_itoa(info->exit_status);
 	else
-		value = get_env_value(env, key);
+		value = get_env_value(info->env, key);
 	len = ft_strlen(token) - (end_d - start_d + 1) + ft_strlen(value);
 	new_str = (char *)malloc(sizeof(char) * (len + 1));
 	if (!new_str)

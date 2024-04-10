@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:25:38 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/04 12:46:16 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:33:39 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,12 @@ typedef struct t_exp
 	int				quotes;
 	struct t_exp	*next;
 }	t_exp;
+
+typedef struct s_string_info
+{
+	t_list	*env;
+	int		exit_status;
+}	t_string_info;
 
 typedef struct	s_token
 {

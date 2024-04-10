@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 17:18:24 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 14:14:40 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:32:35 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int		is_env_char(char c);
 int		is_token_in_env(char *str);
 int		find_dollar(char *str, int i);
 void	new_string(char *new_str, char *subs1, char *value, char *subs2);
-char	*create_string(t_list *env, char *token, int start_d, int end_d, int exit_status);
+//char	*create_string(t_list *env, char *token, int start_d, int end_d, int exit_status);
+char    *create_string(t_string_info *info, char *token, int start_d, int end_d);
 char 	*get_env_value(t_list *env,  char *env_key);
 
 void	expander(t_list *env, t_token *token, int exit_status);

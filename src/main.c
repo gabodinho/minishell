@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/09 21:35:35 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:01:05 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,9 @@
 #include "signals.h"
 #include "exit.h"
 
-//int	g_signal;
 void	signals_cmd(int signum);
 
-//static int	execute_cmds(t_node *tree, t_list **envir);
-//int	g_signal;
-
-t_data*	get_data(t_token **toklst, t_list **envir, t_node *tree)
+t_data	*get_data(t_token **toklst, t_list **envir, t_node *tree)
 {
 	t_data	*data;
 
@@ -41,7 +37,6 @@ static int	execute_cmds(t_data *data)
 	int	pid;
 
 	status = 0;
-//	signal(SIGINT, signals_cmd);
 	signal(SIGINT, signals_cmd);
 	signal(SIGQUIT, signals_cmd);
 	if (!(data -> tree))
@@ -59,19 +54,57 @@ static int	execute_cmds(t_data *data)
 			waitpid(pid, &status, 0);
 		return (get_exit_status(status));
 	}
-
 }
 
-int main(int argc, char *argv[], char *envp[])
+int	run_shell(t_list *envir)
 {
-	t_token *token_lst;
+	t_token	*token_lst;
+	t_node	*tree;
+	t_data	*data;
+	int		exit_status;
+
+	exit_status = 0;
+	suppress_output();
+	while (1)
+	{
+		g_signal = 0;
+		set_signals_main();
+		token_lst = get_full_token_lst(envir, exit_status);
+		tree = parse_pipe(&token_lst, envir);
+		data = get_data(&token_lst, &envir, tree);
+		if (!syntax_check(token_lst, 1))
+			exit_status = execute_cmds(data);
+		else
+			exit_status = 127;
+		clear_tree(tree);
+		clear_list(&token_lst);
+		free(data);
+	}
+}
+
+int	main(int argc, char *argv[], char *envp[])
+{
+	t_list	*envir;
+	int		exit_status;
+
+	(void) argc;
+	(void) argv;
+	envir = get_env(envp);
+	exit_status = run_shell(envir);
+	return (exit_status);
+}
+
+/*
+int	main(int argc, char *argv[], char *envp[])
+{
+	t_token	*token_lst;
 	t_node	*tree;
 	t_list	*envir;
 	t_data	*data;
 	int		exit_status;
+
 	(void) argc;
 	(void) argv;
-
 	envir = get_env(envp);
 	exit_status = 0;
 	suppress_output();
@@ -80,17 +113,14 @@ int main(int argc, char *argv[], char *envp[])
 		g_signal = 0;
 		set_signals_main();
 		token_lst = get_full_token_lst(envir, exit_status);
-		// print_token_list(token_lst);
 		tree = parse_pipe(&token_lst, envir);
 		data = get_data(&token_lst, &envir, tree);
 		if (!syntax_check(token_lst, 1))
 			exit_status = execute_cmds(data);
 		else
 			exit_status = 127;
-		//if (g_signal == SIGINT)
-		//	exit_status = 128 + g_signal;
 		clear_tree(tree);
 		clear_list(&token_lst);
 		free(data);
 	}
-}
+}*/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:20:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/03/28 13:49:25 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/10 16:04:47 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ bool	is_builtin(char *str)
 int	exec_builtins(char **av, t_data *data)
 {
 	char	**keys;
+
 	if (ft_strcmp(av[0], "echo") == 0)
 		return (our_echo(av));
 	if (ft_strcmp(av[0], "cd") == 0)
@@ -41,7 +42,7 @@ int	exec_builtins(char **av, t_data *data)
 	if (ft_strcmp(av[0], "export") == 0)
 		return (export_builtin(av, data -> envir));
 	if (ft_strcmp(av[0], "env") == 0)
-		return (print_env(*(data -> envir)), 0); //change env.c
+		return (print_env(*(data -> envir)), 0);
 	if (ft_strcmp(av[0], "unset") == 0)
 	{
 		if (av[1] != NULL)
