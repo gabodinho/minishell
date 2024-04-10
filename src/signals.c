@@ -37,6 +37,21 @@ void	sigint_main(int signum)
 	rl_on_new_line();
 }
 
+void	sigint_further_tok(int signum)
+{
+	(void)	signum;
+	g_signal = 1010;		//randomly chosen to tell the while loop in further_token function to break
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	rl_replace_line("", 0);
+	rl_on_new_line();
+}
+
+void	set_signal_further_tok(void)
+{
+	signal(SIGINT, sigint_further_tok);
+	signal(SIGQUIT, SIG_IGN);
+}
+
 void	sigint_other(int signum)
 {
 	g_signal = signum;

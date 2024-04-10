@@ -25,4 +25,7 @@ void	set_signals_other(void);
 void	set_signals_heredoc(int signum);
 void	signals_cmd(int signum);
 void	display_new_line(int signum);
+void	sigint_further_tok(int signum);
+void	set_signal_further_tok(void);
+
 #endif

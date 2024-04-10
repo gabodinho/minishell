@@ -144,7 +144,11 @@ void	write_to_pipe(int pfd[2], t_node *node)
 		buf = get_next_line(STDIN_FILENO);
 //		buf = readline("heredoc> ");
 		if (!buf)
+		{
+			write(tty_fd, "\nminishell: warning: \
+here-document delimited by end-of-file\n", 60);
 			break ;
+		}
 		if (ft_strlen(buf) > ft_strlen(node -> delim))
 			len = ft_strlen(buf) - 1;
 		else

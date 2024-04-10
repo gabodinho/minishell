@@ -80,7 +80,7 @@ int main(int argc, char *argv[], char *envp[])
 		g_signal = 0;
 		set_signals_main();
 		token_lst = get_full_token_lst(envir, exit_status);
-		//print_token_list(token_lst);
+		// print_token_list(token_lst);
 		tree = parse_pipe(&token_lst, envir);
 		data = get_data(&token_lst, &envir, tree);
 		if (!syntax_check(token_lst, 1))
