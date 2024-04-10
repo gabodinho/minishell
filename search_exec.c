@@ -27,9 +27,9 @@ char	*find_exec(char *exec_file, char *path_var)
 	{
 		temp = ft_strjoin(*vars, "/");
 		temp2 = ft_strjoin(temp, exec_file);
+		free(temp);
 		if (!access(temp2, F_OK))
 			return (temp2);
-		free(temp);
 		free(temp2);
 		vars++;
 	}
