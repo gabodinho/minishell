@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_heredoc.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 02:30:04 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/11 02:31:41 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:30:23 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,16 @@ here-document delimited by end-of-file\n", 60);
 	close(pfd[1]);
 	close(tty_fd);
 	free(buf);
-	exit(0);
+	exit(g_signal);
 }
 
 void	run_here(t_node *node, t_data *data, int is_builtin)
 {
 	int		pipe_fd[2];
 	pid_t	pid;
+	int		status;
 
-//	set_signals_other();
+	status = 0;
 	if (pipe(pipe_fd) == -1)
 		panic("heredoc: pipe");
 	pid = fork();
@@ -69,8 +70,9 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[1]);
 		close(pipe_fd[0]);
-		wait(0);
+		waitpid(0, &status, 0);
 	}
-	if (!is_builtin)
-		run_tree(node -> subnode, data);
+	if (is_builtin || WEXITSTATUS(status) == SIGINT)
+		return ; 
+	run_tree(node -> subnode, data);
 }
