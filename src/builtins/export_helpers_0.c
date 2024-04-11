@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_helpers_0.c.c                               :+:      :+:    :+:   */
+/*   export_helpers_0.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 09:53:29 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 13:28:09 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:32:55 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	process_export_argument(char **arr, t_list **env_list)
 	int	exit_status;
 
 	exit_status = 0;
-	if (!is_start_valid(arr[0][0]) || !is_char_valid(arr[0]))
+	if (is_start_valid(arr[0][0]) || !is_char_valid(arr[0]))
 	{
 		error_msg_export(arr[1], " : not a valid identifier");
 		exit_status = 1;

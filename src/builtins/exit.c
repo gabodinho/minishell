@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:33 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 14:48:06 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:19:16 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	exit_command(char **av, t_data *data)
 {
 	int	exit_status;
 
+	ft_putendl_fd("exit", 2);
 	if (has_options(av))
 	{
-		ft_putstr_fd("minishell: exit: no options allowed\n", 2);
-		return ;
+		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
+		exit_with_cleaup(data, 255);
 	}
-	ft_putendl_fd("exit", 2);
 	exit_status = get_exit_status_cmd(av);
 	if (av[1] && av[2] != NULL && exit_status == 1)
 		return ;
