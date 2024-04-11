@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:25:38 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/11 14:04:12 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:09:37 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int		is_builtin_exec(t_node *tree);
 // exec_heredoc
 void	run_here(t_node *node, t_data *data, int is_builtin);
 // exec_pipe
-int 	run_pipe(t_node *node, t_data *data);
+int		run_pipe(t_node *node, t_data *data);
 // exec_redir
 void	run_redir(t_node *node, t_data *data, int is_builtin);
 // exec_exec
 void	run_exec(t_node *node, t_data *data);
 // exec_tree
-int 	run_tree(t_node *tree, t_data *data);
+int		run_tree(t_node *tree, t_data *data);
 int		run_builtin_tree(t_data *data);
 // exec_builtins
 bool	is_builtin(char *str);

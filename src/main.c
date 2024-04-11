@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 17:03:10 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:12:28 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	print_color_text(char *text, char *color)
 void	print_green_fosforito_text(void)
 {
 	char	*text;
+
 	text =
 		GREEN_FOSFORITO"\
 		 _______ _________ _       _________ _______           _______   _        _       \n\
@@ -84,21 +85,18 @@ void	print_green_fosforito_text(void)
 		| |   | |   | |   | | \\   |   | |         ) || (   ) || (      | |      | |      \n\
 		| )   ( |___) (___| )  \\  |___) (___/\\____) || )   ( || (____/\\| (____/\\| (____/\\\n\
 		|/     \\|\\_______/|/    )_)\\_______/\\_______)|/     \\|(_______/(_______/(_______/\n"RESET_COLOR;
-
-
 	write(1, text, strlen(text));
 }
 
-void welcome_message(void) 
+void	welcome_message(void)
 {
 	char	*welcome_text;
-	
+
 	print_green_fosforito_text();
-	welcome_text = "\nBy ggiertzu & irrivero-\n";
+	welcome_text = "\n\t\t\t\t\t\t\t\t\tBy ggiertzu & irrivero-\n";
 	print_color_text(welcome_text, "red");
 	printf("\n");
 }
-
 
 static void	run_shell(t_list *envir)
 {
@@ -108,7 +106,6 @@ static void	run_shell(t_list *envir)
 	int		exit_status;
 
 	exit_status = 0;
-//	suppress_output();
 	while (1)
 	{
 		g_signal = 0;
