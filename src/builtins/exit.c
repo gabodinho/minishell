@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:33 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 13:33:49 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:48:06 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	exit_command(char **av, t_data *data)
 	}
 	ft_putendl_fd("exit", 2);
 	exit_status = get_exit_status_cmd(av);
-	if (av[2] != NULL && exit_status == 1)
+	if (av[1] && av[2] != NULL && exit_status == 1)
 		return ;
 	exit_with_cleaup(data, exit_status);
 }
