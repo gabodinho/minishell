@@ -69,15 +69,17 @@ static void	run_shell(t_list *envir)
 		g_signal = 0;
 		set_signals_main();
 		token_lst = get_full_token_lst(envir, exit_status);
-		tree = parse_pipe(&token_lst, envir);
-		data = get_data(&token_lst, &envir, tree);
 		if (!syntax_check(token_lst, 1))
+		{
+			tree = parse_pipe(&token_lst, envir);
+			data = get_data(&token_lst, &envir, tree);
 			exit_status = execute_cmds(data);
+			clear_tree(tree);
+			free(data);
+		}
 		else
 			exit_status = 127;
-		clear_tree(tree);
 		clear_list(&token_lst);
-		free(data);
 		rl_clear_history();
 	}
 }
