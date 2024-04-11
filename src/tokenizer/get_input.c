@@ -3,16 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   get_input.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:17:44 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 09:45:48 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:34:14 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 #include "parser.h"
 #include "signals.h"
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 
 static int	last_token_is_pipe(t_token *token_lst)
 {
@@ -86,7 +93,11 @@ t_token	*get_full_token_lst(t_list *envir, int exit_status)
 	t_token	*token_lst;
 	char	*line;
 
-	line = readline("minishell$ ");
+
+	line = readline(ANSI_COLOR_RED "m" ANSI_COLOR_YELLOW "i" ANSI_COLOR_GREEN 
+	"n" ANSI_COLOR_CYAN "i" ANSI_COLOR_BLUE "s" ANSI_COLOR_MAGENTA "h" 
+	ANSI_COLOR_RESET "e" ANSI_COLOR_RED "l" ANSI_COLOR_YELLOW "l" 
+	ANSI_COLOR_GREEN "$ " ANSI_COLOR_RESET);
 	if (!line)
 	{
 		ft_lstclear(&envir, free);

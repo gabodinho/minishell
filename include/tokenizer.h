@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 14:10:20 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 16:32:39 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
 # define MAX_TOKEN_LENGTH 100
+# define GREEN_FOSFORITO "\033[38;5;10m"
+# define RESET_COLOR "\033[0m"
 
 //define el tipo de token
 # define T_NULL 0
