@@ -39,13 +39,13 @@ int		is_builtin_exec(t_node *tree);
 // exec_heredoc
 void	run_here(t_node *node, t_data *data, int is_builtin);
 // exec_pipe
-void	run_pipe(t_node *node, t_data *data);
+int 	run_pipe(t_node *node, t_data *data);
 // exec_redir
 void	run_redir(t_node *node, t_data *data, int is_builtin);
 // exec_exec
 void	run_exec(t_node *node, t_data *data);
 // exec_tree
-void	run_tree(t_node *tree, t_data *data);
+int 	run_tree(t_node *tree, t_data *data);
 int		run_builtin_tree(t_data *data);
 // exec_builtins
 bool	is_builtin(char *str);
