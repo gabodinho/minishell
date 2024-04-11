@@ -80,7 +80,6 @@ static void	run_shell(t_list *envir)
 		else
 			exit_status = 127;
 		clear_list(&token_lst);
-		free(data);
 	}
 }
 
