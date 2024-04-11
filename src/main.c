@@ -78,6 +78,7 @@ static void	run_shell(t_list *envir)
 		clear_tree(tree);
 		clear_list(&token_lst);
 		free(data);
+		rl_clear_history();
 	}
 }
 

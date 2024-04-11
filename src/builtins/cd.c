@@ -21,18 +21,19 @@ void	update_existing_environment_variable(t_list *env_list, const char *key,
 	char	*entry;
 
 	key_len = ft_strlen(key);
-	env_key = malloc(key_len + ft_strlen(value) + 1);
+	env_key = ft_strjoin(key, value);
 	if (env_key == NULL)
 	{
 		perror("malloc");
 		return ;
 	}
-	sprintf(env_key, "%s%s", key, value);
+//	sprintf(env_key, "%s%s", key, value);
 	while (env_list)
 	{
 		entry = (char *)env_list->content;
 		if (ft_strncmp(entry, key, key_len) == 0)
 		{
+			free(env_list -> content);
 			env_list->content = env_key;
 			return ;
 		}

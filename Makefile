@@ -38,6 +38,8 @@ SRCS := \
 	src/execution/exec_pipe.c \
 	src/execution/exec_redir.c \
 	src/execution/exec_tree.c \
+	src/execution/exec_utils.c \
+	src/execution/exec_builtins.c \
 	src/main.c \
 	src/environment.c \
 	src/signals/signals.c \

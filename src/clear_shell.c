@@ -18,6 +18,7 @@ void	handle_eof_error(t_token **token_lst, char *line, t_list *envir)
 	free(line);
 	clear_list(token_lst);
 	ft_lstclear(&envir, free);
+	rl_clear_history();
 	printf("minishell: syntax error: unexpected EOF\nexit\n");
 	exit(2);
 }
@@ -28,5 +29,6 @@ void	exit_with_cleaup(t_data *data, int exit_status)
 	ft_lstclear(data->envir, free);
 	clear_tree(data->tree);
 	free(data);
+	rl_clear_history();
 	exit(exit_status);
 }
