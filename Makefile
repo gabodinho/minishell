@@ -6,7 +6,7 @@
 #    By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/22 19:51:00 by ggiertzu          #+#    #+#              #
-#    Updated: 2024/04/10 15:31:41 by irivero-         ###   ########.fr        #
+#    Updated: 2024/04/11 21:56:58 by irivero-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRCS := \
 	src/execution/exec_utils.c \
 	src/execution/exec_builtins.c \
 	src/main.c \
+	src/start_shell.c \
 	src/environment.c \
 	src/signals/signals.c \
 	src/signals/signals_main.c \
