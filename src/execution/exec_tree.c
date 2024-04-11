@@ -35,7 +35,7 @@ void	run_tree(t_node *tree, t_data *data)
 // make this function return the return values of the builtins
 int	run_builtin_tree(t_data *data)
 {
-	int	return_val;
+	int		return_val;
 	t_node	*tree;
 
 	tree = data -> tree;

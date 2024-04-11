@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_redir.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/11 02:28:07 by ggiertzu          #+#    #+#             */
+/*   Updated: 2024/04/11 02:29:50 by ggiertzu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "signals.h"
 #include "execution.h"
@@ -16,9 +27,9 @@ void	run_redir(t_node *node, t_data *data, int is_builtin)
 		panic(node->file);
 	else if (new_fd < 0 && is_builtin)
 	{
-		g_signal = 2020;	// abort builtin execution
+		g_signal = 2020;
 		printf("%s: No such file or directory\n", node -> file);
-			return ;
+		return ;
 	}
 	dup2(new_fd, node -> fd);
 	close(new_fd);

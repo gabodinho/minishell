@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax_check.c                                     :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 23:29:33 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/12 03:06:35 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:38:01 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static int	synt_err(t_token *prev, t_token *current, int print_err)
 	if (culprit)
 	{
 		if (print_err)
-			printf("minishell: syntax error near unexpected token `%s'\n", culprit);
+			printf("minishell: \
+syntax error near unexpected token `%s'\n", culprit);
 		return (1);
 	}
 	else
@@ -119,7 +120,8 @@ void	print_tree(t_node *tree)
 					printf("\t%s\n", tree -> param[i++]);
 			}
 			else if (tree -> ntype == N_REDIR)
-				printf("\tmode: %d, fd: %d, file: %s\n", tree -> mode, tree -> fd, tree -> file);
+				printf("\tmode: %d, fd: %d, file: %s\n", \
+tree -> mode, tree -> fd, tree -> file);
 			else if (tree -> ntype == N_HERE)
 				printf("\theredoc with delim: %s\n", tree -> delim);
 			tree = tree -> subnode;

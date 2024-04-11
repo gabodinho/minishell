@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/03 12:02:22 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:42:02 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	update_existing_environment_variable(t_list *env_list, const char *key,
 		perror("malloc");
 		return ;
 	}
-//	sprintf(env_key, "%s%s", key, value);
 	while (env_list)
 	{
 		entry = (char *)env_list->content;

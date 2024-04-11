@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_heredoc.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/11 02:30:04 by ggiertzu          #+#    #+#             */
+/*   Updated: 2024/04/11 02:31:41 by ggiertzu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "signals.h"
 #include "execution.h"
@@ -6,9 +17,9 @@
 static int	longer_str(char *str1, char *str2)
 {
 	if (ft_strlen(str1) > ft_strlen(str2))
-		return(ft_strlen(str1) - 1);
+		return (ft_strlen(str1) - 1);
 	else
-		return(ft_strlen(str2));
+		return (ft_strlen(str2));
 }
 
 static void	write_to_pipe(int pfd[2], t_node *node)
@@ -45,7 +56,6 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 	int		pipe_fd[2];
 	pid_t	pid;
 
-//	reset_stdin();
 //	set_signals_other();
 	if (pipe(pipe_fd) == -1)
 		panic("heredoc: pipe");

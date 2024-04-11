@@ -6,7 +6,7 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 23:49:54 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/10 23:52:22 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:39:42 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	add_attribute(t_node *node, char *str)
 static t_node	*init_node(t_list *envir, int words)
 {
 	t_node	*node;
-	int			i;
+	int		i;
 
 	node = malloc(sizeof(t_node));
 	i = 0;

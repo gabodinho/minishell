@@ -6,10 +6,9 @@
 /*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 23:52:56 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/10 23:59:54 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:45:12 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "parser.h"
 
@@ -58,7 +57,7 @@ t_node	*parse_redir(t_node *cmd, t_token **toklist)
 {
 	t_node	*node;
 
-	if (ft_strncmp((*toklist) -> str, "<<", 2))
+	if (ft_strncmp((*toklist)-> str, "<<", 2))
 	{
 		node = redir_cmd(*toklist);
 		if (node -> file)

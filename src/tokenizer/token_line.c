@@ -6,14 +6,14 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:11:16 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/04 16:14:16 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:42:46 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "tokenizer.h"
 
 int	process_separator_type(char **line, t_token **token_lst)
-{	
+{
 	if (!ft_strncmp(*line, "<<", 2) || !ft_strncmp(*line, ">>", 2)
 		|| !ft_strncmp(*line, "<", 1) || !ft_strncmp(*line, ">", 1))
 		return (add_separator_token(REDIR, line, token_lst) && 1);

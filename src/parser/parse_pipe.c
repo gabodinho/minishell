@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parse_pipe.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/19 11:51:44 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/04 16:06:00 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:39:11 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-static t_node	*pipe_cmd(t_token **left_list, t_token **right_list, t_list *envir)
+static t_node	*pipe_cmd(t_token **left, t_token **right, t_list *envir)
 {
 	t_node	*node;
 
 	node = malloc(sizeof(t_node));
 	node -> ntype = N_PIPE;
-	node -> left = parse_exe(left_list, envir);
-	node -> right = parse_pipe(right_list, envir);
+	node -> left = parse_exe(left, envir);
+	node -> right = parse_pipe(right, envir);
 	return (node);
 }
 

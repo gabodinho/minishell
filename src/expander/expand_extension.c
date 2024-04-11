@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 21:04:19 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/10 14:13:22 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 02:33:59 by ggiertzu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_exp	*split_quotes(char *str)
 	while (*str)
 	{
 		if (ft_strchr("\'\"", *str))
-		{	
+		{
 			end = find_end_delim(str + 1, *str);
 			word = ft_substr(str + 1, 0, end);
 			exp_append(&exp, word, *str);
