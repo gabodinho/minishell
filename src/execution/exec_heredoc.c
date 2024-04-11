@@ -17,7 +17,7 @@
 static int	longer_str(char *str1, char *str2)
 {
 	if (ft_strlen(str1) > ft_strlen(str2))
-		return (ft_strlen(str1) - 1);
+		return (ft_strlen(str1));
 	else
 		return (ft_strlen(str2));
 }
@@ -33,8 +33,9 @@ static void	write_to_pipe(int pfd[2], t_node *node)
 	signal(SIGQUIT, display_new_line);
 	while (g_signal != SIGINT)
 	{
-		write(tty_fd, "heredoc> ", 9);
-		buf = get_next_line(STDIN_FILENO);
+		// write(tty_fd, "heredoc> ", 9);
+		// buf = get_next_line(STDIN_FILENO);
+		buf = readline("heredoc> ");
 		if (!buf)
 		{
 			write(tty_fd, "\nminishell: warning: \
@@ -44,6 +45,7 @@ here-document delimited by end-of-file\n", 60);
 		if (!ft_strncmp(node -> delim, buf, longer_str(buf, node -> delim)))
 			break ;
 		write(pfd[1], buf, ft_strlen(buf));
+		write(pfd[1], "\n", 1);
 	}
 	close(pfd[1]);
 	close(tty_fd);
