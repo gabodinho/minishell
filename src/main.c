@@ -48,7 +48,7 @@ static int	execute_cmds(t_data *data)
 		if (pid < 0)
 			panic("fork");
 		else if (pid == 0)
-			run_tree(data -> tree, data);
+			status = run_tree(data -> tree, data);
 		else
 			waitpid(pid, &status, 0);
 		return (get_exit_status(status));
@@ -108,7 +108,7 @@ static void	run_shell(t_list *envir)
 	int		exit_status;
 
 	exit_status = 0;
-	suppress_output();
+//	suppress_output();
 	while (1)
 	{
 		g_signal = 0;

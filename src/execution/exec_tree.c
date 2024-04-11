@@ -14,13 +14,13 @@
 #include "execution.h"
 #include "builtins.h"
 
-void	run_tree(t_node *tree, t_data *data)
+int	run_tree(t_node *tree, t_data *data)
 {
 	int	exit_val;
 
 	exit_val = 0;
 	if (tree -> ntype == N_PIPE)
-		run_pipe(tree, data);
+		exit_val = run_pipe(tree, data);
 	else if (tree -> ntype == N_REDIR)
 		run_redir(tree, data, 0);
 	else if (tree -> ntype == N_HERE)
