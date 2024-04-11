@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:25:38 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/10 16:33:39 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:49:51 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ typedef enum e_ntype
 
 typedef struct s_node
 {
-	t_ntype	ntype;
-	struct s_node	*right;	//pipenode
-	struct s_node   *left;
-	struct s_node   *subnode;//allnodes
-	char	**param;		//exenode
+	t_ntype			ntype;
+	struct s_node	*right;
+	struct s_node	*left;
+	struct s_node	*subnode;
+	char			**param;
 	struct s_list	*envir;
-	char	*file;			//redirnode
-	int		mode;
-	int		fd;
-	char	*delim;			//herenode
+	char			*file;
+	int				mode;
+	int				fd;
+	char			*delim;
 }	t_node;
 
 typedef struct s_data
@@ -55,12 +55,12 @@ typedef struct s_string_info
 	int		exit_status;
 }	t_string_info;
 
-typedef struct	s_token
+typedef struct s_token
 {
 	int				type;
 	char			*str;
 	struct s_token	*next;
 	struct s_token	*prev;
-} t_token;
+}	t_token;
 
 #endif

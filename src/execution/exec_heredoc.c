@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 02:30:04 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/11 13:30:23 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:18:37 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 		waitpid(0, &status, 0);
 	}
 	if (is_builtin || WEXITSTATUS(status) == SIGINT)
-		return ; 
+		return ;
 	run_tree(node -> subnode, data);
 }

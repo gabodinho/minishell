@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:25:38 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/04 12:46:16 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:04:12 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "tokenizer.h"
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit, getenv
-# include <unistd.h> //getcwd, chdir, fork, execve, wait, write, read, pipe, dup, dup2, close, isatty, ttyname, ttyslot, unlink
+# include <unistd.h> 
 # include <string.h> // strerror, perror
 # include <sys/wait.h> // waitpid, wait3, wait4
 # include <sys/stat.h> // stat, lstat, fstat, access, open, read, close

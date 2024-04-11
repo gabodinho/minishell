@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 09:45:32 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:10:20 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 # include "structs.h"
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit, getenv
-# include <unistd.h> //getcwd, chdir, fork, execve, wait, write, read, pipe, dup, dup2, close, isatty, ttyname, ttyslot, unlink
-# include <string.h> // strerror, perror
+# include <unistd.h> 
 # include <sys/wait.h> // waitpid, wait3, wait4
 # include <sys/stat.h> // stat, lstat, fstat, access, open, read, close
 # include <fcntl.h> // open, read, close, access
@@ -30,7 +29,6 @@
 # include <sys/ioctl.h> // ioctl
 # include <termios.h> // tcgetattr, tcsetattr
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
-
 
 # define MAX_TOKEN_LENGTH 100
 
@@ -58,16 +56,15 @@ int		ft_strcmp(char *s1, char *s2);
 int		is_space(char c);
 void	skip_spaces(char **str);
 int		is_quotes(char c);
-bool	skip_quotes(char *line, size_t  *i);
+bool	skip_quotes(char *line, size_t *i);
 int		is_shell_separator(char *c);
 void	clear_list(t_token **token_lst);
 int		add_separator_token(int type, char **line, t_token **token_lst);
 int		process_command(char **line, t_token **token_lst);
 void	print_token_list(t_token *token_lst); //quitar al final
 int		print_quotes_error(char c);
-t_token *get_full_token_lst(t_list *envir, int exit_status);
+t_token	*get_full_token_lst(t_list *envir, int exit_status);
 char	*join_and_free(char *old, char *new);
 void	handle_eof_error(t_token **token_lst, char *line, t_list *envir);
-
 
 #endif
