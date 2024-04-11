@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 21:46:54 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 21:53:40 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 22:08:39 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,6 @@ void	print_color_text(char *text, char *color)
 	write(1, color_code, ft_strlen(color_code));
 	write(1, text, ft_strlen(text));
 	write(1, "\033[0m", 4);
-}
-
-void	print_line(const char *line)
-{
-	write(1, line, ft_strlen(line));
 }
 
 void	print_tab(const char *line, int num_tabs)
