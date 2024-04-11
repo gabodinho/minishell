@@ -35,6 +35,7 @@ void	lst_rm(t_list **lst, int i)
 		prev->next = tmp->next;
 	else
 		*lst = tmp->next;
+	free(tmp -> content);
 	free(tmp);
 }
 

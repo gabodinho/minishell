@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:44:13 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/03/14 14:16:54 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 14:17:44 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
-#ifdef __linux__
-	#include <bsd/string.h>
-#endif
+# ifdef __linux__
+#  include <bsd/string.h>
+# endif
+
 typedef struct s_list
 {
 	void			*content;

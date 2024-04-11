@@ -1,4 +1,6 @@
-*.a
+*.d
 *.o
 minishell
 *.txt
+valgrind
+*.a

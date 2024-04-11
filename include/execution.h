@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   execution.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 18:25:38 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/04 12:46:16 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 17:09:37 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "tokenizer.h"
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit, getenv
-# include <unistd.h> //getcwd, chdir, fork, execve, wait, write, read, pipe, dup, dup2, close, isatty, ttyname, ttyslot, unlink
+# include <unistd.h> 
 # include <string.h> // strerror, perror
 # include <sys/wait.h> // waitpid, wait3, wait4
 # include <sys/stat.h> // stat, lstat, fstat, access, open, read, close
@@ -39,13 +39,13 @@ int		is_builtin_exec(t_node *tree);
 // exec_heredoc
 void	run_here(t_node *node, t_data *data, int is_builtin);
 // exec_pipe
-void	run_pipe(t_node *node, t_data *data);
+int		run_pipe(t_node *node, t_data *data);
 // exec_redir
 void	run_redir(t_node *node, t_data *data, int is_builtin);
 // exec_exec
 void	run_exec(t_node *node, t_data *data);
 // exec_tree
-void	run_tree(t_node *tree, t_data *data);
+int		run_tree(t_node *tree, t_data *data);
 int		run_builtin_tree(t_data *data);
 // exec_builtins
 bool	is_builtin(char *str);

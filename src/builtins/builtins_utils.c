@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:02:46 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/03 12:59:30 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 23:00:48 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,12 @@ int	is_char_valid(char *var)
 	int	i;
 
 	i = 0;
+	if (!var || !*var || (!ft_isalpha((unsigned char)var[0]) && var[0] != '_'))
+		return (1);
+	i++;
 	while (var[i])
 	{
-		if (!(ft_isalpha((unsigned char)var[i]) || var[i] == '_'))
+		if (!(ft_isalnum((unsigned char)var[i]) || var[i] == '_'))
 			return (0);
 		i++;
 	}

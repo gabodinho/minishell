@@ -6,77 +6,56 @@
 /*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 02:42:02 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/11 23:39:57 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-// Función para actualizar una variable de entorno existente
-void	update_existing_environment_variable(t_list *env_list, const char *key,
-	const char *value)
+char	*get_new_directory(char **av)
 {
-	size_t	key_len;
-	char	*env_key;
-	char	*entry;
+	char	*new_dir;
+	char	*home;
 
-	key_len = ft_strlen(key);
-	env_key = ft_strjoin(key, value);
-	if (env_key == NULL)
+	if (av[1] == NULL || ft_strcmp(av[1], "~") == 0)
+		new_dir = getenv("HOME");
+	else if (av[1][0] == '-' && av[1][1] == '\0')
+		new_dir = getenv("OLDPWD");
+	else if (av[1][0] == '~' && av[1][1] == '/')
 	{
-		perror("malloc");
-		return ;
-	}
-	while (env_list)
-	{
-		entry = (char *)env_list->content;
-		if (ft_strncmp(entry, key, key_len) == 0)
+		home = getenv("HOME");
+		if (!home)
 		{
-			free(env_list -> content);
-			env_list->content = env_key;
-			return ;
+			printf("cd: HOME not set\n");
+			return (NULL);
 		}
-		env_list = env_list->next;
+		new_dir = ft_strjoin(home, av[1] + 1);
+		if (!new_dir)
+		{
+			perror("malloc");
+			return (NULL);
+		}
 	}
+	else
+		new_dir = av[1];
+	return (new_dir);
 }
 
-// Función para agregar una nueva variable de entorno
-void	add_new_environment_variable(t_list **env_list, const char *key,
-	const char *value)
+char	*change_directory_and_get_new_pwd(char *new_dir)
 {
-	size_t	key_len;
-	char	*env_key;
-	t_list	*new_entry;
+	char	*new_pwd;
 
-	key_len = ft_strlen(key);
-	env_key = malloc(key_len + ft_strlen(value) + 1);
-	if (env_key == NULL)
-		return ;
-	sprintf(env_key, "%s%s", key, value);
-	new_entry = malloc(sizeof(t_list));
-	if (new_entry == NULL)
+	new_pwd = NULL;
+	if (!new_dir || access(new_dir, F_OK) == -1)
 	{
-		free(env_key);
-		return ;
+		if (new_dir)
+			printf("cd: %s: No such file or directory\n", new_dir);
+		return (NULL);
 	}
-	new_entry->content = env_key;
-	new_entry->next = NULL;
-	while (*env_list && (*env_list)->next)
-		*env_list = (*env_list)->next;
-	if (*env_list)
-		(*env_list)->next = new_entry;
-	else
-		*env_list = new_entry;
-}
-
-// Función principal para actualizar una variable de entorno
-void	update_environment_variable(t_list **env_list, const char *key,
-	const char *value)
-{
-	if (*env_list == NULL)
-		add_new_environment_variable(env_list, key, value);
-	else
-		update_existing_environment_variable(*env_list, key, value);
+	new_pwd = change_directory(new_dir);
+	if (!new_pwd)
+		printf("cd: %s: No such file or directory\n", new_dir);
+	return (new_pwd);
 }
 
 int	our_cd_internal(char **av, t_list *env_list, char *old_pwd)
@@ -84,26 +63,25 @@ int	our_cd_internal(char **av, t_list *env_list, char *old_pwd)
 	char	*new_dir;
 	char	*new_pwd;
 
-	if (av[1] != NULL)
-		new_dir = av[1];
-	else
-		new_dir = getenv("HOME");
-	if (!new_dir || access(new_dir, F_OK) == -1)
+	new_dir = get_new_directory(av);
+	if (!new_dir)
 	{
-		printf("cd: %s: No such file or directory\n", new_dir);
 		free(old_pwd);
 		return (1);
 	}
-	new_pwd = change_directory(new_dir);
+	new_pwd = change_directory_and_get_new_pwd(new_dir);
 	if (!new_pwd)
 	{
-		printf("cd: %s: No such file or directory\n", new_dir);
 		free(old_pwd);
+		if (av[1][0] == '~' && av[1][1] == '/')
+			free(new_dir);
 		return (1);
 	}
 	update_environment_variable(&env_list, "PWD=", new_pwd);
-	update_environment_variable(&env_list, "OLDPWD=", old_pwd);
+	update_environment_variable(&env_list, "OLDPWD", old_pwd);
 	free(old_pwd);
+	if (av[1][0] == '~' && av[1][1] == '/')
+		free(new_dir);
 	free(new_pwd);
 	return (0);
 }
@@ -159,3 +137,66 @@ int	our_cd(char **av, t_list *env_list)
 	return (0);
 }
 */
+
+/*
+int	our_cd_internal(char **av, t_list *env_list, char *old_pwd)
+{
+	char	*new_dir;
+	char	*new_pwd;
+	char	*home;
+
+	if (av[1] == NULL || ft_strcmp(av[1], "~") == 0)
+		new_dir = getenv("HOME");
+	else if (av[1][0] == '-' && av[1][1] == '\0')
+	{
+		new_dir = getenv("OLDPWD");
+		if (!new_dir)
+		{
+			printf("cd: OLDPWD not set\n");
+			free(old_pwd);
+			return (1);
+		}
+	}
+	else if (av[1][0] == '~' && av[1][1] == '/')
+	{
+		home = getenv("HOME");
+		if (!home)
+		{
+			printf("cd: HOME not set\n");
+			free(old_pwd);
+			return (1);
+		}
+		new_dir = ft_strjoin(home, av[1] + 1);
+		if (!new_dir)
+		{
+			perror("malloc");
+			free(old_pwd);
+			return (1);
+		}
+	}
+	else
+		new_dir = av[1];
+		
+	//if (av[1] != NULL)
+	//	new_dir = av[1];
+	//else
+	//	new_dir = getenv("HOME");
+	if (!new_dir || access(new_dir, F_OK) == -1)
+	{
+		printf("cd: %s: No such file or directory\n", new_dir);
+		free(old_pwd);
+		return (1);
+	}
+	new_pwd = change_directory(new_dir);
+	if (!new_pwd)
+	{
+		printf("cd: %s: No such file or directory\n", new_dir);
+		free(old_pwd);
+		return (1);
+	}
+	update_environment_variable(&env_list, "PWD=", new_pwd);
+	update_environment_variable(&env_list, "OLDPWD=", old_pwd);
+	free(old_pwd);
+	free(new_pwd);
+	return (0);
+}*/

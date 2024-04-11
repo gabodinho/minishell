@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:39:53 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 15:29:51 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:30:33 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,8 @@ void	sigint_further_tok(int signum)
 
 void	set_signals_heredoc(int signum)
 {
-	g_signal = signum;
 	rl_clear_history();
-	exit(0);
+	exit(signum);
 }
 
 void	signals_cmd(int signum)
