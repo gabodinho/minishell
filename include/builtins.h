@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 13:57:18 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/11 23:41:27 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,12 @@ void	exit_with_cleaup(t_data *data, int exit_status);
 int		our_cd(char **av, t_list *env);
 //cd helpers
 char	*change_directory(char *new_dir);
+void	update_existing_environment_variable(t_list *env_list, const char *key,
+			const char *value);
+void	add_new_environment_variable(t_list **env_list, const char *key,
+			const char *value);
+void	update_environment_variable(t_list **env_list, const char *key,
+			const char *value);
 //echo
 int		our_echo(char **av);
 //exit
