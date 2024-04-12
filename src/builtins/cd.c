@@ -67,6 +67,7 @@ int	our_cd_internal(char **av, t_list *env_list, char *old_pwd)
 	if (!new_dir)
 	{
 		free(old_pwd);
+		ft_putendl_fd("minishell: cd : HOME not set", 2);
 		return (1);
 	}
 	new_pwd = change_directory_and_get_new_pwd(new_dir);
