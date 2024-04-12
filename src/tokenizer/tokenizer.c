@@ -23,7 +23,7 @@ t_token	*tokenizer(t_list *env, char *line, int exit_status)
 	expander(env, token_lst, exit_status);
 	return (token_lst);
 }
-/*
+
 void print_token_list(t_token *token_lst)
 {
     while (token_lst)
@@ -31,4 +31,4 @@ void print_token_list(t_token *token_lst)
         printf("Type: %d, Identifier: %s\n", token_lst->type, token_lst->str);
 		token_lst = token_lst->next;
     }
-}*/
+}

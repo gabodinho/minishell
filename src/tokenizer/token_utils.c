@@ -39,8 +39,7 @@ void	skip_spaces(char **str)
 
 int	is_shell_separator(char *c)
 {
-	if (*c == '|' || *c == '(' || *c == ')' || *c == '<' || *c == '>'
-		|| *c == '\t' || !ft_strncmp(c, "&&", 2))
+	if (*c == '|' || *c == '<' || *c == '>' || *c == '\t')
 		return (1);
 	return (0);
 }

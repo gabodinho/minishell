@@ -34,9 +34,8 @@ t_token	*tokenize_line(char *line)
 			return (clear_list(&token_lst), NULL);
 		if (is_space(*line))
 			skip_spaces(&line);
-		else if (!ft_strncmp(line, "|", 1) || !ft_strncmp(line, "(", 1)
-			|| !ft_strncmp(line, ")", 1) || !ft_strncmp(line, "&&", 2)
-			|| !ft_strncmp(line, "<", 1) || !ft_strncmp(line, ">", 1))
+		else if (!ft_strncmp(line, "|", 1) || !ft_strncmp(line, "<", 1)
+		|| !ft_strncmp(line, ">", 1))
 			is_error = (!process_separator_type(&line, &token_lst) && 1);
 		else
 			is_error = (!process_command(&line, &token_lst) && 1);
