@@ -90,7 +90,7 @@ int	our_cd(char **av, t_list *env_list)
 	char	*old_pwd;
 	int		result;
 
-	old_pwd = getcwd(NULL, 0);
+	old_pwd = ft_strdup(get_env_var("PWD", env_list));
 	if (!old_pwd)
 	{
 		perror("getcwd");

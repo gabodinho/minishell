@@ -52,7 +52,7 @@ int		handle_export_with_equal_sign(char *arg, char *equal_sign,
 			t_list **env_list);
 //pwd
 void	if_pflag_is_one(char *path);
-int		our_pwd(char **av, int pflag);
+int		our_pwd(char **av, int pflag, t_list *env);
 //unset
 void	lst_rm(t_list **lst, int i);
 int		unset_env_list(t_list **env_list, char **target_key);

@@ -40,7 +40,7 @@ int	run_pipe(t_node *node, t_data *data)
 		manage_pipe(p_fd, STDOUT_FILENO, node -> left, data);
 	else
 	{
-		wait(0);
+//		wait(0);
 		pid2 = fork();
 		if (pid2 < 0)
 			panic("pipe: fork");
@@ -49,6 +49,7 @@ int	run_pipe(t_node *node, t_data *data)
 	}
 	close(p_fd[0]);
 	close(p_fd[1]);
+	wait(0);
 	waitpid(0, &status, 0);
 	return (WEXITSTATUS(status));
 }
