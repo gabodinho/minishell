@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 23:39:57 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/12 16:41:19 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ int	our_cd_internal(char **av, t_list *env_list, char *old_pwd)
 	update_environment_variable(&env_list, "PWD=", new_pwd);
 	update_environment_variable(&env_list, "OLDPWD", old_pwd);
 	free(old_pwd);
-	if (av[1][0] == '~' && av[1][1] == '/')
-		free(new_dir);
 	free(new_pwd);
 	return (0);
 }
