@@ -24,7 +24,6 @@ bool	skip_quotes(char *line, size_t *i)
 		(*i)++;
 		while (line[*i] != quote)
 			(*i)++;
-		(*i)++;
 		return (true);
 	}
 	return (false);
