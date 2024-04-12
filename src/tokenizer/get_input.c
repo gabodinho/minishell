@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 14:17:44 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 17:11:10 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:06:22 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,6 @@ t_token	*get_full_token_lst(t_list *envir, int exit_status)
 	char	*line;
 
 	line = readline("minishell> ");
-/*
-	line = readline(ANSI_COLOR_RED "m" ANSI_COLOR_YELLOW "i" ANSI_COLOR_GREEN \
-	"n" ANSI_COLOR_CYAN "i" ANSI_COLOR_BLUE "s" ANSI_COLOR_MAGENTA "h" \
-	ANSI_COLOR_RESET "e" ANSI_COLOR_RED "l" ANSI_COLOR_YELLOW "l" \
-	ANSI_COLOR_GREEN "$ " ANSI_COLOR_RESET);
-*/
 	if (!line)
 	{
 		ft_lstclear(&envir, free);

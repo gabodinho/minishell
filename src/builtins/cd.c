@@ -6,24 +6,24 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/12 16:41:19 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:05:23 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
 
-char	*get_new_directory(char **av)
+char	*get_new_directory(char **av, t_list *env_list)
 {
 	char	*new_dir;
 	char	*home;
 
 	if (av[1] == NULL || ft_strcmp(av[1], "~") == 0)
-		new_dir = getenv("HOME");
+		new_dir = get_env_var("HOME", env_list);
 	else if (av[1][0] == '-' && av[1][1] == '\0')
-		new_dir = getenv("OLDPWD");
+		new_dir = get_env_var("OLDPWD", env_list);
 	else if (av[1][0] == '~' && av[1][1] == '/')
 	{
-		home = getenv("HOME");
+		home = get_env_var("HOME", env_list);
 		if (!home)
 		{
 			printf("cd: HOME not set\n");
@@ -63,7 +63,7 @@ int	our_cd_internal(char **av, t_list *env_list, char *old_pwd)
 	char	*new_dir;
 	char	*new_pwd;
 
-	new_dir = get_new_directory(av);
+	new_dir = get_new_directory(av, env_list);
 	if (!new_dir)
 	{
 		free(old_pwd);
