@@ -50,7 +50,10 @@ static int	execute_cmds(t_data *data)
 		else if (pid == 0)
 			status = run_tree(data -> tree, data);
 		else
+		{
+			signal(SIGINT, SIG_IGN);
 			waitpid(pid, &status, 0);
+		}
 		return (get_exit_status(status));
 	}
 }
