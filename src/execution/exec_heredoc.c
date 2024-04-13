@@ -59,10 +59,10 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 
 	status = 0;
 	if (pipe(pipe_fd) == -1)
-		panic("heredoc: pipe");
+		panic("heredoc: pipe", errno);
 	pid = fork();
 	if (pid < 0)
-		panic("heredoc: fork");
+		panic("heredoc: fork", errno);
 	else if (pid == 0)
 		write_to_pipe(pipe_fd, node);
 	else

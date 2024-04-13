@@ -18,7 +18,7 @@
 # include "tokenizer.h"
 # include <stdio.h> // printf
 # include <stdlib.h> // malloc, free, exit, getenv
-# include <unistd.h> 
+# include <unistd.h>
 # include <sys/wait.h> // waitpid, wait3, wait4
 # include <sys/stat.h> // stat, lstat, fstat, access, open, read, close
 # include <fcntl.h> // open, read, close, access
@@ -36,7 +36,7 @@ t_node	*parse_pipe(t_token **toklist, t_list *envir);
 // parse_redir.c
 t_node	*parse_redir(t_node *cmd, t_token **toklist);
 // parse_utils.c
-void	panic(char *msg);
+void	panic(char *, int ret);
 int		syntax_check(t_token *toklist, int print_err);
 void	clear_tree(t_node *tree);
 t_node	*add_last(t_node *redir, t_node *exec);

@@ -12,10 +12,10 @@
 
 #include "parser.h"
 
-void	panic(char *msg)
+void	panic(char *msg, int ret)
 {
 	perror(msg);
-	exit(EXIT_FAILURE);
+	exit(ret);
 }
 
 t_node	*add_last(t_node *redir, t_node *exec)

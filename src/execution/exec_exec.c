@@ -38,5 +38,5 @@ void	run_exec(t_node *node, t_data *data)
 		execve(path_to_exec, node -> param, env_arr);
 	del_arr(env_arr);
 	free(path_to_exec);
-	panic(node -> param[0]);
+	panic(node -> param[0], 127);
 }
