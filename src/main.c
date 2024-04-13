@@ -46,7 +46,7 @@ static int	execute_cmds(t_data *data)
 	{
 		pid = fork();
 		if (pid < 0)
-			panic("fork");
+			panic("fork", errno);
 		else if (pid == 0)
 			status = run_tree(data -> tree, data);
 		else

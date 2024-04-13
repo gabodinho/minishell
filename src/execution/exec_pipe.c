@@ -40,12 +40,14 @@ int	run_pipe(t_node *node, t_data *data)
 		manage_pipe(p_fd, STDOUT_FILENO, node -> left, data);
 	else
 	{
-//		wait(0);
+		signal(SIGINT, SIG_IGN);
 		pid2 = fork();
 		if (pid2 < 0)
 			panic("pipe: fork", errno);
 		else if (pid2 == 0)
 			manage_pipe(p_fd, STDIN_FILENO, node -> right, data);
+		else
+			signal(SIGINT, SIG_IGN);
 	}
 	close(p_fd[0]);
 	close(p_fd[1]);
