@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_line.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 16:11:16 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 02:42:46 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:55:55 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_token	*tokenize_line(char *line)
 		if (is_space(*line))
 			skip_spaces(&line);
 		else if (!ft_strncmp(line, "|", 1) || !ft_strncmp(line, "<", 1)
-		|| !ft_strncmp(line, ">", 1))
+			|| !ft_strncmp(line, ">", 1))
 			is_error = (!process_separator_type(&line, &token_lst) && 1);
 		else
 			is_error = (!process_command(&line, &token_lst) && 1);
