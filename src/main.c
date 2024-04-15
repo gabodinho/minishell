@@ -35,9 +35,12 @@ static int	execute_cmds(t_data *data)
 	int	status;
 	int	pid;
 
-	status = 0;
+	// signal(SIGINT, reset_line);
+	// signal(SIGINT, SIG_IGN);
+	// signal(SIGINT, SIG_DFL);
 	signal(SIGINT, signals_cmd);
-	signal(SIGQUIT, signals_cmd);
+	// signal(SIGINT, sigint_main);
+	status = 0;
 	if (!(data -> tree))
 		return (0);
 	else if (!is_builtin_exec(data -> tree))
@@ -51,7 +54,10 @@ static int	execute_cmds(t_data *data)
 			status = run_tree(data -> tree, data);
 		else
 		{
-			signal(SIGINT, SIG_IGN);
+			// signal(SIGINT, SIG_IGN);
+			// signal(SIGINT, reset_line);
+			// signal(SIGINT, signals_cmd);
+			// signal(SIGINT, signals_cmd);
 			waitpid(pid, &status, 0);
 		}
 		return (get_exit_status(status));

@@ -28,10 +28,10 @@ static void	write_to_pipe(int pfd[2], t_node *node)
 	int		tty_fd;
 
 	close(pfd[0]);
+	reset_stdin();
+	reset_stdout();
 	tty_fd = open("/dev/tty", O_WRONLY);
-	signal(SIGINT, set_signals_heredoc);
-	signal(SIGQUIT, display_new_line);
-	while (g_signal != SIGINT)
+	while (1)
 	{
 		buf = readline("heredoc> ");
 		if (!buf)
@@ -58,6 +58,9 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 	int		status;
 
 	status = 0;
+	signal(SIGINT, set_signals_heredoc);
+	// signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	if (pipe(pipe_fd) == -1)
 		panic("heredoc: pipe", errno);
 	pid = fork();
@@ -67,10 +70,13 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 		write_to_pipe(pipe_fd, node);
 	else
 	{
+		waitpid(0, &status, 0);
+		// signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[1]);
 		close(pipe_fd[0]);
-		waitpid(0, &status, 0);
+		// signal(SIGINT, set_signals_heredoc);
 	}
 	if (is_builtin || WEXITSTATUS(status) == SIGINT)
 		return ;
