@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:47 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/12 19:49:13 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/15 13:53:13 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,37 @@ int	should_omit_newline(const char *av)
 {
 	int	i;
 
-	if (av[0] != '-')
+	if (av[0] != '-' || av[1] != 'n')
 		return (0);
 	i = 1;
-	while (av[i] == 'n')
+	while (av[i])
+	{
+		if (av[i] != 'n')
+			return (0);
 		i++;
-	return (av[i] == '\0');
+	}
+	return (1);
 }
 
 int	our_echo(char **av)
 {
 	int	i;
+	int	new;
 
 	i = 1;
+	new = 0;
 	while (av[i])
 	{
-		if (!should_omit_newline(av[i]))
+		if (should_omit_newline(av[i]) == 0 || new == 1)
 		{
+			new = 1;
 			ft_putstr_fd(av[i], 1);
-			if (av[i + 1])
+			if (av[i + 1] != NULL)
 				ft_putstr_fd(" ", 1);
 		}
 		i++;
 	}
-	if (!av[1] || !should_omit_newline(av[1]))
+	if (should_omit_newline(av[1]) == 0)
 		ft_putstr_fd("\n", 1);
 	return (0);
 }
