@@ -38,14 +38,14 @@ char	*ft_itoa(int n)
 
 	digits = ft_getdig((long) n);
 	ptr = malloc(digits + 1);
+	if (ptr == 0)
+		return (0);
 	if (n == -2147483648)
 	{
 		ft_strlcpy(ptr, "-2147483648", 12);
 		return (ptr);
 	}
-	if (ptr == 0)
-		return (0);
-	ptr[digits] = 0;
+	ptr[digits + 1] = 0;
 	if (n < 0)
 	{
 		ptr[0] = '-';
@@ -63,7 +63,7 @@ char	*ft_itoa(int n)
 int main(void)
 {
 	int test = -2147483648;
-	char * res = ft_itoa(-2147483647 -1);
+	char * res = ft_itoa(test -1000);
 	printf("%s", res);
 	return (0);
 }
