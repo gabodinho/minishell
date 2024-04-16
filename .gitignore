@@ -4,3 +4,4 @@ minishell
 *.txt
 valgrind
 *.a
+minishell_tester

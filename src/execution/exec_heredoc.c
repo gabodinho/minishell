@@ -25,17 +25,14 @@ static int	longer_str(char *str1, char *str2)
 static void	write_to_pipe(int pfd[2], t_node *node)
 {
 	char	*buf;
-	int		tty_fd;
 
 	close(pfd[0]);
-	reset_stdout();
-	tty_fd = open("/dev/tty", O_WRONLY);
 	while (1)
 	{
 		buf = readline("heredoc> ");
 		if (!buf)
 		{
-			write(tty_fd, "\nminishell: warning: \
+			write(1, "\nminishell: warning: \
 here-document delimited by end-of-file\n", 60);
 			break ;
 		}
@@ -45,7 +42,6 @@ here-document delimited by end-of-file\n", 60);
 		write(pfd[1], "\n", 1);
 	}
 	close(pfd[1]);
-	close(tty_fd);
 	free(buf);
 	exit(g_signal);
 }
@@ -56,6 +52,10 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 	pid_t	pid;
 	int		status;
 
+	// reset_stdin();
+	// reset_stdout();
+	int	tty_fd = open("/dev/tty", O_RDONLY);
+	dup2(tty_fd, STDIN_FILENO);
 	status = 0;
 	signal(SIGINT, set_signals_heredoc);
 	signal(SIGQUIT, SIG_IGN);
@@ -68,12 +68,55 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 		write_to_pipe(pipe_fd, node);
 	else
 	{
-		waitpid(0, &status, 0);
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[1]);
 		close(pipe_fd[0]);
+		waitpid(0, &status, 0);
 	}
 	if (is_builtin || WEXITSTATUS(status) == SIGINT)
 		return ;
 	run_tree(node -> subnode, data);
 }
+/*
+static void	write_to_pipe2(int fd, t_node *node)
+{
+	char	*buf;
+	
+	while (1)
+	{
+		buf = readline("heredoc> ");
+		if (!buf)
+		{
+			write(1, "\nminishell: warning: \
+here-document delimited by end-of-file\n", 60);
+			break ;
+		}
+		if (!ft_strncmp(node -> delim, buf, longer_str(buf, node -> delim)))
+			break ;
+		
+		write(fd, buf, ft_strlen(buf));
+		write(fd, "\n", 1);
+		free(buf);
+	}
+	close(fd);
+	fd = open("tempfile.txt", O_RDONLY, 0600);
+	unlink("tempfile.txt");
+	dup2(fd, STDIN_FILENO);
+	close(fd);
+}
+
+void	run_here(t_node *node, t_data *data, int is_builtin)
+{
+	int		status;
+
+	int	fd = open("tempfile.txt", O_CREAT | O_RDWR | O_EXCL, 0600);
+
+	status = 0;
+	signal(SIGINT, set_signals_heredoc);
+	signal(SIGQUIT, SIG_IGN);
+	write_to_pipe2(fd, node);
+	if (is_builtin || WEXITSTATUS(status) == SIGINT)
+		return ;
+	run_tree(node -> subnode, data);
+}
+*/

@@ -91,9 +91,13 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_list	*envir;
 
-	(void) argc;
 	(void) argv;
-	welcome_message();
+	if (argc > 1)
+	{
+		printf("no parameters allowed\n");
+		return (0);
+	}
+	// welcome_message();
 	envir = get_env(envp);
 	run_shell(envir);
 	return (0);
