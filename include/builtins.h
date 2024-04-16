@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 14:03:57 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 23:41:27 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/12 17:05:21 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	add_new_environment_variable(t_list **env_list, const char *key,
 			const char *value);
 void	update_environment_variable(t_list **env_list, const char *key,
 			const char *value);
+char	*get_env_var(const char *key, t_list *env_list);
 //echo
 int		our_echo(char **av);
 //exit
@@ -51,7 +52,7 @@ int		handle_export_with_equal_sign(char *arg, char *equal_sign,
 			t_list **env_list);
 //pwd
 void	if_pflag_is_one(char *path);
-int		our_pwd(char **av, int pflag);
+int		our_pwd(char **av, int pflag, t_list *env);
 //unset
 void	lst_rm(t_list **lst, int i);
 int		unset_env_list(t_list **env_list, char **target_key);

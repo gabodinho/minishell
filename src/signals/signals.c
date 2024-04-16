@@ -14,7 +14,8 @@
 
 void	sigint_main(int signum)
 {
-	g_signal = signum;
+	(void) signum;
+	g_signal = 130;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -32,19 +33,51 @@ void	sigint_further_tok(int signum)
 void	set_signals_heredoc(int signum)
 {
 	rl_clear_history();
+	rl_on_new_line();
+	g_signal = 130;
 	exit(signum);
 }
 
 void	signals_cmd(int signum)
 {
+	(void) signum;
+	g_signal = 130;
+	rl_replace_line("", 0);
+	write(1, "\n", 2);
+}
+
+
+void	reset_line(int signum)
+{
 	(void)signum;
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	write(1, "\n", 1);
+	write(1, "\n", STDERR_FILENO);
+	rl_redisplay();
 }
 
 void	display_new_line(int signum)
 {
 	(void)signum;
-	exit(0);
+
+
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	write(1, "QUIT\n", 2);
+	// rl_on_new_line();
+	// rl_redisplay();
+	//exit(0);
 }
+/*
+void	our_sigint(int	signum)
+{
+	signal(signum, SIG_IGN);
+	kill(g_signal, SIGUSR1);
+}
+
+void	our_sigusr1(int signum)
+{
+	(void)	signum;
+	write(1, "\n", 1);
+}
+*/

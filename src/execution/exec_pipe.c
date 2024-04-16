@@ -35,20 +35,23 @@ int	run_pipe(t_node *node, t_data *data)
 	pipe(p_fd);
 	pid1 = fork();
 	if (pid1 < 0)
-		panic("pipe: fork");
+		panic("pipe: fork", errno);
 	else if (pid1 == 0)
 		manage_pipe(p_fd, STDOUT_FILENO, node -> left, data);
 	else
 	{
-		wait(0);
+		signal(SIGINT, SIG_IGN);
 		pid2 = fork();
 		if (pid2 < 0)
-			panic("pipe: fork");
+			panic("pipe: fork", errno);
 		else if (pid2 == 0)
 			manage_pipe(p_fd, STDIN_FILENO, node -> right, data);
+		else
+			signal(SIGINT, SIG_IGN);
 	}
 	close(p_fd[0]);
 	close(p_fd[1]);
+	wait(0);
 	waitpid(0, &status, 0);
 	return (WEXITSTATUS(status));
 }

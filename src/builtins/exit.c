@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:33 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 22:19:16 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:39:38 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	exit_command(char **av, t_data *data)
 {
 	int	exit_status;
 
-	ft_putendl_fd("exit", 2);
+	if (data->tree->ntype != N_PIPE)
+		ft_putendl_fd("exit", 2);
 	if (has_options(av))
 	{
 		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);

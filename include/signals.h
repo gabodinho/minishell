@@ -27,5 +27,8 @@ void	display_new_line(int signum);
 void	sigint_further_tok(int signum);
 void	set_signal_further_tok(void);
 int		get_exit_status(int status);
+void	reset_line(int signum);
+// void	our_sigusr1(int signum);
+// void	our_sigint(int	signum);
 
 #endif

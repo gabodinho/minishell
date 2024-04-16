@@ -35,9 +35,8 @@ static int	execute_cmds(t_data *data)
 	int	status;
 	int	pid;
 
-	status = 0;
 	signal(SIGINT, signals_cmd);
-	signal(SIGQUIT, signals_cmd);
+	status = 0;
 	if (!(data -> tree))
 		return (0);
 	else if (!is_builtin_exec(data -> tree))
@@ -46,7 +45,7 @@ static int	execute_cmds(t_data *data)
 	{
 		pid = fork();
 		if (pid < 0)
-			panic("fork");
+			panic("fork", errno);
 		else if (pid == 0)
 			status = run_tree(data -> tree, data);
 		else
@@ -78,6 +77,8 @@ static void	run_shell(t_list *envir)
 		}
 		else
 			exit_status = 127;
+		if (g_signal && !exit_status)
+			exit_status = g_signal;
 		clear_list(&token_lst);
 	}
 }

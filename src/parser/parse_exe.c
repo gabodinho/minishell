@@ -83,7 +83,7 @@ t_node	*parse_exe(t_token **toklist, t_list *envir)
 		else if (token -> type == REDIR)
 			redircmd = parse_redir(redircmd, &token);
 		else
-			panic("unrecognized token");
+			panic("unrecognized token", 1);
 	}
 	add_attribute(execmd, NULL);
 	return (add_last(redircmd, execmd));

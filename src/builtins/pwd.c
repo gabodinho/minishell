@@ -31,10 +31,10 @@ int	handle_getcwd_error(void)
 	return (127);
 }
 
-int	our_pwd(char **av, int pflag)
+int	our_pwd(char **av, int pflag, t_list *env)
 {
 	char	*path;
-	char	path1[1024];
+	char	*path1;
 	int		i;
 	int		exit_status;
 
@@ -44,7 +44,8 @@ int	our_pwd(char **av, int pflag)
 		return (handle_pwd_options());
 	while (av[i] != NULL && av[i])
 		i++;
-	if (getcwd(path1, sizeof(path1)) == NULL)
+	path1 = get_env_var("PWD", env);
+	if (!path1)
 		return (handle_getcwd_error());
 	if (ft_strcmp(av[0], "pwd") == 0 || i > 1)
 		printf("%s\n", path1);

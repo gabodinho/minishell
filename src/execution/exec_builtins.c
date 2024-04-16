@@ -38,7 +38,7 @@ int	exec_builtins(char **av, t_data *data)
 	if (ft_strcmp(av[0], "cd") == 0)
 		return (our_cd(av, *(data -> envir)));
 	if (ft_strcmp(av[0], "pwd") == 0)
-		return (our_pwd(av, 0));
+		return (our_pwd(av, 0, *data -> envir));
 	if (ft_strcmp(av[0], "export") == 0)
 		return (export_builtin(av, data -> envir));
 	if (ft_strcmp(av[0], "env") == 0)

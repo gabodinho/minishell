@@ -14,6 +14,7 @@
 
 void	suppress_output(void)
 {
+	// do we need this function?
 	struct termios	new_term;
 
 	if (tcgetattr(0, &new_term) == -1)
@@ -45,8 +46,9 @@ int	get_exit_status(int status)
 {
 	int	exit_status;
 
-	exit_status = WEXITSTATUS(status);
-	if (!WIFEXITED(status))
-		exit_status = 1;
+	if (WIFEXITED(status))
+		exit_status = WEXITSTATUS(status);
+	else
+		exit_status = g_signal;
 	return (exit_status);
 }

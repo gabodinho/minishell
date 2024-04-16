@@ -3,68 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/11 00:46:58 by ggiertzu          #+#    #+#             */
-/*   Updated: 2023/05/24 00:17:35 by ggiertzu         ###   ########.fr       */
+/*   Created: 2023/05/11 10:14:13 by irivero-          #+#    #+#             */
+/*   Updated: 2023/05/17 15:10:13 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_getdig(long n)
+long int	get_abs(long int nbr)
 {
-	unsigned long	digits;
-
-	if (n < 0)
-	{
-		digits = 2;
-		n = n * (-1);
-	}
+	if (nbr < 0)
+		return (-nbr);
 	else
-		digits = 1;
-	while (n / 10 > 0)
+		return (nbr);
+}
+
+int	get_len(long int nbr)
+{
+	int		len;
+
+	if (nbr <= 0)
+		len = 1;
+	else
+		len = 0;
+	while (nbr != 0)
 	{
-		n = n / 10;
-		digits++;
+		nbr = nbr / 10;
+		len++;
 	}
-	return (digits);
+	return (len);
 }
 
 char	*ft_itoa(int n)
 {
-	char			*ptr;
-	unsigned long	digits;
+	int		len;
+	int		sign;
+	char	*str;
 
-	digits = ft_getdig((long) n);
-	ptr = malloc(digits + 1);
-	if (n == -2147483648)
-	{
-		ft_strlcpy(ptr, "-2147483648", 12);
-		return (ptr);
-	}
-	if (ptr == 0)
-		return (0);
-	ptr[digits] = 0;
 	if (n < 0)
+		sign = -1;
+	else
+		sign = 1;
+	len = get_len(n);
+	str = (char *)malloc(sizeof(char) * len + 1);
+	if (str == NULL)
+		return (0);
+	str[len] = '\0';
+	len--;
+	while (len >= 0)
 	{
-		ptr[0] = '-';
-		n = n * (-1);
+		str[len] = '0' + get_abs(n % 10);
+		n = get_abs(n / 10);
+		len--;
 	}
-	while (digits && ptr[digits - 1] != '-')
-	{
-		ptr[digits - 1] = n % 10 + 48;
-		n = n / 10;
-		digits--;
-	}
-	return (ptr);
+	if (sign == -1)
+		str[0] = '-';
+	return (str);
 }
-/*
-int main(void)
-{
-	int test = -2147483648;
-	char * res = ft_itoa(-2147483647 -1);
-	printf("%s", res);
-	return (0);
-}
-*/
