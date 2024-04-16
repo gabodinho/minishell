@@ -28,7 +28,6 @@ static void	write_to_pipe(int pfd[2], t_node *node)
 	int		tty_fd;
 
 	close(pfd[0]);
-	reset_stdin();
 	reset_stdout();
 	tty_fd = open("/dev/tty", O_WRONLY);
 	while (1)
