@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 21:47:17 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:08:49 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	execute_cmds(t_data *data)
 	int	pid;
 
 	signal(SIGINT, signals_cmd);
+	signal(SIGQUIT, sigquit_cmd);
 	status = 0;
 	if (!(data -> tree))
 		return (0);
@@ -49,7 +50,10 @@ static int	execute_cmds(t_data *data)
 		else if (pid == 0)
 			status = run_tree(data -> tree, data);
 		else
+		{
+			signal(SIGQUIT, SIG_IGN);
 			waitpid(pid, &status, 0);
+		}
 		return (get_exit_status(status));
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:40:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 15:29:43 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:48:52 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	sigint_further_tok(int signum);
 void	set_signal_further_tok(void);
 int		get_exit_status(int status);
 void	reset_line(int signum);
+void	sigquit_cmd(int signum);
 // void	our_sigusr1(int signum);
 // void	our_sigint(int	signum);
 

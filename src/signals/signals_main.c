@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:22:12 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 15:30:24 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:07:23 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals.h"
-
-void	suppress_output(void)
-{
-	// do we need this function?
-	struct termios	new_term;
-
-	if (tcgetattr(0, &new_term) == -1)
-	{
-		perror("tcgetattr");
-		exit(1);
-	}
-	new_term.c_lflag &= ~ECHOCTL;
-	if (tcsetattr(0, TCSANOW, &new_term) == -1)
-	{
-		perror("tcsetattr");
-		exit(1);
-	}
-}
 
 void	set_signal_further_tok(void)
 {
@@ -51,4 +33,12 @@ int	get_exit_status(int status)
 	else
 		exit_status = g_signal;
 	return (exit_status);
+}
+
+void	sigquit_cmd(int signum)
+{
+	(void) signum;
+	rl_replace_line("", 0);
+	write(1, "Quit: (core dumped)\n", 20);
+	g_signal = 131;
 }

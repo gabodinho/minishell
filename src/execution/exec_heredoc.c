@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 02:30:04 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/11 17:10:26 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:08:00 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 	else
 	{
 		waitpid(0, &status, 0);
-//		signal(SIGQUIT, SIG_IGN);
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[1]);
 		close(pipe_fd[0]);

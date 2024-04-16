@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_exec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 02:32:25 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/11 02:32:33 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:11:38 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ void	run_exec(t_node *node, t_data *data)
 		path_to_exec = find_exec(node -> param[0], env_str);
 	}
 	if (path_to_exec)
+	{
 		execve(path_to_exec, node -> param, env_arr);
+	}
 	del_arr(env_arr);
 	free(path_to_exec);
 	panic(node -> param[0], 127);
