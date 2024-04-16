@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:47 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/15 13:53:13 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:41:25 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	should_omit_newline(const char *av)
 {
 	int	i;
 
+	if (!av)
+		return (0);
 	if (av[0] != '-' || av[1] != 'n')
 		return (0);
 	i = 1;
