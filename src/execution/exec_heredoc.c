@@ -59,7 +59,6 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 
 	status = 0;
 	signal(SIGINT, set_signals_heredoc);
-	// signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
 	if (pipe(pipe_fd) == -1)
 		panic("heredoc: pipe", errno);
@@ -71,12 +70,10 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 	else
 	{
 		waitpid(0, &status, 0);
-		// signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
+//		signal(SIGQUIT, SIG_IGN);
 		dup2(pipe_fd[0], STDIN_FILENO);
 		close(pipe_fd[1]);
 		close(pipe_fd[0]);
-		// signal(SIGINT, set_signals_heredoc);
 	}
 	if (is_builtin || WEXITSTATUS(status) == SIGINT)
 		return ;

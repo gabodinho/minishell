@@ -35,11 +35,7 @@ static int	execute_cmds(t_data *data)
 	int	status;
 	int	pid;
 
-	// signal(SIGINT, reset_line);
-	// signal(SIGINT, SIG_IGN);
-	// signal(SIGINT, SIG_DFL);
 	signal(SIGINT, signals_cmd);
-	// signal(SIGINT, sigint_main);
 	status = 0;
 	if (!(data -> tree))
 		return (0);
@@ -53,13 +49,7 @@ static int	execute_cmds(t_data *data)
 		else if (pid == 0)
 			status = run_tree(data -> tree, data);
 		else
-		{
-			// signal(SIGINT, SIG_IGN);
-			// signal(SIGINT, reset_line);
-			// signal(SIGINT, signals_cmd);
-			// signal(SIGINT, signals_cmd);
 			waitpid(pid, &status, 0);
-		}
 		return (get_exit_status(status));
 	}
 }
@@ -87,6 +77,8 @@ static void	run_shell(t_list *envir)
 		}
 		else
 			exit_status = 127;
+		if (g_signal && !exit_status)
+			exit_status = g_signal;
 		clear_list(&token_lst);
 	}
 }

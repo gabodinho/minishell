@@ -14,7 +14,8 @@
 
 void	sigint_main(int signum)
 {
-	g_signal = signum;
+	(void) signum;
+	g_signal = 130;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
@@ -33,18 +34,16 @@ void	set_signals_heredoc(int signum)
 {
 	rl_clear_history();
 	rl_on_new_line();
-	// write(1, "\n", 1);
+	g_signal = 130;
 	exit(signum);
 }
 
 void	signals_cmd(int signum)
 {
-	(void)signum;
+	(void) signum;
+	g_signal = 130;
 	rl_replace_line("", 0);
-	// rl_on_new_line();
 	write(1, "\n", 2);
-	// rl_redisplay();
-	//exit(0);
 }
 
 
