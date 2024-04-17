@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:33 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/17 15:22:05 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/17 17:05:20 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,7 @@ int	get_exit_status_cmd(char **av)
 	{
 		exit_status = ft_atoi(av[1]);
 		if (ft_strlen(av[1]) > 3 || exit_status < 0 || exit_status > 255)
-		{
-			ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
-			return (255);
-		}
+			return (exit_status % 256);
 		if (av[2] != NULL)
 		{
 			ft_putstr_fd("minishell: exit: too many arguments\n", 2);
