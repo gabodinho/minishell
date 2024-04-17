@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/12 17:05:23 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/17 14:15:19 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	our_cd_internal(char **av, t_list *env_list, char *old_pwd)
 		return (1);
 	}
 	update_environment_variable(&env_list, "PWD=", new_pwd);
-	update_environment_variable(&env_list, "OLDPWD", old_pwd);
+	update_environment_variable(&env_list, "OLDPWD=", old_pwd);
 	free(old_pwd);
 	free(new_pwd);
 	return (0);
