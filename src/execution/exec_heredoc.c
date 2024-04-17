@@ -21,7 +21,7 @@ static int	longer_str(char *str1, char *str2)
 	else
 		return (ft_strlen(str2));
 }
-/*
+
 static void	write_to_pipe(int pfd[2], t_node *node)
 {
 	char	*buf;
