@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:20:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/17 17:08:04 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:52:52 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	exec_builtins(char **av, t_data *data)
 		return (our_echo(av));
 	if (ft_strcmp(av[0], "cd") == 0)
 	{
-		if (av[1] != NULL)
+		if (av[2] != NULL)
 		{
 			printf("minishell: cd: too many arguments\n");
 			return (1);
