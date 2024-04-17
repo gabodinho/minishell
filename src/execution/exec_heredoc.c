@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 02:30:04 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/16 15:08:00 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:08:32 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ here-document delimited by end-of-file\n", 60);
 		if (!ft_strncmp(node -> delim, buf, longer_str(buf, node -> delim)))
 			break ;
 		write(pfd[1], buf, ft_strlen(buf));
+		free(buf);
 	}
 	close(pfd[1]);
 	close(tty_read);
