@@ -13,7 +13,7 @@
 #include "signals.h"
 #include "execution.h"
 #include "builtins.h"
-
+/*
 static int	longer_str(char *str1, char *str2)
 {
 	if (ft_strlen(str1) > ft_strlen(str2))
@@ -76,6 +76,15 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 		close(pipe_fd[0]);
 	}
 	if (is_builtin || WEXITSTATUS(status) == SIGINT)
+		return ;
+	run_tree(node -> subnode, data);
+}
+*/
+void	run_here(t_node *node, t_data *data, int is_builtin)
+{
+	dup2(node -> pfd[0], STDIN_FILENO);
+	close(node -> pfd[0]);
+	if (is_builtin)
 		return ;
 	run_tree(node -> subnode, data);
 }

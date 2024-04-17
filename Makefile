@@ -62,6 +62,7 @@ SRCS := \
 	src/parser/parse_pipe.c \
 	src/parser/parse_redir.c \
 	src/parser/parse_utils.c \
+	src/parser/prepare_heredoc.c
 
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell

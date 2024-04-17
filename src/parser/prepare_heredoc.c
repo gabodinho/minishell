@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "parser.h"
+#include "signals.h"
 
 static int	longer_str(char *str1, char *str2)
 {
@@ -59,10 +60,7 @@ here-document delimited by end-of-file\n", 60);
 			break ;
 		}
 		if (!ft_strncmp(delim, buf, longer_str(buf, delim)))
-		{
-			free(buf);
 			break ;
-		}
 		write(pfd[1], buf, ft_strlen(buf));
 		write(pfd[1], "\n", 1);
 		free(buf);
@@ -91,8 +89,13 @@ void	prepare_heredoc(t_node *node)
 	{
 		close(node -> pfd[1]);
 		waitpid(0, &status, 0);
-		g_status = status;
+		g_signal = status;
 	}
+}
+
+void	close_pfds(t_node *node)
+{
+	close(node -> pfd[0]);
 }
 
 void	traverse_tree(t_node *tree, void (*handler)(t_node *))

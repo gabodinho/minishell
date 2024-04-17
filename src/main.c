@@ -35,11 +35,14 @@ static int	execute_cmds(t_data *data)
 	int	status;
 	int	pid;
 
-	signal(SIGINT, signals_cmd);
 	status = 0;
 	if (!(data -> tree))
 		return (0);
-	else if (!is_builtin_exec(data -> tree))
+	traverse_tree(data -> tree, prepare_heredoc);
+	if (g_signal != 0)
+		return (g_signal);
+	signal(SIGINT, signals_cmd);
+	if (!is_builtin_exec(data -> tree))
 		return (run_builtin_tree(data));
 	else
 	{
@@ -49,7 +52,10 @@ static int	execute_cmds(t_data *data)
 		else if (pid == 0)
 			status = run_tree(data -> tree, data);
 		else
+		{
+			traverse_tree(data -> tree, close_pfds);
 			waitpid(pid, &status, 0);
+		}
 		return (get_exit_status(status));
 	}
 }

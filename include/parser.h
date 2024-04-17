@@ -46,5 +46,9 @@ void	print_env(t_list *envlist);
 char	**conv_env(t_list *envir);
 char	*search_env(char *key, t_list *envir);
 void	del_arr(char **arr);
+// prepare_heredoc.c
+void	traverse_tree(t_node *tree, void (*handler)(t_node *));
+void	close_pfds(t_node *node);
+void	prepare_heredoc(t_node *node);
 
 #endif
