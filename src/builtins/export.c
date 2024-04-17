@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:12 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 13:29:37 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:46:39 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ int	process_export_arg(char **av, int *index, t_list **env_list)
 	int	exit_status;
 
 	exit_status = 0;
+	if (ft_strcmp(av[1], "=") == 0 || ft_isdigit(av[1][0]))
+	{
+		error_msg_export(av[1], " : not a valid identifier");
+		return (1);
+	}
 	if (ft_strchr(av[*index], '='))
 	{
 		if (ft_strcmp(av[*index], "=") != 0)
