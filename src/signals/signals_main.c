@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals_main.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:22:12 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/10 15:30:24 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:12:00 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	suppress_output(void)
 {
-	// do we need this function?
 	struct termios	new_term;
 
 	if (tcgetattr(0, &new_term) == -1)
@@ -51,4 +50,12 @@ int	get_exit_status(int status)
 	else
 		exit_status = g_signal;
 	return (exit_status);
+}
+
+void	sigquit_cmd(int signum)
+{
+	(void) signum;
+	rl_replace_line("", 0);
+	write(1, "Quit: (core dumped)\n", 20);
+	g_signal = 131;
 }

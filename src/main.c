@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 21:47:17 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:08:49 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,13 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	t_list	*envir;
 
-	(void) argc;
 	(void) argv;
-	welcome_message();
+	if (argc > 1)
+	{
+		printf("no parameters allowed\n");
+		return (0);
+	}
+	// welcome_message();
 	envir = get_env(envp);
 	run_shell(envir);
 	return (0);

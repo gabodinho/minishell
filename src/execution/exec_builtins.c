@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:20:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 23:00:01 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:52:52 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,15 @@ int	exec_builtins(char **av, t_data *data)
 	if (ft_strcmp(av[0], "echo") == 0)
 		return (our_echo(av));
 	if (ft_strcmp(av[0], "cd") == 0)
-		return (our_cd(av, *(data -> envir)));
+	{
+		if (av[2] != NULL)
+		{
+			printf("minishell: cd: too many arguments\n");
+			return (1);
+		}
+		else
+			return (our_cd(av, *(data -> envir)));
+	}
 	if (ft_strcmp(av[0], "pwd") == 0)
 		return (our_pwd(av, 0, *data -> envir));
 	if (ft_strcmp(av[0], "export") == 0)
