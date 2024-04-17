@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 02:30:04 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/17 19:08:32 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:11:35 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ static void	write_to_pipe(int pfd[2], t_node *node)
 	close(pfd[0]);
 	while (1)
 	{
+		signal(SIGQUIT, SIG_IGN);
 		write(tty_write, "heredoc> ", 9);
 		buf = get_next_line(tty_read);
 		if (!buf)
@@ -120,6 +121,7 @@ void	run_here(t_node *node, t_data *data, int is_builtin)
 	reset_stdin();
 	// reset_stdout();
 	status = 0;
+	suppress_output();
 	signal(SIGINT, set_signals_heredoc);
 	signal(SIGQUIT, SIG_IGN);
 	if (pipe(pipe_fd) == -1)

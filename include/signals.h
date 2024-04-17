@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:40:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/16 15:10:48 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:12:10 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ void	set_signal_further_tok(void);
 int		get_exit_status(int status);
 void	reset_line(int signum);
 void	sigquit_cmd(int signum);
+void	suppress_output(void);
 
 #endif
