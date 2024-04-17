@@ -43,6 +43,7 @@ typedef struct s_node
 	int				mode;
 	int				fd;
 	char			*delim;
+	int				pfd[2];
 }	t_node;
 
 typedef struct s_data
