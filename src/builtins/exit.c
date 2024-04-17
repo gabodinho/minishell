@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:52:33 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/17 14:32:07 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:22:05 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	exit_command(char **av, t_data *data)
 
 	if (data->tree->ntype != N_PIPE)
 		ft_putendl_fd("exit", 2);
-	if (has_options(av) || ft_isalpha(ft_atoi(av[1])))
+	if (has_options(av) || (av[1] && ft_isalpha(ft_atoi(av[1]))))
 	{
 		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 		exit_with_cleaup(data, 255);
