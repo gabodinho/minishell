@@ -38,30 +38,21 @@ int	run_pipe(t_node *node, t_data *data)
 		panic("pipe: fork", errno);
 	else if (pid1 == 0)
 		manage_pipe(p_fd, STDOUT_FILENO, node -> left, data);
+	signal(SIGINT, SIG_IGN);
+	pid2 = fork();
+	if (pid2 < 0)
+		panic("pipe: fork", errno);
+	else if (pid2 == 0)
+		manage_pipe(p_fd, STDIN_FILENO, node -> right, data);
 	else
 	{
+		// close(STDIN_FILENO);
+		// close(STDOUT_FILENO);
+		close(p_fd[0]);
+		close(p_fd[1]);
 		signal(SIGINT, SIG_IGN);
-		pid2 = fork();
-		if (pid2 < 0)
-			panic("pipe: fork", errno);
-		else if (pid2 == 0)
-			manage_pipe(p_fd, STDIN_FILENO, node -> right, data);
-		else
-		{
-			// if (ft_strncmp(node -> left -> param[0], "cat", 3))
-			// // if (ft_strncmp(node -> left -> param[0], "cat", 3) && node != data -> tree)
-			// {
-			// 	printf("no cat\n");
-			// 	close(STDIN_FILENO);
-			// }
-			close(STDIN_FILENO);
-			close(STDOUT_FILENO);
-			close(p_fd[0]);
-			close(p_fd[1]);
-			signal(SIGINT, SIG_IGN);
-		}
 	}
-	wait(0);
-	waitpid(0, &status, 0);
+	waitpid(pid1, &status, 0);
+	waitpid(pid2, &status, 0);
 	return (WEXITSTATUS(status));
 }

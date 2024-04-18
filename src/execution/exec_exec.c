@@ -35,9 +35,7 @@ void	run_exec(t_node *node, t_data *data)
 		path_to_exec = find_exec(node -> param[0], env_str);
 	}
 	if (path_to_exec)
-	{
 		execve(path_to_exec, node -> param, env_arr);
-	}
 	del_arr(env_arr);
 	free(path_to_exec);
 	panic(node -> param[0], 127);
