@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:57:31 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/17 22:57:35 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:11:03 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,13 +61,20 @@ here-document delimited by end-of-file\n", 60);
 		}
 		if (!ft_strncmp(delim, buf, longer_str(buf, delim)))
 			break ;
+		if (g_signal == 131)
+		{
+			//close_pfds(NULL);
+			//close(pfd[1]);
+			exit(130);
+			break;
+		}
 		write(pfd[1], buf, ft_strlen(buf));
 		write(pfd[1], "\n", 1);
 		free(buf);
 	}
 	close(pfd[1]);
 	free(buf);
-	exit(0);
+	exit(g_signal);
 }
 
 void	prepare_heredoc(t_node *node)
@@ -87,10 +94,13 @@ void	prepare_heredoc(t_node *node)
 		write_to_pipe(node -> pfd, node -> delim);
 	else
 	{
+		signal(SIGINT, SIG_IGN);
 		close(node -> pfd[1]);
 		waitpid(0, &status, 0);
 		g_signal = status;
 	}
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 131)
+		return ;
 }
 
 void	close_pfds(t_node *node)

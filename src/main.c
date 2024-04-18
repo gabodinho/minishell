@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/16 15:08:49 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/18 16:12:51 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,10 @@ static int	execute_cmds(t_data *data)
 	if (!(data -> tree))
 		return (0);
 	traverse_tree(data -> tree, prepare_heredoc);
-	if (g_signal != 0)
-		return (g_signal);
+	//if (g_signal != 0) //error with the sigint ?
+	//	return (g_signal);
 	signal(SIGINT, signals_cmd);
+	signal(SIGQUIT, sigquit_cmd);
 	if (!is_builtin_exec(data -> tree))
 		return (run_builtin_tree(data));
 	else
