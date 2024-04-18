@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:20:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/18 17:24:42 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/18 18:13:58 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	exec_some_builtins(char **av, t_data *data)
 		return (our_echo(av));
 	else if (ft_strcmp(av[0], "cd") == 0)
 	{
-		if (av[2] != NULL)
+		if (av[2] && av[2] != NULL)
 		{
 			printf("minishell: cd: too many arguments\n");
 			return (1);
@@ -51,9 +51,7 @@ int	exec_builtins(char **av, t_data *data)
 	char	**keys;
 	int		status;
 
-	status = exec_some_builtins(av, data);
-	if (status != 0)
-		return (status);
+	status = 0;
 	if (ft_strcmp(av[0], "pwd") == 0)
 		return (our_pwd(av, 0, *data -> envir));
 	if (ft_strcmp(av[0], "export") == 0)
@@ -69,7 +67,11 @@ int	exec_builtins(char **av, t_data *data)
 		}
 		return (0);
 	}
-	else if (ft_strcmp(av[0], "exit") == 0)
+	if (ft_strcmp(av[0], "exit") == 0)
 		exit_command(av, data);
-	return (0);
+	else
+		return (exec_some_builtins(av, data));
+	if (status != 0)
+		return (status);
+	return (1);
 }
