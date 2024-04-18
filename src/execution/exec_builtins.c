@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:20:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/17 18:52:52 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:24:42 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,11 @@ bool	is_builtin(char *str)
 	return (false);
 }
 
-int	exec_builtins(char **av, t_data *data)
+int	exec_some_builtins(char **av, t_data *data)
 {
-	char	**keys;
-
 	if (ft_strcmp(av[0], "echo") == 0)
 		return (our_echo(av));
-	if (ft_strcmp(av[0], "cd") == 0)
+	else if (ft_strcmp(av[0], "cd") == 0)
 	{
 		if (av[2] != NULL)
 		{
@@ -45,6 +43,17 @@ int	exec_builtins(char **av, t_data *data)
 		else
 			return (our_cd(av, *(data -> envir)));
 	}
+	return (0);
+}
+
+int	exec_builtins(char **av, t_data *data)
+{
+	char	**keys;
+	int		status;
+
+	status = exec_some_builtins(av, data);
+	if (status != 0)
+		return (status);
 	if (ft_strcmp(av[0], "pwd") == 0)
 		return (our_pwd(av, 0, *data -> envir));
 	if (ft_strcmp(av[0], "export") == 0)
@@ -60,7 +69,7 @@ int	exec_builtins(char **av, t_data *data)
 		}
 		return (0);
 	}
-	else
+	else if (ft_strcmp(av[0], "exit") == 0)
 		exit_command(av, data);
-	return (1);
+	return (0);
 }

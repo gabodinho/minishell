@@ -6,28 +6,11 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 15:22:12 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/17 19:12:00 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/18 17:10:41 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "signals.h"
-
-void	suppress_output(void)
-{
-	struct termios	new_term;
-
-	if (tcgetattr(0, &new_term) == -1)
-	{
-		perror("tcgetattr");
-		exit(1);
-	}
-	new_term.c_lflag &= ~ECHOCTL;
-	if (tcsetattr(0, TCSANOW, &new_term) == -1)
-	{
-		perror("tcsetattr");
-		exit(1);
-	}
-}
 
 void	set_signal_further_tok(void)
 {
@@ -50,6 +33,12 @@ int	get_exit_status(int status)
 	else
 		exit_status = g_signal;
 	return (exit_status);
+}
+
+void	set_signals_cmd(void)
+{
+	signal(SIGINT, signals_cmd);
+	signal(SIGQUIT, sigquit_cmd);
 }
 
 void	sigquit_cmd(int signum)
