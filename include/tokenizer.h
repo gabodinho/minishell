@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/09 16:29:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/11 21:48:23 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:35:51 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ char	*join_and_free(char *old, char *new);
 void	handle_eof_error(t_token **token_lst, char *line, t_list *envir);
 //main
 void	welcome_message(void);
+t_data	*get_data(t_token **toklst, t_list **envir, t_node *tree);
 
 #endif
