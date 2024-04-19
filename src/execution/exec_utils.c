@@ -14,10 +14,23 @@
 #include "execution.h"
 #include "builtins.h"
 
-int	is_path(char *str)
+int	is_path(char *str, char **param)
 {
+	struct stat	path_stat;
 	if (str[0] == '/' || str[0] == '.')
-		return (1);
+	{
+		stat(str, &path_stat);
+		if (S_ISDIR(path_stat.st_mode))
+		{
+			del_arr(param);
+			write(2, "minishell: ", 11);
+			write(2, str, ft_strlen(str));
+			write(2, ": Is a directory\n", 17);
+			exit(126);
+		}
+		else
+			return (1);
+	}
 	return (0);
 }
 
