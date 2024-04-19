@@ -76,6 +76,7 @@ static void	run_shell(t_list *envir)
 		if (!syntax_check(token_lst, 1))
 		{
 			tree = parse_pipe(&token_lst, envir);
+			print_tree(tree);
 			data = get_data(&token_lst, &envir, tree);
 			exit_status = execute_cmds(data);
 			clear_tree(tree);
@@ -97,7 +98,7 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc > 1)
 	{
 		printf("no parameters allowed\n");
-		return (0);
+		return (1);
 	}
 	welcome_message();
 	envir = get_env(envp);

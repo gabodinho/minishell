@@ -96,7 +96,7 @@ void	clear_tree(t_node *tree)
 	if (tree)
 		free(tree);
 }
-/*
+
 void	print_tree(t_node *tree)
 {
 	int	i;
@@ -129,4 +129,4 @@ tree -> mode, tree -> fd, tree -> file);
 	}
 	return ;
 }
-*/
+

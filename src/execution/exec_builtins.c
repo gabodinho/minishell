@@ -14,6 +14,18 @@
 #include "builtins.h"
 #include "parser.h"
 
+static int	count_param(char **av)
+{
+	int	i;
+
+	i = 0;
+	if (!av)
+		return (0);
+	while (*av++)
+		i++;
+	return (i);
+}
+
 bool	is_builtin(char *str)
 {
 	if (!str)
@@ -35,7 +47,7 @@ int	exec_some_builtins(char **av, t_data *data)
 		return (our_echo(av));
 	else if (ft_strcmp(av[0], "cd") == 0)
 	{
-		if (av[2] && av[2] != NULL)
+		if (count_param(av) > 2)
 		{
 			printf("minishell: cd: too many arguments\n");
 			return (1);
