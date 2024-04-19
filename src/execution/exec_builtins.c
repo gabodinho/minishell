@@ -6,7 +6,7 @@
 /*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 13:20:14 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/18 18:13:58 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:10:50 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ int	exec_some_builtins(char **av, t_data *data)
 {
 	if (ft_strcmp(av[0], "echo") == 0)
 		return (our_echo(av));
+	if (ft_strcmp(av[0], "pwd") == 0)
+		return (our_pwd(av, 0, *data -> envir));
+	if (ft_strcmp(av[0], "export") == 0)
+		return (export_builtin(av, data -> envir));
 	else if (ft_strcmp(av[0], "cd") == 0)
 	{
 		if (count_param(av) > 2)
@@ -64,10 +68,6 @@ int	exec_builtins(char **av, t_data *data)
 	int		status;
 
 	status = 0;
-	if (ft_strcmp(av[0], "pwd") == 0)
-		return (our_pwd(av, 0, *data -> envir));
-	if (ft_strcmp(av[0], "export") == 0)
-		return (export_builtin(av, data -> envir));
 	if (ft_strcmp(av[0], "env") == 0)
 		return (print_env_without_options(av, *(data -> envir)));
 	if (ft_strcmp(av[0], "unset") == 0)

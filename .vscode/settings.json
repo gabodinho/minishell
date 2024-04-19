@@ -27,6 +27,10 @@
         "parser.h": "c",
         "exec_b.h": "c",
         "signals.h": "c",
-        "execution.h": "c"
+        "execution.h": "c",
+        "array": "c",
+        "string_view": "c",
+        "ranges": "c",
+        "span": "c"
     }
 }

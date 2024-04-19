@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+         #
+#    By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/22 19:51:00 by ggiertzu          #+#    #+#              #
-#    Updated: 2024/04/11 21:56:58 by irivero-         ###   ########.fr        #
+#    Updated: 2024/04/19 15:36:36 by irivero-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,8 @@ SRCS := \
 	src/parser/parse_pipe.c \
 	src/parser/parse_redir.c \
 	src/parser/parse_utils.c \
-	src/parser/prepare_heredoc.c
+	src/parser/prepare_heredoc.c \
+	src/get_data.c
 
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell
