@@ -31,7 +31,7 @@
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
 // exec_utils
-int		is_path(char *str);
+int		is_path(char *str, char **param);
 void	reset_stdin(void);
 void	reset_stdout(void);
 char	*find_exec(char *exec_file, char *path_var);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ggiertzu <ggiertzu@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 23:29:33 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/11 02:38:01 by ggiertzu         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:44:47 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,5 +128,4 @@ tree -> mode, tree -> fd, tree -> file);
 		}
 	}
 	return ;
-}
-*/
+}*/

@@ -46,11 +46,11 @@ int	process_export_arg(char **av, int *index, t_list **env_list)
 	int	exit_status;
 
 	exit_status = 0;
-	if (ft_strcmp(av[1], "=") == 0 || ft_isdigit(av[1][0]))
+	/*if (ft_strcmp(av[1], "=") == 0 || ft_isdigit(av[1][0]))
 	{
-		error_msg_export(av[1], " : not a valid identifier");
+		error_msg_export(av[1], " : sdanot a valid identifier");
 		return (1);
-	}
+	}*/
 	if (ft_strchr(av[*index], '='))
 	{
 		if (ft_strcmp(av[*index], "=") != 0)
@@ -60,7 +60,7 @@ int	process_export_arg(char **av, int *index, t_list **env_list)
 	}
 	return (exit_status);
 }
-
+/*
 int	export_builtin(char **av, t_list **env_list)
 {
 	int	i;
@@ -82,7 +82,7 @@ int	export_builtin(char **av, t_list **env_list)
 	}
 	return (exit_status);
 }
-
+*/
 /*
 int	export_builtin(char **av, t_list **env_list)
 {

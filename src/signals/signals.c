@@ -18,8 +18,7 @@ void	sigint_main(int signum)
 	g_signal = 130;
 	rl_replace_line("", 0);
 	rl_on_new_line();
-	printf("pid main: %d\n", getpid());
-	write(1, "\n", 2);
+	write(STDERR_FILENO, "\n", 1);
 	rl_redisplay();
 }
 

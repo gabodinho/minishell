@@ -40,6 +40,7 @@ void	panic(char *msg, int ret);
 int		syntax_check(t_token *toklist, int print_err);
 void	clear_tree(t_node *tree);
 t_node	*add_last(t_node *redir, t_node *exec);
+void	print_tree(t_node *tree);
 // environment.c
 t_list	*get_env(char **envp);
 void	print_env(t_list *envlist);

@@ -12,6 +12,18 @@
 
 #include "builtins.h"
 
+int	is_path_cd(char *str)
+{
+	struct stat	path_stat;
+
+	path_stat.st_mode = 0;
+	stat(str, &path_stat);
+	if (S_ISDIR(path_stat.st_mode))
+		return (1);
+	else
+		return (0);
+}
+
 // Función para cambiar el directorio actual
 char	*change_directory(char *new_dir)
 {
