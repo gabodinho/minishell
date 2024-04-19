@@ -43,7 +43,7 @@ void	print_env(t_list *envlist)
 
 char	*search_env(char *key, t_list *envir)
 {
-	while (strncmp(envir -> content, key, ft_strlen(key)))
+	while (ft_strncmp(envir -> content, key, ft_strlen(key)))
 		envir = envir -> next;
 	if (!envir)
 		return (NULL);

@@ -17,6 +17,7 @@
 int	is_path(char *str, char **param)
 {
 	struct stat	path_stat;
+
 	if (str[0] == '/' || str[0] == '.')
 	{
 		stat(str, &path_stat);
