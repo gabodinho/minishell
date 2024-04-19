@@ -31,6 +31,7 @@ SRCS := \
 	src/builtins/export.c \
 	src/builtins/export_helpers_0.c \
 	src/builtins/export_helpers_1.c \
+	src/builtins/export_check.c \
 	src/builtins/pwd.c \
 	src/builtins/unset.c \
 	src/execution/exec_exec.c \

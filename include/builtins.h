@@ -33,6 +33,7 @@ void	add_new_environment_variable(t_list **env_list, const char *key,
 void	update_environment_variable(t_list **env_list, const char *key,
 			const char *value);
 char	*get_env_var(const char *key, t_list *env_list);
+int		is_path_cd(char *str);
 //echo
 int		our_echo(char **av);
 //exit
@@ -50,6 +51,8 @@ void	export_one(char **arr, t_list **env_list);
 int		handle_export_without_equal_sign(void);
 int		handle_export_with_equal_sign(char *arg, char *equal_sign,
 			t_list **env_list);
+int		export_all_env_vars(t_list **env_list);
+int		handle_export(char **argv, int i, t_list **env_list);
 //pwd
 void	if_pflag_is_one(char *path);
 int		our_pwd(char **av, int pflag, t_list *env);

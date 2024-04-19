@@ -87,7 +87,6 @@ t_token	*get_full_token_lst(t_list *envir, int exit_status)
 	char	*line;
 
 	line = readline("minishell> ");
-	printf("line read: \"%s\"\n", line);
 	if (g_signal)
 		exit_status = g_signal;
 	g_signal = 0;

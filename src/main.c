@@ -163,7 +163,7 @@ int	main(int argc, char *argv[], char *envp[])
 		printf("no parameters allowed\n");
 		return (1);
 	}
-	welcome_message();
+	// welcome_message();
 	envir = get_env(envp);
 	run_shell_loop(envir);
 	return (0);
