@@ -14,7 +14,7 @@
 #include "execution.h"
 #include "builtins.h"
 
-int	is_path(char *str, char **param)
+int	is_path(char *str, char **param, t_data *data)
 {
 	struct stat	path_stat;
 
@@ -27,7 +27,7 @@ int	is_path(char *str, char **param)
 			write(2, "minishell: ", 11);
 			write(2, str, ft_strlen(str));
 			write(2, ": Is a directory\n", 17);
-			exit(126);
+			exit_with_cleaup(data, 126);
 		}
 		else
 			return (1);

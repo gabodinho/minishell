@@ -24,7 +24,11 @@ void	run_redir(t_node *node, t_data *data, int is_builtin)
 		reset_stdout();
 	new_fd = open(node->file, node->mode, 0666);
 	if (new_fd < 0 && !is_builtin)
-		panic(node->file, 1);
+	{
+		write(2, "minishell: ", 11);
+		perror(node -> file);
+		exit_with_cleaup(data, 1);
+	}
 	else if (new_fd < 0 && is_builtin)
 	{
 		g_signal = 2020;

@@ -14,7 +14,7 @@
 #include "execution.h"
 #include "builtins.h"
 
-int	run_tree(t_node *tree, t_data *data)
+void	run_tree(t_node *tree, t_data *data)
 {
 	int	exit_val;
 
@@ -27,9 +27,9 @@ int	run_tree(t_node *tree, t_data *data)
 		run_here(tree, data, 0);
 	else if (is_builtin(tree -> param[0]))
 		exit_val = exec_builtins(tree -> param, data);
-	else
+	else if (tree -> ntype == N_EXE)
 		run_exec(tree, data);
-	exit(exit_val);
+	exit_with_cleaup(data, exit_val);
 }
 
 // make this function return the return values of the builtins

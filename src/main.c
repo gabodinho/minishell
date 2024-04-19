@@ -29,10 +29,10 @@ static int	execute_non_builtin_commands(t_data *data)
 	if (pid < 0)
 		panic("fork", errno);
 	else if (pid == 0)
-		status = run_tree(data -> tree, data);
+		run_tree(data -> tree, data);
 	else
 	{
-		traverse_tree(data -> tree, close_pfds);
+		traverse_tree(data -> tree, data, close_pfds);
 		waitpid(pid, &status, 0);
 	}
 	return (get_exit_status(status));
@@ -45,7 +45,7 @@ static int	execute_cmds(t_data *data)
 	status = 0;
 	if (!(data -> tree))
 		return (0);
-	traverse_tree(data -> tree, prepare_heredoc);
+	traverse_tree(data -> tree, data, prepare_heredoc);
 	if (g_signal != 0)
 		return (g_signal);
 	set_signals_cmd();
@@ -98,6 +98,7 @@ static t_token	*get_token_lst(t_list *envir, int *exit_status)
 	if (!syntax_check(token_lst, 1))
 	{
 		tree = parse_pipe(&token_lst, envir);
+		// print_tree(tree);
 		s_data = get_data(&token_lst, &envir, tree);
 		*exit_status = execute_cmds(s_data);
 		clear_tree(tree);

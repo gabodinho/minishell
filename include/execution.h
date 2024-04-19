@@ -31,7 +31,7 @@
 # include <ncurses.h> // tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs
 
 // exec_utils
-int		is_path(char *str, char **param);
+int		is_path(char *str, char **param, t_data *data);
 void	reset_stdin(void);
 void	reset_stdout(void);
 char	*find_exec(char *exec_file, char *path_var);
@@ -45,7 +45,7 @@ void	run_redir(t_node *node, t_data *data, int is_builtin);
 // exec_exec
 void	run_exec(t_node *node, t_data *data);
 // exec_tree
-int		run_tree(t_node *tree, t_data *data);
+void	run_tree(t_node *tree, t_data *data);
 int		run_builtin_tree(t_data *data);
 // exec_builtins
 bool	is_builtin(char *str);

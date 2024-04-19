@@ -12,6 +12,7 @@
 
 #include "parser.h"
 #include "signals.h"
+#include "builtins.h"
 
 static int	longer_str(char *str1, char *str2)
 {
@@ -45,7 +46,7 @@ here-document delimited by end-of-file\n", 60);
 	close(pfd[1]);
 }
 */
-static void	write_to_pipe(int pfd[2], char *delim)
+static void	write_to_pipe(int pfd[2], char *delim, t_data *data)
 {
 	char	*buf;
 
@@ -67,10 +68,10 @@ here-document delimited by end-of-file\n", 60);
 	}
 	close(pfd[1]);
 	free(buf);
-	exit(g_signal);
+	exit_with_cleaup(data, g_signal);
 }
 
-void	prepare_heredoc(t_node *node)
+void	prepare_heredoc(t_node *node, t_data *data)
 {
 	int	pid;
 	int	status;
@@ -84,7 +85,7 @@ void	prepare_heredoc(t_node *node)
 	if (pid < 0)
 		return (ft_putendl_fd("heredoc: fork", 2));
 	else if (pid == 0)
-		write_to_pipe(node -> pfd, node -> delim);
+		write_to_pipe(node -> pfd, node -> delim, data);
 	else
 	{
 		signal(SIGINT, SIG_IGN);
@@ -94,22 +95,23 @@ void	prepare_heredoc(t_node *node)
 	}
 }
 
-void	close_pfds(t_node *node)
+void	close_pfds(t_node *node, t_data *data)
 {
+	(void)	data;
 	close(node -> pfd[0]);
 }
 
-void	traverse_tree(t_node *tree, void (*handler)(t_node *))
+void	traverse_tree(t_node *tree, t_data *data, func_hand handler)
 {
 	if (!tree)
 		return ;
 	if (tree -> ntype == N_HERE)
-		handler(tree);
+		handler(tree, data);
 	if (tree -> ntype == N_PIPE)
 	{
-		traverse_tree(tree -> left, handler);
-		traverse_tree(tree -> right, handler);
+		traverse_tree(tree -> left, data, handler);
+		traverse_tree(tree -> right, data, handler);
 	}
 	else if (tree)
-		traverse_tree(tree -> subnode, handler);
+		traverse_tree(tree -> subnode, data, handler);
 }

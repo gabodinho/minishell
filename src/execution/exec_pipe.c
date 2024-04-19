@@ -54,13 +54,7 @@ int	run_pipe(t_node *node, t_data *data)
 	else if (pid2 == 0)
 		manage_pipe(p_fd, STDIN_FILENO, node -> right, data);
 	else
-	{
-		// close(STDIN_FILENO);
-		// close(STDOUT_FILENO);
-		close(p_fd[0]);
-		close(p_fd[1]);
-		signal(SIGINT, SIG_IGN);
-	}
+		set_up_parent_process(p_fd);
 	waitpid(pid1, &status, 0);
 	waitpid(pid2, &status, 0);
 	return (WEXITSTATUS(status));
