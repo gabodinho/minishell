@@ -27,8 +27,8 @@ static void	manage_pipe(int pfd[2], int fd, t_node *tree, t_data *data)
 
 static void	set_up_parent_process(int pfd[2])
 {
-	close(STDIN_FILENO);
-	close(STDOUT_FILENO);
+	// close(STDIN_FILENO);
+	// close(STDOUT_FILENO);
 	close(pfd[0]);
 	close(pfd[1]);
 	signal(SIGINT, SIG_IGN);

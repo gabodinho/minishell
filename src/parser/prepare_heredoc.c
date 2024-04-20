@@ -101,7 +101,7 @@ void	close_pfds(t_node *node, t_data *data)
 	close(node -> pfd[0]);
 }
 
-void	traverse_tree(t_node *tree, t_data *data, func_hand handler)
+void	traverse_tree(t_node *tree, t_data *data, t_func_hand handler)
 {
 	if (!tree)
 		return ;

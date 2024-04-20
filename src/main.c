@@ -40,9 +40,6 @@ static int	execute_non_builtin_commands(t_data *data)
 
 static int	execute_cmds(t_data *data)
 {
-	int	status;
-
-	status = 0;
 	if (!(data -> tree))
 		return (0);
 	traverse_tree(data -> tree, data, prepare_heredoc);
@@ -164,7 +161,7 @@ int	main(int argc, char *argv[], char *envp[])
 		printf("no parameters allowed\n");
 		return (1);
 	}
-	// welcome_message();
+	welcome_message();
 	envir = get_env(envp);
 	run_shell_loop(envir);
 	return (0);
