@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:12:59 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/19 15:45:37 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:30:35 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ static t_token	*get_token_lst(t_list *envir, int *exit_status)
 	if (!syntax_check(token_lst, 1))
 	{
 		tree = parse_pipe(&token_lst, envir);
-		// print_tree(tree);
 		s_data = get_data(&token_lst, &envir, tree);
 		*exit_status = execute_cmds(s_data);
 		clear_tree(tree);

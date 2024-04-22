@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+         #
+#    By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/22 19:51:00 by ggiertzu          #+#    #+#              #
-#    Updated: 2024/04/19 15:36:36 by irivero-         ###   ########.fr        #
+#    Updated: 2024/04/22 10:53:47 by irivero-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +22,12 @@ endif
 
 HEADERS	:= -I $(LIBFT_D)/libft -I include -I $(LIBFT_D) -I .
 SRCS := \
-	src/builtins/builtins_utils.c \
 	src/builtins/cd.c \
 	src/builtins/cd_helpers.c \
 	src/builtins/echo.c \
 	src/builtins/env.c \
 	src/builtins/exit.c \
 	src/builtins/export.c \
-	src/builtins/export_helpers_0.c \
-	src/builtins/export_helpers_1.c \
 	src/builtins/export_check.c \
 	src/builtins/pwd.c \
 	src/builtins/unset.c \
@@ -65,7 +62,6 @@ SRCS := \
 	src/parser/parse_utils.c \
 	src/parser/prepare_heredoc.c \
 	src/get_data.c
-
 OBJS	:= ${SRCS:.c=.o}
 NAME	:= minishell
 

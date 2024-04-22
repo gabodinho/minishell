@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:53:04 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/17 16:59:52 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:50:24 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtins.h"
+
+char	*get_env_var(const char *key, t_list *env_list)
+{
+	size_t	key_len;
+	char	*key_value;
+
+	key_len = ft_strlen(key);
+	while (env_list)
+	{
+		key_value = (char *)env_list->content;
+		if (ft_strncmp(key_value, key, key_len) == 0
+			&& key_value[key_len] == '=')
+			return (key_value + key_len + 1);
+		env_list = env_list->next;
+	}
+	return (NULL);
+}
 
 char	*get_new_directory(char **av, t_list *env_list)
 {
@@ -65,16 +82,10 @@ int	our_cd_internal(char **av, t_list *env_list, char *old_pwd)
 
 	new_dir = get_new_directory(av, env_list);
 	if (!new_dir)
-	{
-		free(old_pwd);
-		ft_putendl_fd("minishell: cd : HOME not set", 2);
-		return (1);
-	}
+		return (free(old_pwd),
+			ft_putendl_fd("minishell: cd : HOME not set", 2), 1);
 	else if (!is_path_cd(new_dir))
-	{
-		free(old_pwd);
-		return (ft_putendl_fd("cd: not a directory", 2), 1);
-	}
+		return (free(old_pwd), ft_putendl_fd("cd: not a directory", 2), 1);
 	new_pwd = change_directory_and_get_new_pwd(new_dir);
 	if (!new_pwd)
 	{

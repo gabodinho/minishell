@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prepare_heredoc.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:57:31 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/18 17:07:20 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:42:58 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	longer_str(char *str1, char *str2)
 }
 
 /*
-// version without fork()
+//version without fork()
 static void	write_to_pipe(int pfd[2], char *delim)
 {
 	char	*buf;
@@ -97,7 +97,7 @@ void	prepare_heredoc(t_node *node, t_data *data)
 
 void	close_pfds(t_node *node, t_data *data)
 {
-	(void)	data;
+	(void)data;
 	close(node -> pfd[0]);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 02:32:01 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/19 15:42:12 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:51:17 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,18 @@ static void	manage_pipe(int pfd[2], int fd, t_node *tree, t_data *data)
 	close(pfd[1]);
 	run_tree(tree, data);
 }
-
+/*
 static void	set_up_parent_process(int pfd[2])
 {
 	// close(STDIN_FILENO);
 	// close(STDOUT_FILENO);
+	close(pfd[0]);
+	close(pfd[1]);
+	signal(SIGINT, SIG_IGN);
+}*/
+
+static void	set_up_parent_process(int pfd[2])
+{
 	close(pfd[0]);
 	close(pfd[1]);
 	signal(SIGINT, SIG_IGN);

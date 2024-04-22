@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 23:29:33 by ggiertzu          #+#    #+#             */
-/*   Updated: 2024/04/19 15:44:47 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:43:42 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	clear_tree(t_node *tree)
 	if (tree)
 		free(tree);
 }
-
+/*
 void	print_tree(t_node *tree)
 {
 	int	i;
@@ -129,3 +129,4 @@ tree -> mode, tree -> fd, tree -> file);
 	}
 	return ;
 }
+*/

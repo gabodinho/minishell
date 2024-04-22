@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_helpers.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: irivero- <irivero-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: irivero- <irivero-@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 09:55:46 by irivero-          #+#    #+#             */
-/*   Updated: 2024/04/12 17:06:07 by irivero-         ###   ########.fr       */
+/*   Updated: 2024/04/22 10:44:48 by irivero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,21 +100,4 @@ void	update_environment_variable(t_list **env_list, const char *key,
 		add_new_environment_variable(env_list, key, value);
 	else
 		update_existing_environment_variable(*env_list, key, value);
-}
-
-char	*get_env_var(const char *key, t_list *env_list)
-{
-	size_t	key_len;
-	char	*key_value;
-
-	key_len = ft_strlen(key);
-	while (env_list)
-	{
-		key_value = (char *)env_list->content;
-		if (ft_strncmp(key_value, key, key_len) == 0
-			&& key_value[key_len] == '=')
-			return (key_value + key_len + 1);
-		env_list = env_list->next;
-	}
-	return (NULL);
 }
