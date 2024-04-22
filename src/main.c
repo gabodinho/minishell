@@ -113,7 +113,9 @@ static int	run_shell_loop(t_list *envir)
 	while (1)
 	{
 		token_lst = get_token_lst(envir, &exit_status);
-		if (g_signal && !exit_status)
+		if (g_signal == 1010)
+			exit_status = 130;
+		else if (g_signal && !exit_status)
 			exit_status = g_signal;
 		clear_list(&token_lst);
 	}
