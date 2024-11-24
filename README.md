@@ -7,9 +7,8 @@ No external libraries have been used for this project and it is completely writt
 Further detailed information:
 [minishell_subject.pdf](https://github.com/user-attachments/files/17893134/minishell_subject.pdf)
 
-clone the repository and run `make`
-
 #### Starting the shell
+clone the repository and run `make`
 ```
 ./minishell
 ```
